@@ -1,0 +1,88 @@
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>客户名</th>
+      <th>业务员</th>
+      <th>收款类型</th>
+      <th>社保费</th>
+      <th>公积金</th>
+      <th>服务费</th>
+      <th>材料费</th>
+      <th>补交费</th>
+      <th>差价</th>
+      <th>个税</th>
+      <th>总计</th>
+      <% if op_type == :money_check %>
+      <th>表单创建日</th>
+      <% else %>
+      <th>资金到账日</th>
+      <th>资金审核日</th>
+      <% end %>
+      <th>状态</th>
+      <th>备注</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% charges.each do |charge| %>
+      <tr>
+        <td><%= charge.single_customer.name %></td>
+        <td><%= charge.user.name %></td>
+        <td><%= charge.charge_type %></td>
+        <td><%= charge.price_shebao*charge.months_shebao %></td>
+        <td><%= charge.price_gongjijin*charge.months_gongjijin %></td>
+        <td><%= charge.price_fuwufei*charge.months_fuwufei %></td>
+        <td><%= charge.price_cailiaofei*charge.months_cailiaofei %></td>
+        <td><%= charge.price_bujiao*charge.months_bujiao %></td>
+        <td><%= charge.price_chajia*charge.months_chajia %></td>
+        <td><%= charge.price_geshui*charge.months_geshui %></td>
+        <td><%= charge.money_total %></td>
+        <% if op_type == :money_check %>
+        <td><%= charge.created_at.to_date %></td>
+        <% else %>
+        <td><%= charge.money_arrival_date %></td>
+        <td><%= charge.money_check_date %></td>
+        <% end %>
+        <td><%= charge.translate_workflow_state_name(Charge::WORKFLOW_STATE_NAMES) %></td>
+        <td><a tabindex="0" class="btn btn-xs btn-info" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="备注" data-content="<%= charge.comment %>">备注</a></td>
+        <td><%= link_to '查看', "#", class: "btn active btn-default btn-xs", "data-toggle" => "modal", "data-target" => "#modal_charge", "data-url" => single_customer_charge_path(charge.single_customer,charge.id) %></td>
+        <% if op_type == :list_total && User.find(session["current_user_id"]).is_leader #公司领导可以更改缴费单 %>
+          <td><%= link_to '修改', edit_single_customer_charge_path(charge.single_customer,charge), class: "btn active btn-warning btn-xs"  %></td>
+          <td><%= link_to '上传文件', money_arrival_files_new_path(business_type: "Charge",extra_data: charge.updated_at.to_s,main_object_id: charge.id, business_action: "list_total"), class: "btn active btn-warning btn-xs", target: "_blank"  %></td>
+        <% end %>
+        <% if op_type == :daily %>
+        <td><%= link_to '打印', single_customer_charge_print_form_path(charge.single_customer,charge.id) , class: "btn active btn-default btn-xs" , target: "_blank" %></td>
+          <% if charge.workflow_state == "new"#只有未被财务审核过的才能修改和上传附件 %>
+          <td><%= link_to '修改', edit_single_customer_charge_path(charge.single_customer,charge), class: "btn active btn-warning btn-xs"  %></td>
+          <td><%= link_to '上传文件', money_arrival_files_new_path(business_type: "Charge",extra_data: charge.updated_at.to_s,main_object_id: charge.id, business_action: "new"), class: "btn active btn-warning btn-xs", target: "_blank"  %></td>
+          <% end %>
+        <% end %>
+        <% if op_type == :money_check %>
+        <td><%= link_to '上传文件', money_arrival_files_new_path(business_type: "Charge",extra_data: charge.updated_at.to_s,main_object_id: charge.id, business_action: "for_money_arrival_check"), class: "btn active btn-primary btn-xs", target: "_blank"  %></td>
+        <td>
+          <%= link_to '设置日期', charge_set_money_arrival_date_path(charge), class: "btn active btn-primary btn-xs" %>
+          <%= link_to '确认到账', charges_finish_money_check_path(charge), class: "btn active btn-primary btn-xs" %></td>
+        <% end %>
+
+        <% if op_type == :input_commission %>
+        <td><%= link_to '填写提成单', new_charge_commission_path(charge), class: "btn active btn-primary btn-xs"  %></td>
+        <% end %>
+        <% if op_type == :leader_check %>
+        <td><%= link_to '审核完毕', charges_leader_check_path(charge),  method: :post, class: "btn active btn-primary btn-xs"  %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @charges if @charges %>
+
+<script type="text/javascript">
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
+</script>
+
+<%=render "shared/modal_dialog", 
+    object_name: :charge, size_option: :large, title: "查看缴费单" %><!-- 查看对话框 -->

@@ -1,0 +1,77 @@
+@import "bootstrap";
+
+a.btn-primary{ /*缺省a的字体颜色为黑色,不适合*/
+	color: #fff !important;
+}
+
+.table > tbody > tr > td{ /*表格中加入操作的button会使原来的top对齐很难看*/
+	vertical-align: middle;
+}
+
+.table > thead > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > th,
+.table > tbody > tr > td,
+.table > tfoot > tr > th,
+.table > tfoot > tr > td {/*表格单元格的左右间距缩小,否则缴费单字段多放不下*/
+  padding-left: 0px;
+  padding-right: 1px;
+}
+
+/*以下为callout的样式*/
+.bs-callout { 
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid #eee;
+  border-left-width: 5px;
+  border-radius: 3px;
+}
+.bs-callout h4 {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+.bs-callout p {
+  font-size: 16px;
+}
+.bs-callout p:last-child {
+  margin-bottom: 0;
+}
+.bs-callout code {
+  border-radius: 3px;
+}
+.bs-callout + .bs-callout {
+  margin-top: -5px;
+}
+.bs-callout-danger {
+  border-left-color: #ce4844;
+}
+.bs-callout-danger h4 {
+  color: #ce4844;
+}
+.bs-callout-warning {
+  border-left-color: #aa6708;
+}
+.bs-callout-warning h4 {
+  color: #aa6708;
+}
+.bs-callout-info {
+  border-left-color: #1b809e;
+}
+.bs-callout-info h4 {
+  color: #1b809e;
+}
+.bs-callout-metro {
+  padding:5px;
+  border-top-width: 0;
+  border-right-width: 0;
+  border-bottom-width: 5px;
+  border-left-width: 5px;
+  border-radius: 0;
+}
+.bs-callout-metro h4{
+margin:0;
+}
+
+.modal-lg {
+    width: 1200px;
+}

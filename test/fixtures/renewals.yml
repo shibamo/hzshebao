@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  single_customer_id: 1
+  user_id: 1
+  workflow_state: MyString
+  comment: MyString
+
+two:
+  single_customer_id: 1
+  user_id: 1
+  workflow_state: MyString
+  comment: MyString

@@ -1,0 +1,12 @@
+<h1 class="text-center">设置缴费单到账时间</h1>
+
+<%= form_for(@charge, url: { action: "set_money_arrival_date" }, html: {class: 'form-inline'}) do |f| %>
+<%= f.label "缴费单到账时间" %>
+<%= f.text_field :money_arrival_date, :class => "dtp form-control", "data-date-format" => "yyyy-mm-dd" %>
+  <div class="actions" >
+    <%= f.submit "提 交", class:"actions btn btn-primary noprint" %>
+  </div>
+<% end %>
+<script type="text/javascript">
+$('.dtp').datepicker();
+</script>

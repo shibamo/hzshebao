@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Renewals</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Single customer</th>
+      <th>User</th>
+      <th>Workflow state</th>
+      <th>Comment</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @renewals.each do |renewal| %>
+      <tr>
+        <td><%= renewal.single_customer_id %></td>
+        <td><%= renewal.user_id %></td>
+        <td><%= renewal.workflow_state %></td>
+        <td><%= renewal.comment %></td>
+        <td><%= link_to 'Show', renewal %></td>
+        <td><%= link_to 'Edit', edit_renewal_path(renewal) %></td>
+        <td><%= link_to 'Destroy', renewal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Renewal', new_renewal_path %>

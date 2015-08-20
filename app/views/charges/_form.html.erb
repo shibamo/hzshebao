@@ -1,0 +1,189 @@
+
+  <% if @charge.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@charge.errors.count, "error") %> prohibited this charge from being saved:</h2>
+
+      <ul>
+      <% @charge.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label "缴费方式:" %>
+    <%= f.select :charge_type, Charge.charge_types, {include_blank: true}, class: "form-control"%>&nbsp;
+  </div>
+  <br><br>
+  <div class="form-group">
+    <%= f.label "社保费:" %>
+    <%= f.text_field :price_shebao , class: "form-control text-right form-control-price", min:0, max:100000 %>
+    <strong>元/月 × </strong>
+    <%= f.number_field :months_shebao , class: "form-control text-right form-control-price", min:0, max:120 %>
+    <%= f.label "个月 = " %>
+    <%= text_field_tag :sum_shebao ,nil, class: 'form-control text-right', disabled: true, size: 8 %>
+
+    <%= f.label :从 %>
+    <%= f.text_field :start_date_shebao, :class => "dtp form-control", "data-date-format" => "yyyy-mm-dd" %>
+    <%= f.label :到 %>
+    <%= f.text_field :end_date_shebao, :class => "dtp form-control", "data-date-format" => "yyyy-mm-dd" %>
+  </div>
+
+  <br>
+  <div class="form-group">
+    <%= f.label "公积金:" %>
+    <%= f.text_field :price_gongjijin , class: "form-control text-right form-control-price", min:0, max:100000 %>
+    <strong>元/月 × </strong>
+    <%= f.number_field :months_gongjijin , class: "form-control text-right form-control-price", min:0, max:120 %>
+    <%= f.label "个月 = " %>
+    <%= text_field_tag :sum_gongjijin ,nil, class: 'form-control text-right', disabled: true, size: 8 %>
+
+    <%= f.label :从 %>
+    <%= f.text_field :start_date_gongjijin, :class => "dtp form-control", "data-date-format" => "yyyy-mm-dd" %>
+    <%= f.label :到 %>
+    <%= f.text_field :end_date_gongjijin, :class => "dtp form-control", "data-date-format" => "yyyy-mm-dd" %>
+  </div>
+
+    <br>
+  <div class="form-group">
+    <%= f.label "服务费:" %>
+    <%= f.text_field :price_fuwufei , class: "form-control text-right form-control-price", min:0, max:100000 %>
+    <strong>元/月 × </strong>
+    <%= f.number_field :months_fuwufei , class: "form-control text-right form-control-price", min:0, max:120 %>
+    <%= f.label "个月 = " %>
+    <%= text_field_tag :sum_fuwufei ,nil, class: 'form-control text-right', disabled: true, size: 8 %>
+
+    <%= f.label :从 %>
+    <%= f.text_field :start_date_fuwufei, :class => "dtp form-control", "data-date-format" => "yyyy-mm-dd" %>
+    <%= f.label :到 %>
+    <%= f.text_field :end_date_fuwufei, :class => "dtp form-control", "data-date-format" => "yyyy-mm-dd" %>
+  </div>
+
+  <br>
+  <div class="form-group">
+    <%= f.label "材料费:" %>
+    <%= f.text_field :price_cailiaofei , class: "form-control text-right form-control-price", min:0, max:100000 %>
+    <strong>元/月 × </strong>
+    <%= f.number_field :months_cailiaofei , class: "form-control text-right form-control-price", min:0, max:120 %>
+    <%= f.label "个月 = " %>
+    <%= text_field_tag :sum_cailiaofei ,nil, class: 'form-control text-right', disabled: true, size: 8 %>
+
+    <%= f.label :从 %>
+    <%= f.text_field :start_date_cailiaofei, :class => "dtp form-control", "data-date-format" => "yyyy-mm-dd" %>
+    <%= f.label :到 %>
+    <%= f.text_field :end_date_cailiaofei, :class => "dtp form-control", "data-date-format" => "yyyy-mm-dd" %>
+  </div>
+
+  <br>
+  <div class="form-group">
+    <%= f.label "补交费:" %>
+    <%= f.text_field :price_bujiao , class: "form-control text-right form-control-price", min:0, max:100000 %>
+    <strong>元/月 × </strong>
+    <%= f.number_field :months_bujiao , class: "form-control text-right form-control-price", min:0, max:120 %>
+    <%= f.label "个月 = " %>
+    <%= text_field_tag :sum_bujiao ,nil, class: 'form-control text-right', disabled: true, size: 8 %>
+
+    <%= f.label :从 %>
+    <%= f.text_field :start_date_bujiao, :class => "dtp form-control", "data-date-format" => "yyyy-mm-dd" %>
+    <%= f.label :到 %>
+    <%= f.text_field :end_date_bujiao, :class => "dtp form-control", "data-date-format" => "yyyy-mm-dd" %>
+  </div>
+
+  <br>
+  <div class="form-group">
+    <%= f.label "差价:" %>
+    <%= f.text_field :price_chajia , class: "form-control text-right form-control-price", min:0, max:100000 %>
+    <strong>元/月 × </strong>
+    <%= f.number_field :months_chajia , class: "form-control text-right form-control-price", min:0, max:120 %>
+    <%= f.label "个月 = " %>
+    <%= text_field_tag :sum_chajia ,nil, class: 'form-control text-right', disabled: true, size: 8 %>
+
+    <%= f.label :从 %>
+    <%= f.text_field :start_date_chajia, :class => "dtp form-control", "data-date-format" => "yyyy-mm-dd" %>
+    <%= f.label :到 %>
+    <%= f.text_field :end_date_chajia, :class => "dtp form-control", "data-date-format" => "yyyy-mm-dd" %>
+  </div>
+  
+   <br>
+  <div class="form-group">
+    <%= f.label "个税:" %>
+    <%= f.text_field :price_geshui , class: "form-control text-right form-control-price", min:0, max:100000 %>
+    <strong>元/月 × </strong>
+    <%= f.number_field :months_geshui , class: "form-control text-right form-control-price", min:0, max:120 %>
+    <%= f.label "个月 = " %>
+    <%= text_field_tag :sum_geshui ,nil, class: 'form-control text-right', disabled: true, size: 8 %>
+
+    <%= f.label :从 %>
+    <%= f.text_field :start_date_geshui, :class => "dtp form-control", "data-date-format" => "yyyy-mm-dd" %>
+    <%= f.label :到 %>
+    <%= f.text_field :end_date_geshui, :class => "dtp form-control", "data-date-format" => "yyyy-mm-dd" %>
+  </div>
+
+  <br>
+  <div class="form-group">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <%=button_tag "计算总额 >>", type: 'button', class: 'btn btn-info btn-sm', id: "calculate"%>
+    <%= f.label "总 计:" %>
+    <%= text_field_tag :sum_total ,nil, class: 'form-control text-right', disabled: true, size: 8%>
+  </div>
+
+  <br>
+  <div class="form-group">
+    <%= f.label "备注:" %>
+    <%= f.text_area :comment , size: "54x3",class: "form-control" %>
+  </div>
+
+  <div class="actions" >
+    <%= f.submit "提 交", class:"actions btn btn-primary noprint" %>
+  </div>
+
+<%= javascript_tag do %>
+$.extend(
+  {
+    calculate:function(price_field,months_field,sum_field){
+      if (price_field.val()*months_field.val()){
+        sum_field.val(price_field.val() * months_field.val()) ;
+      }
+      else{
+        sum_field.val("0");
+        price_field.val("0");
+        months_field.val("0");
+      }
+      return sum_field.val() ? parseFloat(sum_field.val()) : 0;
+    }
+  });
+
+$(function () {
+  $('#calculate').bind('click', function (event) {
+    i_sum_total=$.calculate($('#charge_price_shebao'),$('#charge_months_shebao'),$('#sum_shebao'))+
+    $.calculate($('#charge_price_gongjijin'),$('#charge_months_gongjijin'),$('#sum_gongjijin'))+
+    $.calculate($('#charge_price_fuwufei'),$('#charge_months_fuwufei'),$('#sum_fuwufei'))+
+    $.calculate($('#charge_price_cailiaofei'),$('#charge_months_cailiaofei'),$('#sum_cailiaofei'))+
+    $.calculate($('#charge_price_bujiao'),$('#charge_months_bujiao'),$('#sum_bujiao'))+
+    $.calculate($('#charge_price_chajia'),$('#charge_months_chajia'),$('#sum_chajia'))+
+    $.calculate($('#charge_price_geshui'),$('#charge_months_geshui'),$('#sum_geshui'));
+    $('#sum_total').val(changeTwoDecimal(i_sum_total));
+  });
+
+  $('#new_charge').bind('submit', function (event) {
+    $('#calculate').click();
+    if( $('#charge_price_shebao').val()!="0" && ($('#charge_start_date_shebao').val()=="" || $('#charge_end_date_shebao').val()=="")){
+      alert("需要输入社保服务起止日期")
+      event.preventDefault();
+    }
+    if( $('#charge_price_gongjijin').val()!="0" && ($('#charge_start_date_gongjijin').val()=="" || $('#charge_end_date_gongjijin').val()=="")){
+      alert("需要输入公积金服务起止日期")
+      event.preventDefault();
+    }
+  });
+
+});
+<% end %>
+
+<script type="text/javascript">
+$('.dtp').datepicker();
+</script>

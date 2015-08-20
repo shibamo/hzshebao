@@ -1,0 +1,5 @@
+<h1 class="text-center">客户缴费记录列表(等待资金到账核对)</h1>
+
+<%= render 'simple_query', url: :charges_for_money_arrival_check%>
+
+<%= render 'table' , op_type: :money_check, charges: @charges %>

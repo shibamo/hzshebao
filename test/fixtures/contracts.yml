@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  single_customer_id: 1
+  user_id: 1
+  start_date: 2015-06-16
+  end_date: 2015-06-16
+  work: MyString
+
+two:
+  single_customer_id: 1
+  user_id: 1
+  start_date: 2015-06-16
+  end_date: 2015-06-16
+  work: MyString

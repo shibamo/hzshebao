@@ -1,0 +1,9 @@
+<h1 class="text-center">公司所有个人客户列表 &nbsp;
+	<%= link_to "下载所有客户信息>>", single_customers_list_total_path(format: :xls) , tabindex: "-1", class: "btn btn-primary btn-sm btn-warning" %>
+</h1>
+
+
+<%= render 'query'%>
+
+<%= render 'table', op_type: :daily_operation%>
+

@@ -1,0 +1,8 @@
+<ul class="list-inline" style="display:inline;" >
+<% attaches.each do |att| %>
+	<li><mark>
+		<%= link_to att[1] + "-\"" + User.find(att[2]).name + "\"-\"" + att[3].strftime('%Y-%m-%d %H:%M:%S').to_s + "\"", money_arrival_files_send_raw_path(id: att[0]), class:"btn btn-link" %> </mark>
+		&nbsp; 
+	</li>
+<% end %>
+</ul>

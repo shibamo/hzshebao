@@ -1,0 +1,38 @@
+<%= simple_form_for @single_customer ||= SingleCustomer.new, :url => :single_customers_query, :method => :post, html: {class: 'form-inline' } do |f| %>
+  <div class="form-inputs">
+    <%= f.input :name , label: '姓名:', required: false , input_html: { maxlength: 5 }%>&nbsp;
+
+    填写日期从:
+		  <input class="string optional form-control dtp" size="10" type="text" value="<%=  @input_date_from ||= nil %>" id="dp1" data-date-format="yyyy-mm-dd" name="single_customer[input_date_from]">
+		  <span class="add-on"><i class="icon-th"></i></span>
+		到:  	
+		  <input class="string optional form-control dtp" size="10" type="text" value="<%=  @input_date_to ||= nil %>" id="dp2" data-date-format="yyyy-mm-dd"  name="single_customer[input_date_to]">
+		  <span class="add-on"><i class="icon-th"></i></span>&nbsp;
+      所属业务员:<%= f.select :user_id, @users.collect{|d| [d.name,d.id]}, {include_blank: true}, class: 'form-control'%>
+      &nbsp;
+      客户状态:<%= f.select :workflow_state, SingleCustomer::WORKFLOW_STATE_NAMES.collect{|en,cn| [cn,en]}, {include_blank: true}, class: 'form-control'%>
+      <br>
+
+    <strong>用途</strong>&nbsp;                          
+    <%= f.input :is_usage_zhengchang, label: '-正常', as: :boolean, checked_value: true, unchecked_value: false %>&nbsp;
+    <%= f.input :is_usage_ruxue, label: '-入学', as: :boolean, checked_value: true, unchecked_value: false %>&nbsp;
+    <%= f.input :is_usage_luohu, label: '-落户', as: :boolean, checked_value: true, unchecked_value: false %>&nbsp;
+    <%= f.input :is_usage_shenyu, label: '-生育', as: :boolean, checked_value: true, unchecked_value: false %>&nbsp;
+    <%= f.input :is_usage_yiliao, label: '-医疗', as: :boolean, checked_value: true, unchecked_value: false %>&nbsp;
+    <%= f.input :is_usage_gouche, label: '-购车', as: :boolean, checked_value: true, unchecked_value: false %>&nbsp;
+    <%= f.input :is_usage_goufang, label: '-购房', as: :boolean, checked_value: true, unchecked_value: false %>&nbsp;
+    <%= f.input :is_usage_daikuan, label: '-贷款', as: :boolean, checked_value: true, unchecked_value: false %>&nbsp;
+    <br>
+
+    <%= f.button :submit,"查询" , class: "btn btn-primary"  %>
+  </div><br>
+
+  <div class="form-actions">
+    
+  </div>
+<%end%>
+
+  <script type="text/javascript">
+  $('.dtp').datepicker();
+  </script>
+

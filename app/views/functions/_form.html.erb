@@ -1,0 +1,14 @@
+<%= simple_form_for(@function) do |f| %>
+  <%= f.error_notification %>
+  <div class="form-inputs">
+    <div class="form-group">
+    <%= f.input :name , label: '名称' , input_html: { maxlength: 50, class: "form-control" }%><br>
+    <%= f.input :controller, input_html: { maxlength: 50, class: "form-control" } %><br>
+    <%= f.input :action, input_html: { maxlength: 50, class: "form-control" }%><br>
+    <%= f.input :description, label: '说明' , input_html: { maxlength: 50, class: "form-control" }%>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit,"提交" , class: "btn btn-primary"  %>
+  </div>
+<% end %>

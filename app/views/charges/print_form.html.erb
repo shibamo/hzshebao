@@ -1,0 +1,105 @@
+<%= form_for @single_customer do |f| %>
+<h2 class='text-center'><strong>人员缴费登记表</strong></h2>
+<table width="900px" align="center"><tr width="100%"> 
+      <td width="50%">日期:
+        <%= f.label :created_at, @charge.created_at.to_date.to_s %></td><td align="right" width="50%">缴费记录号:<%= f.label :document_no,  @charge.document_no  %></td> 
+    </tr></table>
+    <table width="900px" border="1" align="center" cellpadding="10" style="border-style: none none none none;">
+      <tr class="print-table-row">
+        <td width="8%" class="text-center" >*姓名</td><td width="15%"><%= f.text_field :name, size:40, disabled:true ,class: "form-control" %></td>
+        <td width="5%" class="text-center">*性别</td><td width="10%" align="center">男<%= f.radio_button "gender", 1 , disabled:true%>&nbsp;女<%= f.radio_button "gender", 2 , disabled:true%></td>
+        <td width="5%" class="text-center">*民族</td><td width="8%"><%= f.text_field :ethnic_name,size: 15 , class: "form-control", disabled:true %></td>
+        
+        <td width="12%" rowspan=4 align="center" id="photo">照片</td>
+      </tr>
+      <tr class="print-table-row">
+        <td width="8%" class="text-center">*出生日期</td><td width="10%"><%= f.text_field :birth, disabled:true%></td>
+        <td width="8%" class="text-center">*身份证号码</td><td width="20" colspan=3><%= f.text_field :id_no, size:36, disabled:true, class: "form-control"%></td>
+      </tr>
+      <tr class="print-table-row">
+        <td width="8%" class="text-center">*身份证地址</td><td colspan=5><%= f.text_field :id_address, size:100, disabled:true, class: "form-control"%></td>
+      </tr>
+      <tr class="print-table-row" style="border-style: none none none none;">
+                <td width="8%">*户口性质</td><td colspan=2>
+            <%= f.radio_button "hukou_type", 21, disabled:true %>外地农村(省内市外)&nbsp;
+            <%= f.radio_button "hukou_type", 22, disabled:true%>外地农村(省外)&nbsp;
+            <%= f.radio_button "hukou_type", 11, disabled:true %>外地城镇(省内市外)&nbsp;
+            <%= f.radio_button "hukou_type", 12, disabled:true %>外地城镇(省外)&nbsp;
+            <%= f.radio_button "hukou_type", 20, disabled:true %>本地农村(主城区)&nbsp;
+            <%= f.radio_button "hukou_type", 10, disabled:true %>本地城镇(主城区)</td>
+            <td width="4%">*学历</td><td width="10%"  colspan=2><%= f.text_field :education, disabled:true, class: 'form-control'%></td>
+      </tr>
+    </table>
+  
+  <table width="900px" border="1" align="center"}>
+    <tr class="print-table-row" >
+        <td width="11%" class="text-center">*联系电话</td><td width="25%"><%= f.text_field :tel, disabled:true, class: "form-control" %></td>
+        <td width="10%" class="text-center">*其他联系人</td><td width="15%"><%= f.text_field :other_contact_person, size:10, disabled:true, class: "form-control" %></td>
+        <td width="10%" class="text-center">*其他电话</td><td width="25%"><%= f.text_field :other_contact_call, size:20, disabled:true, class: "form-control" %></td>
+    </tr>
+    <tr class="print-table-row">
+        <td width="11%" class="text-center">QQ</td><td width="25%"><%= f.text_field :qq, size:15, disabled:true, class: "form-control" %></td>
+        <td width="10%" class="text-center">微信</td><td width="15%"><%= f.text_field :wechat, size:20, disabled:true, class: "form-control" %></td>
+        <td width="10%" class="text-center">电子邮件</td><td width="25%"><%= f.text_field :email, size:15, disabled:true, class: "form-control" %></td>
+    </tr>
+  </table>
+  <table width="900px" border="1" align="center">
+    <tr class="print-table-row">
+      <td width="12%" class="text-center">*在杭住址</td><td><%= f.text_field :communication_address, size:100, disabled:true, class: "form-control" %></td>
+    </tr>
+    <tr class="print-table-row">
+      <td width="9%" class="text-center">建档类型</td><td><%= f.check_box "is_doc_for_shebao", disabled:true%>A社保&nbsp;
+                                      <%= f.check_box "is_doc_for_shigong", disabled:true%>B市公&nbsp;
+                                      <%= f.check_box "is_doc_for_shenggong", disabled:true%>C省公&nbsp;
+                                      <%= f.check_box "is_doc_for_butuichajia", disabled:true%>D补退差价&nbsp;
+                                      <%= f.check_box "is_doc_for_xufei", disabled:true%>E续费&nbsp;
+                                      <%= f.check_box "is_doc_for_qita", disabled:true%>F其他<%= f.text_field :comment_for_qita ,disabled:true, size:10 %>
+                                    </td>
+    </tr>
+    <tr class="print-table-row">
+      <td width="9%" class="text-center">用途</td><td><%= f.check_box "is_usage_zhengchang", disabled:true%>正常&nbsp;
+                                  <%= f.check_box "is_usage_ruxue", disabled:true%>入学&nbsp;
+                                  <%= f.check_box "is_usage_luohu", disabled:true%>落户&nbsp;
+                                  <%= f.check_box "is_usage_shenyu", disabled:true%>生育&nbsp;
+                                  <%= f.check_box "is_usage_yiliao", disabled:true%>医疗&nbsp;
+                                  <%= f.check_box "is_usage_gouche", disabled:true%>购车&nbsp;
+                                  <%= f.check_box "is_usage_goufang", disabled:true%>购房&nbsp;
+                                  <%= f.check_box "is_usage_daikuan", disabled:true%>贷款&nbsp;
+                              </td>
+    </tr>
+    
+    <tr class="print-table-row">
+      <td width="9%" rowspan="2" class="text-center">费用明细</td>
+      <td><br><%=render 'show_items', charge: @charge %></td>
+    </tr>
+
+    <tr class="print-table-row">
+      <td class="text-right"><h4>合计: <%= format("%.2f",@charge.price_shebao*@charge.months_shebao + 
+                    @charge.price_gongjijin*@charge.months_gongjijin +
+                    @charge.price_fuwufei*@charge.months_fuwufei +
+                    @charge.price_cailiaofei*@charge.months_cailiaofei +
+                    @charge.price_bujiao*@charge.months_bujiao)  %> 元&nbsp;</h4></td>
+    </tr>
+
+    <tr class="print-table-row">
+      <td colspan=2 align="right"><h5 class="text-center"><strong>以上信息经本人确认.</strong></h5><strong>&nbsp;签名:_____________日期:____________</strong></td>
+    </tr>
+    </table> 
+    <table width="900px" border="1" align="center">
+    <tr class="print-table-row">
+      <td width="12%" class="text-center">档案建立经办人:<td><%= f.text_field :creator, size:20, disabled:true, class: "form-control"%></td><td class="text-center">联系电话:</td><td><%= f.text_field :creator_tel, size:30, disabled:true, class: "form-control" %></td>
+    </tr>
+    </table>
+    <table width="900px" border="1" align="center">
+    <tr class="print-table-row">
+      <td width="12%" class="text-center">备注:</td><td><%= f.text_area :comment, cols: 100, rows: 2, disabled:true, class: "form-control" ,style: "line-height:1;" %></td>
+    </tr>
+    <tr class="print-table-row">
+      <td class="text-center">说明:</td><td>1. 续费时请提前一个月支付下期费用,社保申报截止日为每月12日,市公积金申报截止日为每月20日,省公积金申报截止日为每月25日,过期则记为次月.<br>2.每年5-7月,社保基数调整,调整日期从当年1月起计算,费用多还少补.</td>
+    </tr>
+    </table>
+<% end %>
+
+<%= javascript_tag do %>
+window.print();
+<%end%>

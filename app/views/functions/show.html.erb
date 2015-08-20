@@ -1,0 +1,23 @@
+<h1 class="text-center">功能点信息</h1>
+<p>
+  <strong>名称:</strong>
+  <%= @function.name %>
+</p>
+
+<p>
+  <strong>Controller:</strong>
+  <%= @function.controller %>
+</p>
+
+<p>
+  <strong>Action:</strong>
+  <%= @function.action %>
+</p>
+
+<p>
+  <strong>说明:</strong>
+  <%= @function.description %>
+</p>
+
+<%= link_to '编辑', edit_function_path(@function), class: "btn btn-primary" %> |
+<%= link_to '返回', functions_path, class: "btn btn-primary" %>

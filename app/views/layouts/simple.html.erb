@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>杭州社保网-业务办理系统</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body data-no-turbolink="true" style="padding-top: 0px;">
+<div class="container" id="root_div">
+<% flash.each do |key, value| %>
+      <p class="alert alert-<%= key %>"><%= value %></p>
+  <% end %>
+
+<%= yield %>
+  <div class="noprint">
+  <%= debug(params) if Rails.env.development? %>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,7 @@
+<h1 class="text-center">修改缴费单</h1>
+
+<%= form_for([:single_customer ,@charge], url: { action: "update" }, html: {class: 'form-inline'}) do |f| %>
+<%= render 'form' , f: f %>
+<% end %>
+
+

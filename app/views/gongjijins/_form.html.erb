@@ -1,0 +1,13 @@
+<%= simple_form_for(@gongjijin) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :single_customer_id %>
+    <%= f.input :account_no %>
+    <%= f.input :workflow_state %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

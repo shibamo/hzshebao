@@ -1,0 +1,32 @@
+<h1 class="text-center">劳动合同列表</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>客户名</th>
+      <th>创建人</th>
+      <th>起始日期</th>
+      <th>结束日期</th>
+      <th>工作岗位</th>
+      <th>创建时间</th>
+      <th colspan="2">操作</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @contracts.each do |contract| %>
+      <tr>
+        <td><%= @single_customer.name %></td>
+        <td><%= contract.user.name %></td>
+        <td><%= contract.start_date %></td>
+        <td><%= contract.end_date %></td>
+        <td><%= contract.work %></td>
+        <td><%= contract.created_at %></td>
+        <td><%= link_to '上传签字文件', money_arrival_files_new_path(business_type: "Contract",extra_data: contract.updated_at.to_s,main_object_id: contract.id, business_action: "sign_up"), class: "btn active btn-primary btn-xs", target: "_blank"  %></td>
+        <td><%= link_to '打印预览合同', single_customer_contract_print_form_path(@single_customer,contract), class: "btn active btn-primary btn-xs", target: "_blank" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to '新建劳动合同', new_single_customer_contract_path(@single_customer) , class: "btn btn-primary btn-default active"%>

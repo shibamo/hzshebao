@@ -1,0 +1,12 @@
+<h1 class="text-center">查看缴费单(客户名:<%=@charge.single_customer.name%>)</h1>
+<p id="notice"><%= notice %></p>
+<div class="form-group"><h4>&nbsp;&nbsp;<strong>付费方式:<%= @charge.charge_type %></strong><h4></div>
+
+<%=render 'show_items', charge: @charge %>
+
+<div class="form-group">
+  &nbsp;&nbsp;<strong>备注:</strong><%= @charge.comment %><br>
+  <h4>&nbsp;&nbsp;<strong>合计: <%= format("%.2f",@charge.money_total)  %> 元</strong>
+  </h4><br>
+   &nbsp;&nbsp;<strong>附件:</strong><%= render 'shared/list_attaches',attaches: @attaches %><br>
+</div>

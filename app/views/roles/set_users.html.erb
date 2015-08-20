@@ -1,0 +1,10 @@
+<h1 class="text-center">设置拥有角色<%=@role.name%>的用户</h1>
+<%= simple_form_for(@role, :url => role_update_users_path, :method => :post) do |f| %>
+  <div class="form-inputs">
+    <%= f.collection_check_boxes :user_ids, User.all, :id, :name  ,  {:item_wrapper_tag => :div, :item_wrapper_class => "col-md-2", :wrapper => false}%>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "提交" , class: "btn btn-primary" %>
+  </div>
+<% end %>

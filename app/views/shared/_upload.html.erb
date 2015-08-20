@@ -1,0 +1,35 @@
+<%
+#用于生成文件上传的form的partial模板文件,需要以下四个参数(括号内为示例):
+# file_object(@money_arrival_file)  ,parent_object(@charge),submit_prompt("提交对账文件"),object_name("money_arrival_file")
+%>
+
+<% if file_object.errors.any? %>
+  <div id="error_explanation">
+    <h2>文件保存失败:</h2>
+    <ul>
+    <% file_object.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for([parent_object,file_object], html: {multipart: true, class: 'form-inline', accept: 'image/png,image/gif,image/jpeg' }) do |f| %>
+  <div class="form-group">
+    <%= f.label "请选择文件后提交=>" %>
+    <%= f.file_field :uploaded_file , class: "form-control form-file-upload"%>
+  </div>
+  <%= submit_tag(submit_prompt, class: "btn active btn-primary") %> 
+<% end %>
+
+<%= javascript_tag do %>
+$(function () {
+  $('#new_<%=object_name%>').bind('submit', function (event) {
+    var filename = $('#<%=object_name%>_uploaded_file').val();
+    if (filename.length==0) {
+      window.alert('请选择文件后提交');
+      event.preventDefault();
+    }
+  });
+});
+<% end %>

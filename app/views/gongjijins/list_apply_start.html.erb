@@ -1,0 +1,4 @@
+<h1 class="text-center">个人客户列表(待登记开通公积金)
+<%= link_to "导出可批量申报的记录>>", gongjijins_list_apply_start_path(format: :xls) , tabindex: "-1", class: "btn btn-primary btn-lg btn-warning" %></h1>
+
+<%= render 'table', op_type: :finish_apply_start%>

@@ -1,0 +1,67 @@
+<div class="form-group">
+社保费
+<%= text_field_tag :price_shebao ,format("%.2f",charge.price_shebao), class: "text-right form-control-price", disabled: true ,size: 1%>
+元/月×
+<%= text_field_tag :months_shebao ,charge.months_shebao, class: "text-right  form-control-month", disabled: true,size: 2%>
+月=
+<%= text_field_tag :sum_shebao ,format("%.2f",charge.price_shebao*charge.months_shebao), class: 'text-right form-control-price', disabled: true, size: 6 %>
+从<%= charge.start_date_shebao %>至<%= charge.end_date_shebao %>
+
+<br>
+公积金
+<%= text_field_tag :price_gongjijin ,format("%.2f",charge.price_gongjijin), class: "text-right form-control-price", disabled: true ,size: 4%>
+元/月×
+<%= text_field_tag :months_gongjijin ,charge.months_gongjijin, class: "text-right form-control-month", disabled: true,size: 2%>
+月=
+<%= text_field_tag :sum_gongjijin ,format("%.2f",charge.price_gongjijin*charge.months_gongjijin), class: 'text-right form-control-price', disabled: true, size: 6 %>
+从<%= charge.start_date_gongjijin %>至<%= charge.end_date_gongjijin %>
+
+<br>
+服务费
+<%= text_field_tag :price_fuwufei ,format("%.2f",charge.price_fuwufei), class: "text-right form-control-price", disabled: true ,size: 4%>
+元/月×
+<%= text_field_tag :months_fuwufei ,charge.months_fuwufei, class: "text-right form-control-month", disabled: true,size: 2%>
+月=
+<%= text_field_tag :sum_fuwufei ,format("%.2f",charge.price_fuwufei*charge.months_fuwufei), class: 'text-right form-control-price', disabled: true, size: 6 %>
+从<%= charge.start_date_fuwufei %>至<%= charge.end_date_fuwufei %>
+
+<br>
+材料费
+<%= text_field_tag :price_cailiaofei ,format("%.2f",charge.price_cailiaofei), class: "text-right form-control-price", disabled: true ,size: 4%>
+元/月×
+<%= text_field_tag :months_cailiaofei ,charge.months_cailiaofei, class: "text-right form-control-month", disabled: true,size: 2%>
+月=
+<%= text_field_tag :sum_cailiaofei ,format("%.2f",charge.price_cailiaofei*charge.months_cailiaofei), class: 'text-right form-control-price', disabled: true, size: 6 %>
+从<%= charge.start_date_cailiaofei %>至<%= charge.end_date_cailiaofei %>
+
+<br>
+补交费
+<%= text_field_tag :price_bujiao ,format("%.2f",charge.price_bujiao), class: "text-right form-control-price", disabled: true ,size: 4%>
+元/月×
+<%= text_field_tag :months_bujiao ,charge.months_bujiao, class: "text-right form-control-month", disabled: true,size: 2%>
+月=
+<%= text_field_tag :sum_bujiao ,format("%.2f",charge.price_bujiao*charge.months_bujiao), class: 'text-right form-control-price', disabled: true, size: 6 %>
+从<%= charge.start_date_bujiao %>至<%= charge.end_date_bujiao %>
+
+<br>
+差&nbsp;&nbsp;价
+<%= text_field_tag :price_chajia ,format("%.2f",charge.price_chajia), class: "text-right form-control-price", disabled: true ,size: 4%>
+元/月×
+<%= text_field_tag :months_chajia ,charge.months_chajia, class: "text-right form-control-month", disabled: true,size: 2%>
+月=
+<%= text_field_tag :sum_chajia ,format("%.2f",charge.price_chajia*charge.months_chajia), class: 'text-right form-control-price', disabled: true, size: 6 %>
+从<%= charge.start_date_chajia %>至<%= charge.end_date_chajia %>
+
+<br>
+个&nbsp;&nbsp;税
+<%= text_field_tag :price_geshui ,format("%.2f",charge.price_geshui), class: "text-right form-control-price", disabled: true ,size: 4%>
+元/月×
+<%= text_field_tag :months_geshui ,charge.months_geshui, class: "text-right form-control-month", disabled: true,size: 2%>
+月=
+<%= text_field_tag :sum_geshui ,format("%.2f",charge.price_geshui*charge.months_geshui), class: 'text-right form-control-price', disabled: true, size: 6 %>
+从<%= charge.start_date_geshui %>至<%= charge.end_date_geshui %>
+
+
+
+
+</div>

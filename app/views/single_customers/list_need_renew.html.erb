@@ -1,0 +1,13 @@
+<h1 class="text-center">个人客户列表(社保待续费人员)
+	<button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="截止到下月底社保金到期的客户">?</button>
+  <%= link_to "下载>>", 
+  single_customers_list_need_renew_path(format: :xls) , tabindex: "-1", class: "btn btn-primary btn-sm btn-warning" %>
+</h1>
+
+<%= render 'table', op_type: :need_renew%>
+
+<script type="text/javascript">
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>

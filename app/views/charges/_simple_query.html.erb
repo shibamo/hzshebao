@@ -1,0 +1,7 @@
+<%= simple_form_for @charge ||= Charge.new, :url => url, :method => :post, html: {class: 'form-inline' } do |f| %>
+  <div class="form-inputs">
+    <input class="string optional form-control" size="8" type="text" 
+                value="<%= @single_customer_name ||= nil %>" name="charge[single_customer_name]">&nbsp;
+    <%= f.button :submit,"查询" , class: "btn btn-primary"  %>
+  </div><br>
+<%end%>

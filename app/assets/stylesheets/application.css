@@ -1,0 +1,81 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ @media print {
+.noprint {
+    display: none;
+    }
+}
+
+ @media all{
+ 	.alert-notice
+ 	{
+ 		background-color: #dff0d8;
+ 		border-color: #b2dba1;
+ 		color: #3c763d;
+ 	}
+ }
+
+/*为文件上传控件指定尺寸*/
+ @media all{
+ .form-file-upload{
+ 	width: 500px !important;
+ 	height: 40px;
+ }
+}
+
+/*为置顶固定导航菜单留出空间*/
+body { padding-top: 40px; }
+
+/*改造Bootstrap导航条,鼠标悬停弹出下拉菜单*/
+.navbar .nav > li .dropdown-menu {
+  margin: 0;
+}
+.navbar .nav > li:hover .dropdown-menu {
+  display: block;
+}
+
+/*改造Bootstrap,鼠标悬停弹出按钮的下拉菜单,因为缺省模式与modal dialog有冲突需要改造*/
+span.dropdown > .dropdown-menu {
+  margin: 0;
+}
+span.dropdown:hover > .dropdown-menu {
+  display: block;
+}
+
+
+input[type="checkbox"]{ /*表单中的选项控件间隙调整,分开*/
+	margin: 4px 5px 5px !important;
+}
+
+.form-control-price{
+	width: 85px !important;
+}
+
+.form-control-month{
+  width: 30px !important;
+}
+
+
+.dtp{
+	width: 120px !important;	
+}
+
+.alert-error{
+	background-color: yellow;
+	border-color: red;
+	color: black;
+}

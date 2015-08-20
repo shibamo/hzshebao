@@ -1,0 +1,31 @@
+<% if @customer_id_card_picture.errors.any? %>
+  <div id="error_explanation">
+    <h2>文件保存失败:</h2>
+    <ul>
+    <% @customer_id_card_picture.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for([:single_customer ,@customer_id_card_picture], html: {multipart: true, class: 'form-inline', accept: 'image/png,image/gif,image/jpeg' }) do |f| %>
+  <div class="form-group">
+    <%= f.label :请选择文件后提交 %>
+    <%= f.file_field :uploaded_file , class: "form-control form-file-upload"%>
+    
+  </div>
+  <%= submit_tag("提交 #{@single_customer.name} 的身份证图片", class: "btn active btn-primary") %> 
+<% end %>
+
+<%= javascript_tag do %>
+$(function () {
+  $('#new_customer_id_card_picture').bind('submit', function (event) {
+    var filename = $('#customer_id_card_picture_uploaded_file').val();
+    if (filename.length==0) {
+      window.alert('请选择文件后提交');
+      event.preventDefault();
+    }
+  });
+});
+<% end %>

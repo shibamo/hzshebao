@@ -1,0 +1,84 @@
+<table class="table table-striped table-hover table-condensed">
+  <thead>
+    <tr>
+      <th>姓名</th>
+      <th>电话</th>
+      <th>Q/微信/电邮</th>
+      <th>状态</th>
+      <th>业务员</th>
+      <th>公积金截止日</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @gongjijins.each do |gongjijin| %>
+      <tr class="<%="danger" if op_type == :finish_apply_restart && gongjijin.single_customer.gongjijin_end_date.try(">", Date.current.beginning_of_month) %>">
+        <td><%= gongjijin.single_customer.name %></td>
+        <td><%= gongjijin.single_customer.tel %></td>
+        <td><%= gongjijin.single_customer.qq.to_s + '/' + gongjijin.single_customer.wechat.to_s + '/' +gongjijin.single_customer.email.to_s %></td>
+        <td><%= gongjijin.translate_workflow_state_name(Gongjijin::WORKFLOW_STATE_NAMES) %></td>
+        <td><%= gongjijin.single_customer.user.name %></td>
+        <td><%= gongjijin.single_customer.gongjijin_end_date %></td>
+        <td><%= link_to '查看', gongjijin.single_customer, class: "btn btn-primary btn-xs", target: "_blank" %></td>
+        <td>          
+          <span class="dropdown">
+            <button class="btn btn-xs btn-primary dropdown-toggle" type="button" id="dropdownMenuUpload" data-toggle="dropdown" aria-expanded="true">
+              资料
+              <span class="caret"></span><xsall><span class="badge"> <%=gongjijin.single_customer.customer_id_card_pictures.count %></span></xsall>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+
+              <% gongjijin.single_customer.customer_id_card_pictures.select(:id,:file_name).each do |attach| %>
+              <li role="presentation"><%= link_to attach.file_name, customer_id_card_picture_send_raw_path(attach), role: "menuitem", tabindex: "-1" %></li>
+              <% end %>
+
+              <li class="divider"></li>
+              <li role="presentation"><%= link_to '上传图片...', new_single_customer_customer_id_card_picture_path(gongjijin.single_customer), role: "menuitem", tabindex: "-1" %></li>
+            </ul>
+          </span>
+        </td>
+        <td><%= link_to '付费历史', single_customer_charges_path(gongjijin.single_customer), class: "btn btn-primary btn-xs", target: "_blank" %></td>
+          
+        <% if [:finish_apply_start, :finish_apply_stop, :finish_apply_restart].include? op_type %>
+        <td>
+          <span class="dropdown">
+            <button class="btn btn-xs btn-primary dropdown-toggle" type="button" id="dropdownMenuUpload" data-toggle="dropdown" aria-expanded="true">
+              公积金操作文件
+              <span class="caret"></span><xsall><span class="badge"> <%= MoneyArrivalFile.business_files("Gongjijin",gongjijin.id, gongjijin.updated_at.to_s, op_type).count %></span></xsall>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+
+              <% MoneyArrivalFile.business_files("Gongjijin",gongjijin.id, gongjijin.updated_at.to_s, op_type).select(:id,:file_name).each do |attach| %>
+              <li role="presentation"><%= link_to attach.file_name, money_arrival_files_send_raw_path(attach), role: "menuitem", tabindex: "-1" %></li>
+              <% end %>
+
+              <li class="divider"></li>
+              <li role="presentation"><%= link_to '上传操作文件...', money_arrival_files_new_path(business_type: "Gongjijin",extra_data: gongjijin.updated_at.to_s,main_object_id: gongjijin.id, business_action: op_type), target: "_blank", role: "menuitem", tabindex: "-1" %></li>
+            </ul>
+          </span>
+        </td>  
+        <%end%>
+        <% if op_type == :finish_apply_start%>
+        <td>
+          <%= link_to '登记开通公积金', gongjijins_finish_apply_start_path(gongjijin),  method: :post,  tabindex: "-1", class: "btn btn-primary btn-xs" %>
+        </td>
+        <%end%>
+
+        <% if op_type == :finish_apply_stop%>
+        <td>
+          <%= link_to '登记停交公积金', gongjijins_finish_apply_stop_path(gongjijin),  method: :post,  tabindex: "-1", class: "btn btn-primary btn-xs" %>
+        </td>
+        <%end%>
+        
+        <% if op_type == :finish_apply_restart%>
+        <td>
+          <%= link_to '登记重新开通公积金', gongjijins_finish_apply_restart_path(gongjijin),  method: :post,  tabindex: "-1", class: "btn btn-primary btn-xs" %>
+        </td>
+        <%end%>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @gongjijins %>

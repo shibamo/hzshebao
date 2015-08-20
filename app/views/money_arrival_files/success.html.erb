@@ -1,0 +1,21 @@
+<html>
+<head>
+<title>JavaScript自动关闭窗口</title>
+<meta http-equiv="content-Type" content="text/html;charset=gb2312">
+</head>
+<body>
+文件已保存,将自动关闭窗口
+<script type="text/javascript">
+function clock(){
+	i = i - 1;
+	document.title = i + "秒后自动关闭!";
+	if(i>0)
+	  setTimeout("clock();",1000);
+	else 
+    self.close();
+}
+var i = 5;
+clock();
+</script>
+</body>
+</html>

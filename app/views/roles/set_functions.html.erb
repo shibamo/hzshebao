@@ -1,0 +1,17 @@
+<h1>设置角色"<%=@role.name%>"有权使用的系统功能</h1>
+<%= simple_form_for(@role, :url => role_update_functions_path, :method => :post) do |f| %>
+  <div class="bs-callout bs-callout-info">
+  	<h4>角色有以下权限(可点击去掉):</h4>
+    <%= f.collection_check_boxes :function_ids, Function.all.where(id: @role.function_ids), :id, :name  %>
+  </div>
+
+	<div class="bs-callout bs-callout-danger">
+  	<h4>角色无以下权限(可点击加入):</h4>
+    <%= f.collection_check_boxes :function_ids, Function.all.where.not(id: @role.function_ids), :id, :name  %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "提交", class: "btn btn-primary" %>
+  </div>
+<% end %>
+

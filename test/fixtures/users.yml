@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  logon_name: MyString
+  password_digest: MyString
+  is_valid: false
+  is_leader: false
+  is_admin: false
+
+two:
+  name: MyString
+  logon_name: MyString
+  password_digest: MyString
+  is_valid: false
+  is_leader: false
+  is_admin: false

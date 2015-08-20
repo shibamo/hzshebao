@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  base: 9.99
+  year: 1
+  user_id: 1
+
+two:
+  base: 9.99
+  year: 1
+  user_id: 1

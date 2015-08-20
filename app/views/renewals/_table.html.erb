@@ -1,0 +1,35 @@
+<table class="table table-striped table-hover table-condensed">
+  <thead>
+    <tr>
+      <th>客户姓名</th>
+      <th>电话</th>
+      <th>客户业务员</th>
+      <th>判断续费业务员</th>
+      <th>续费状态</th>
+      <th>服务截止日</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @renewals.each do |renewal| %>
+      <tr>
+        <td><%= renewal.single_customer.name %></td>
+        <td><%= renewal.single_customer.tel %></td>
+        <td><%= renewal.single_customer.user.name %></td>
+        <td><%= renewal.user.name %></td>
+        <td><%= renewal.translate_workflow_state_name(Renewal::WORKFLOW_STATE_NAMES) %></td>
+        <td><%= renewal.single_customer.service_end_date %></td>
+        <% if op_type == :waiting %>
+        <td><%= link_to '续费完成', renewals_finish_renew_path(renewal),  method: :post,  tabindex: "-1", class: "btn btn-primary btn-sm" %></td>
+        <td><%= link_to '!停止服务', renewals_stop_path(renewal),  method: :post,  tabindex: "-1", class: "btn btn-primary btn-sm" %></td>
+        <%end%>
+        <% if op_type == :stopped %>
+        <td><%= link_to '!重新开通', renewals_finish_restart_path(renewal),  method: :post,  tabindex: "-1", class: "btn btn-primary btn-sm" %></td>
+        <%end%>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @renewals %>  

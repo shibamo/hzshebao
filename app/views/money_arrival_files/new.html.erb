@@ -1,0 +1,5 @@
+<h1>上传文件</h1>
+
+<%= render 'shared/upload_to_path', file_object: @money_arrival_file, 
+						url: money_arrival_files_create_path(@business_type,@extra_data,@main_object_id,@business_action),
+						submit_prompt: "提交"  %>

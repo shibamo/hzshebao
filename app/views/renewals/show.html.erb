@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Single customer:</strong>
+  <%= @renewal.single_customer_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @renewal.user_id %>
+</p>
+
+<p>
+  <strong>Workflow state:</strong>
+  <%= @renewal.workflow_state %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @renewal.comment %>
+</p>
+
+<%= link_to 'Edit', edit_renewal_path(@renewal) %> |
+<%= link_to 'Back', renewals_path %>

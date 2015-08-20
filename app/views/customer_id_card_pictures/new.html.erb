@@ -1,0 +1,5 @@
+<h1 class="text-center">上传个人客户身份证图片</h1>
+
+<%= render 'shared/upload', file_object: @customer_id_card_picture, parent_object: @single_customer,
+						submit_prompt: "提交客户#{@single_customer.name}的身份证图片文件", object_name: "customer_id_card_picture"   %>
+

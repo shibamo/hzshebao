@@ -1,0 +1,30 @@
+<%= simple_form_for @charge ||= Charge.new, :url => :charges_query, :method => :post, html: {class: 'form-inline' } do |f| %>
+  <div class="form-inputs">
+    客户姓名:
+    <input class="string optional form-control" size="8" type="text" 
+                value="<%= @single_customer_name ||= nil %>" name="charge[single_customer_name]">&nbsp;
+    资金到账日期从:
+		  <input class="string optional form-control dtp" size="10" type="text" value="<%=  @money_arrival_date_from ||= nil %>" id="dp1" data-date-format="yyyy-mm-dd" name="charge[money_arrival_date_from]">
+		  <span class="add-on"><i class="icon-th"></i></span>
+		到:  	
+		  <input class="string optional form-control dtp" size="10" type="text" value="<%=  @money_arrival_date_to ||= nil %>" id="dp2" data-date-format="yyyy-mm-dd"  name="charge[money_arrival_date_to]">
+    资金审核日期从:
+      <input class="string optional form-control dtp" size="10" type="text" value="<%=  @money_check_date_from ||= nil %>" id="dp3" data-date-format="yyyy-mm-dd" name="charge[money_check_date_from]">
+      <span class="add-on"><i class="icon-th"></i></span>
+    到:    
+      <input class="string optional form-control dtp" size="10" type="text" value="<%=  @money_check_date_to ||= nil %>" id="dp4" data-date-format="yyyy-mm-dd"  name="charge[money_check_date_to]">      
+      <span class="add-on"><i class="icon-th"></i></span>&nbsp;<br>
+    经办人:<%= f.select :user_id, @users.collect{|d| [d.name,d.id]}, {include_blank: true}, class: 'form-control'%>
+      &nbsp;
+    状态:<%= f.select :workflow_state, Charge::WORKFLOW_STATE_NAMES.collect{|en,cn| [cn,en]}, {include_blank: true}, class: 'form-control'%>
+      
+    收款类型&nbsp;
+    <%= f.select :charge_type, Charge.charge_types, {include_blank: true}, class: "form-control"%>
+    <%= f.button :submit,"查询" , class: "btn btn-primary"  %>
+  </div><br>
+<%end%>
+
+  <script type="text/javascript">
+  $('.dtp').datepicker();
+  </script>
+

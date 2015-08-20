@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Commission no:</strong>
+  <%= @commission.commission_no %>
+</p>
+
+<p>
+  <strong>Charge:</strong>
+  <%= @commission.charge_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @commission.user_id %>
+</p>
+
+<p>
+  <strong>Bonus reference:</strong>
+  <%= @commission.bonus_reference %>
+</p>
+
+<p>
+  <strong>Bonus:</strong>
+  <%= @commission.bonus %>
+</p>
+
+<p>
+  <strong>Approver:</strong>
+  <%= @commission.approver_id %>
+</p>
+
+<p>
+  <strong>Financer:</strong>
+  <%= @commission.financer_id %>
+</p>
+
+<p>
+  <strong>Workflow state string:</strong>
+  <%= @commission.workflow_state_string %>
+</p>
+
+<%= link_to 'Edit', edit_commission_path(@commission) %> |
+<%= link_to 'Back', commissions_path %>

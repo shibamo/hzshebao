@@ -1,0 +1,47 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  single_customer_id: 1
+  user_id: 1
+  charge_type: MyString
+  money_arrival_state: MyString
+  money_arrival_time: 2015-06-17 10:31:00
+  is_lead_checked: false
+  lead_check_time: 2015-06-17 10:31:00
+  shenbao_state: MyString
+  shenbao_time: 2015-06-17 10:31:00
+  start_date: 2015-06-17
+  end_date: 2015-06-17
+  price_shebao: 9.99
+  months_shebao: 1
+  price_gongjijin: 9.99
+  months_gongjijin: 1
+  price_fuwufei: 9.99
+  months_fuwufei: 1
+  price_cailiaofei: 9.99
+  months_cailiaofei: 1
+  price_bujiao: 9.99
+  months_bujiao: 1
+
+two:
+  single_customer_id: 1
+  user_id: 1
+  charge_type: MyString
+  money_arrival_state: MyString
+  money_arrival_time: 2015-06-17 10:31:00
+  is_lead_checked: false
+  lead_check_time: 2015-06-17 10:31:00
+  shenbao_state: MyString
+  shenbao_time: 2015-06-17 10:31:00
+  start_date: 2015-06-17
+  end_date: 2015-06-17
+  price_shebao: 9.99
+  months_shebao: 1
+  price_gongjijin: 9.99
+  months_gongjijin: 1
+  price_fuwufei: 9.99
+  months_fuwufei: 1
+  price_cailiaofei: 9.99
+  months_cailiaofei: 1
+  price_bujiao: 9.99
+  months_bujiao: 1

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Base:</strong>
+  <%= @shebao_base.base %>
+</p>
+
+<p>
+  <strong>Year:</strong>
+  <%= @shebao_base.year %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @shebao_base.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_shebao_basis_path(@shebao_base) %> |
+<%= link_to 'Back', shebao_bases_path %>

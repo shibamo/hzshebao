@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Filename:</strong>
+  <%= @money_arrival_file.filename %>
+</p>
+
+<p>
+  <strong>File raw:</strong>
+  <%= @money_arrival_file.file_raw %>
+</p>
+
+<p>
+  <strong>Business type:</strong>
+  <%= @money_arrival_file.business_type %>
+</p>
+
+<p>
+  <strong>Main object:</strong>
+  <%= @money_arrival_file.main_object_id %>
+</p>
+
+<p>
+  <strong>Content type:</strong>
+  <%= @money_arrival_file.content_type %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @money_arrival_file.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_money_arrival_file_path(@money_arrival_file) %> |
+<%= link_to 'Back', money_arrival_files_path %>

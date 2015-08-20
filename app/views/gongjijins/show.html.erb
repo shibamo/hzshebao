@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Single customer:</strong>
+  <%= @gongjijin.single_customer_id %>
+</p>
+
+<p>
+  <strong>Account no:</strong>
+  <%= @gongjijin.account_no %>
+</p>
+
+<p>
+  <strong>Workflow state:</strong>
+  <%= @gongjijin.workflow_state %>
+</p>
+
+<%= link_to 'Edit', edit_gongjijin_path(@gongjijin) %> |
+<%= link_to 'Back', gongjijins_path %>

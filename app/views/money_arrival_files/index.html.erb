@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Money Arrival Files</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Filename</th>
+      <th>File raw</th>
+      <th>Business type</th>
+      <th>Main object</th>
+      <th>Content type</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @money_arrival_files.each do |money_arrival_file| %>
+      <tr>
+        <td><%= money_arrival_file.filename %></td>
+        <td><%= money_arrival_file.file_raw %></td>
+        <td><%= money_arrival_file.business_type %></td>
+        <td><%= money_arrival_file.main_object_id %></td>
+        <td><%= money_arrival_file.content_type %></td>
+        <td><%= money_arrival_file.user_id %></td>
+        <td><%= link_to 'Show', money_arrival_file %></td>
+        <td><%= link_to 'Edit', edit_money_arrival_file_path(money_arrival_file) %></td>
+        <td><%= link_to 'Destroy', money_arrival_file, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Money arrival file', new_money_arrival_file_path %>

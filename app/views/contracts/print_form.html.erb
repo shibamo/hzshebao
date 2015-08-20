@@ -1,0 +1,304 @@
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:宋体;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:黑体;
+	panose-1:2 1 6 9 6 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:"\@宋体";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"\@黑体";
+	panose-1:2 1 6 9 6 1 1 1 1 1;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	font-size:10.5pt;
+	font-family:"Times New Roman","serif";}
+p.MsoHeader, li.MsoHeader, div.MsoHeader
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:center;
+	layout-grid-mode:char;
+	border:none;
+	padding:0cm;
+	font-size:9.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoFooter, li.MsoFooter, div.MsoFooter
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	layout-grid-mode:char;
+	font-size:9.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoBodyTextIndent, li.MsoBodyTextIndent, div.MsoBodyTextIndent
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	text-indent:24.0pt;
+	line-height:150%;
+	text-autospace:none;
+	font-size:10.5pt;
+	font-family:宋体;}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	font-size:9.0pt;
+	font-family:"Times New Roman","serif";}
+ /* Page Definitions */
+ @page Section1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 90.0pt 42.55pt 90.0pt;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+
+<div class=Section1>
+
+<p class=MsoNormal align=center style='text-align:center;line-height:150%;
+text-autospace:none'><b><span style='font-size:15.0pt;line-height:150%;
+font-family:宋体'>全&nbsp;&nbsp; 日&nbsp;&nbsp; 制&nbsp;&nbsp; 劳</span></b><b><span
+lang=EN-US style='font-size:15.0pt;line-height:150%'>&nbsp;&nbsp; </span></b><b><span
+style='font-size:15.0pt;line-height:150%;font-family:宋体'>动</span></b><b><span
+lang=EN-US style='font-size:15.0pt;line-height:150%'>&nbsp; </span></b><b><span
+style='font-size:15.0pt;line-height:150%;font-family:宋体'>合</span></b><b><span
+lang=EN-US style='font-size:15.0pt;line-height:150%'>&nbsp; </span></b><b><span
+style='font-size:15.0pt;line-height:150%;font-family:宋体'>同</span></b></p>
+
+<p class=MsoNormal style='text-indent:24.0pt;line-height:150%;text-autospace:
+none'><span style='font-size:9.0pt;line-height:150%;font-family:宋体'>甲方（用人单位）名称</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>：<u><span lang=EN-US>&nbsp;</span>杭州琳丰人力资源服务有限公司<span
+lang=EN-US>&nbsp;
+</span></u></span></p>
+
+<p class=MsoNormal style='text-indent:24.0pt;line-height:150%;text-autospace:
+none'><span style='font-size:9.0pt;line-height:150%;font-family:宋体'>住所：</span><u><span
+lang=EN-US style='font-size:9.0pt;line-height:150%;font-family:宋体'>&nbsp;拱墅区新文路33号2幢5层510室&nbsp;</span></u></p>
+
+<p class=MsoNormal style='text-indent:24.0pt;line-height:150%;text-autospace:
+none'><span style='font-size:9.0pt;line-height:150%;font-family:宋体'>
+乙方（劳动者）姓名：<u>&nbsp;&nbsp;<%=@single_customer.name%>&nbsp;&nbsp;</u>
+性别：<u>&nbsp;&nbsp;<%=gender_text_of_chinese(@single_customer.gender)%>&nbsp;&nbsp;</u>
+居民身份证号码：<u>&nbsp;&nbsp;<%=@single_customer.id_no%>&nbsp;&nbsp;</u></span></p>
+
+<p class=MsoNormal style='text-indent:24.0pt;line-height:150%;text-autospace:
+none'><span style='font-size:9.0pt;line-height:150%;font-family:宋体'>
+文化程度:<u>&nbsp;&nbsp; <%=@single_customer.education%>  &nbsp;&nbsp;</u></span><u><span style='font-size:9.0pt;
+line-height:150%;font-family:宋体'>&nbsp;&nbsp;&nbsp;</span></u><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>
+住址:<u>&nbsp;&nbsp; <%=@single_customer.communication_address%>  &nbsp;&nbsp;</u></span></p>
+
+<p class=MsoNormal style='text-indent:24.0pt;line-height:150%;text-autospace:
+none'><span style='font-size:9.0pt;line-height:150%;font-family:宋体'>根据《中华人民共和国劳动法》、《中华人民共和国劳动合同法》等法律、法规、规章的规定，在平等自愿，协商一致的基础上，同意订立本劳动合同，共同遵守本合同所列条款。</span></p>
+
+<p class=MsoNormal style='line-height:150%;text-autospace:none'><b><span
+style='font-size:9.0pt;line-height:150%;font-family:黑体'>第一条&nbsp; 劳动合同类型及期限</span></b></p>
+
+<p class=MsoNormal style='line-height:150%;text-autospace:none'><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>劳动合同</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>类型及</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>期限:固定期限劳动合同，</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>
+自</span><span style='font-size:9.0pt;line-height:150%;font-family:宋体'><u>&nbsp;
+<%= @contract.start_date.year %>&nbsp;</u>年</span><u><span
+lang=EN-US style='font-size:9.0pt;line-height:150%;font-family:宋体'>&nbsp;
+<%= @contract.start_date.month %>&nbsp;</span></u><span style='font-size:9.0pt;line-height:150%;font-family:宋体'>月</span><u><span lang=EN-US style='font-size:9.0pt;line-height:150%;font-family:宋体'>&nbsp;
+<%= @contract.start_date.day %>&nbsp;</span></u><span style='font-size:9.0pt;line-height:150%;font-family:宋体'>日起至</span><u><span
+lang=EN-US style='font-size:9.0pt;line-height:150%;font-family:宋体'>&nbsp; 
+<%= @contract.end_date.year %>&nbsp;</span></u><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>年</span><u><span
+lang=EN-US style='font-size:9.0pt;line-height:150%;font-family:宋体'>&nbsp;
+<%= @contract.end_date.month %>&nbsp;</span></u><span style='font-size:9.0pt;line-height:150%;font-family:宋体'>月</span><u><span
+lang=EN-US style='font-size:9.0pt;line-height:150%;font-family:宋体'>&nbsp;
+<%= @contract.end_date.day %>&nbsp;</span></u><span style='font-size:9.0pt;line-height:150%;font-family:宋体'>日止。</span></p>
+
+<p class=MsoNormal style='line-height:150%;text-autospace:none'><b><span
+style='font-size:9.0pt;line-height:150%;font-family:黑体'>第二条&nbsp; 工作内容、工作地点及要求</span></b></p>
+
+<p class=MsoNormal style='text-indent:24.0pt;line-height:150%;text-autospace:
+none'><span style='font-size:9.0pt;line-height:150%;font-family:宋体'>
+乙方从事<u>&nbsp;<%= @contract.work %>&nbsp;
+</u>工作</span><span lang=EN-US style='font-size:9.0pt;line-height:150%'>,</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>工作地点在<u>&nbsp;<%= @contract.location %>&nbsp;</u>。</span></p>
+
+<p class=MsoNormal style='text-indent:24.0pt;line-height:150%;text-autospace:
+none'><span style='font-size:9.0pt;line-height:150%;font-family:宋体'>根据甲方工作需要，经甲、乙双方协商同意，可以变更工作岗位、工作地点。</span></p>
+
+<p class=MsoNormal style='line-height:150%;text-autospace:none'><b><span
+style='font-size:9.0pt;line-height:150%;font-family:黑体'>第三条&nbsp; 工作时间和休息休假</span></b></p>
+
+<p class=MsoNormal style='line-height:150%;text-autospace:none'><span
+style='font-size:9.0pt;line-height:150%;font-family:黑体'>一</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>、工作时间为标准工时制。</span></p>
+
+<p class=MsoNormal style='line-height:150%;text-autospace:none'><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>二</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>、甲方由于生产经营需要经乙方协商后可以延长乙方工作时间，一般每日不得超过一小时；因特殊原因需要延长工作时间的，每日不得超过三小时，但每月不得超过三十六小时。甲方依法保证乙方的休息休假权利。</span></p>
+
+<p class=MsoNormal style='line-height:150%;text-autospace:none'><b><span
+style='font-size:9.0pt;line-height:150%;font-family:黑体'>第四条&nbsp; 劳动报酬及支付方式与时间</span></b></p>
+
+<p class=MsoNormal style='line-height:150%;text-autospace:none'><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>乙方在法定工作时间内提供正常劳动的月劳动报酬为<u>
+&nbsp;&nbsp;<%= @contract.salary %> &nbsp;&nbsp;</u>元。乙方工资的增减，奖金、津贴、补贴、加班加点工资的发放，以及特殊情况下的工资支付等，均按相关法律法规及甲方依法制定的规章制度执行。</span></p>
+
+<p class=MsoNormal style='line-height:150%;text-autospace:none'><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>三</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>、甲方的工资发放日为每月<u>&nbsp;&nbsp;
+15&nbsp;&nbsp; </u>日。甲方应当以货币形式按月支付工资，不得拖欠。</span></p>
+
+<p class=MsoNormal style='line-height:150%;text-autospace:none'><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>四</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>、乙方在享受法定休假日以及依法参加社会活动期间，甲方应当依法支付工资。</span></p>
+
+<p class=MsoNormal style='line-height:150%;text-autospace:none'><b><span
+style='font-size:9.0pt;line-height:150%;font-family:黑体'>第五条&nbsp; 社会保险</span></b></p>
+
+<p class=MsoNormal style='text-indent:24.0pt;line-height:150%;text-autospace:
+none'><span style='font-size:9.0pt;line-height:150%;font-family:宋体'>甲乙双方必须依法参加社会保险，按月缴纳社会保险费。乙方缴纳部分，由甲方在乙方工资中代为扣缴。</span></p>
+
+<p class=MsoNormal style='line-height:150%;text-autospace:none'><b><span
+style='font-size:9.0pt;line-height:150%;font-family:黑体'>第六条&nbsp; 劳动保护、劳动条件和职业危害防护</span></b></p>
+
+<p class=MsoNormal style='text-indent:24.0pt;line-height:150%;text-autospace:
+none'><span style='font-size:9.0pt;line-height:150%;font-family:宋体'>甲乙双方都必须严格执行国家有关安全生产、劳动保护、职业卫生等规定。有职业危害的工种应在合同约定中告知，甲方应为乙方的生产工作提供符合规定的劳动保护设施、劳动防护用品及其他劳动保护条件。乙方应严格遵守各项安全操作规程。甲方必须自觉执行国家有关女职工劳动保护和未成年工特殊保护规定。</span></p>
+
+<p class=MsoNormal style='line-height:150%;text-autospace:none'><b><span
+style='font-size:9.0pt;line-height:150%;font-family:黑体'>第七条&nbsp; 劳动合同变更、解除、终止</span></b></p>
+
+<p class=MsoNormal style='line-height:150%;text-autospace:none'><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>一、经甲乙双方协商一致，可以变更劳动合同相关内容。变更劳动合同，应当采用书面形式。变更后的劳动合同文本由甲乙双方各执一份。</span></p>
+
+<p class=MsoNormal style='line-height:150%;text-autospace:none'><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>二、经甲乙双方协商一致，可以解除劳动合同。</span></p>
+
+<p class=MsoNormal style='line-height:150%;text-autospace:none'><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>三、乙方提前三十日以书面形式通知甲方，可以解除劳动合同。乙方在试用期内提前三日通知甲方，可以解除劳动合同。</span></p>
+
+<p class=MsoNormal style='line-height:150%;text-autospace:none'><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>四、甲方有下列情形之一的，乙方可以解除劳动合同：</span></p>
+
+<p class=MsoNormal style='text-indent:24.0pt;line-height:150%;text-autospace:
+none'><span style='font-size:9.0pt;line-height:150%;font-family:宋体'>1、未按劳动合同约定提供劳动保护或者劳动条件的。2、未及时足额支付劳动报酬的。3、未依法缴纳社会保险费的。4、规章制度违反法律、法规的规定，损害乙方权益的。5、以欺诈、胁迫的手段或乘人之危，使乙方在违背真实意思的情况下订立或者变更劳动合同致使劳动合同无效的。6、法律、法规规定乙方可以解除劳动合同的其他情形。甲方以暴力、威胁或者非法限制人身自由的手段强迫乙方劳动的，或者甲方违章指挥、强令冒险作业危及乙方人身安全的，乙方可以立即解除劳动合同，不需事先告知甲方。</span></p>
+
+<p class=MsoNormal style='line-height:150%;text-autospace:none'><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>五</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>、乙方具有下列情形之一的</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>，</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>甲方可以解除本合同</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>：</span></p>
+
+<p class=MsoNormal style='text-indent:24.0pt;line-height:150%;text-autospace:
+none'><span style='font-size:9.0pt;line-height:150%;font-family:宋体'>1、在试用期间被证明不符合录用条件的。2、严重违反甲方的规章制度的。3、严重失职、营私舞弊，给甲方造成重大损害的。4、同时与其他用人单位建立劳动关系，对完成甲方的工作任务造成严重影响，或者经甲方提出，拒不改正的。5、以欺诈、胁迫的手段或乘人之危，使甲方在违背真实意思的情况下订立或者变更劳动合同致使劳动合同无效的。6、被依法追究刑事责任的。</span></p>
+
+<p class=MsoNormal style='line-height:150%;text-autospace:none'><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>六</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>、下列情形之一，甲方提前三十日以书面形式通知乙方或者额外支付乙方一个月工资后，可以解除本合同：</span></p>
+
+<p class=MsoNormal style='text-indent:24.0pt;line-height:150%;text-autospace:
+none'><span lang=EN-US style='font-size:9.0pt;line-height:150%;font-family:
+宋体'>1</span><span style='font-size:9.0pt;line-height:150%;font-family:宋体'>、</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>乙方患病或者非因工负伤，在规定的医疗期满后不能从事原工作，也不能从事由甲方另行安排的工作的。</span><span
+lang=EN-US style='font-size:9.0pt;line-height:150%;font-family:宋体'>2</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>、</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>乙方不能胜任工作，经过培训或者调整工作岗位，仍不能胜任工作的。</span><span
+lang=EN-US style='font-size:9.0pt;line-height:150%;font-family:宋体'>3</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>、</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>劳动合同订立时所依据的客观情况发生重大变化，致使原劳动合同无法履行，经甲乙双方协商，不能就变更劳动合同内容达成协议的。</span></p>
+
+<p class=MsoNormal style='line-height:150%;text-autospace:none'><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>七</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>、甲方</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>依照企业破产法规定进行重整的；</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>或</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>生产经营发生严重困难的；</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>或</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>企业转产、重大技术革新或者经营方式调整，经变更劳动合同后，仍需裁减人员的；</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>或</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>其他因劳动合同订立时所依据的客观经济情况发生重大变化，致使劳动合同无法履行的,应当提前三十日向工会或者全体职工说明情况，听取工会或者职工意见，裁减人员方案以书面形式向劳动行政部门报告后，可以解除劳动合同。</span></p>
+
+<p class=MsoNormal style='line-height:150%;text-autospace:none'><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>八</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>、有下列情形之一的,劳动合同终止：</span></p>
+
+<p class=MsoNormal style='text-indent:19.45pt;line-height:150%;text-autospace:
+none'><span style='font-size:9.0pt;line-height:150%;font-family:宋体'>1、劳动合同期满的。2、乙方开始依法享受基本养老保险待遇的。3、乙方死亡,或者被人民法院宣告死亡或者宣告失踪的。4、甲方被依法宣告破产，被吊销营业执照、责令关闭、撤销或者甲方决定提前解散的。5、法律、行政法规规定的其他情形。</span></p>
+
+<p class=MsoNormal style='line-height:150%;text-autospace:none'><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>九</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>、劳动合同期满,乙方具有下列情形之一的,劳动合同应当续延至相应的情形消失时终止：</span></p>
+
+<p class=MsoNormal style='text-indent:24.0pt;line-height:150%;text-autospace:
+none'><span style='font-size:9.0pt;line-height:150%;font-family:宋体'>1、从事接触职业病危害作业的劳动者未进行离岗前职业健康检查，或者疑似职业病病人在诊断或者医学观察期间的。2、在本单位患职业病或者因工负伤被确认丧失或者部分丧失劳动能力的。3、患病或者非因工负伤，在规定的医疗期内的。4、女职工在孕期、产期、哺乳期的。5、在本单位连续工作满十五年，且距法定退休年龄不足五年的。6、法律、法规规定的其他情形。</span></p>
+
+<p class=MsoNormal style='line-height:150%;text-autospace:none'><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>十、</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>乙方具有本条第九款情形之一的，甲方不得依据本条第六款第七款的约定解除本劳动合同。</span></p>
+
+<p class=MsoNormal style='line-height:150%;text-autospace:none'><b><span
+style='font-size:9.0pt;line-height:150%;font-family:黑体'>第八条&nbsp; 违反劳动合同的责任</span></b></p>
+
+<p class=MsoNormal style='text-indent:24.0pt;line-height:150%;text-autospace:
+none'><span style='font-size:9.0pt;line-height:150%;font-family:宋体'>甲方违法解除或终止本合同，应向乙方支付赔偿金；乙方违法解除本合同，给甲方造成经济损失的，应依法承担赔偿责任。</span></p>
+
+<p class=MsoNormal style='line-height:150%;text-autospace:none'><b><span
+style='font-size:9.0pt;line-height:150%;font-family:黑体'>第九条 &nbsp;双方需要约定的其他事项</span></b></p>
+
+<p class=MsoNormal style='line-height:150%;text-autospace:none'><b><span
+style='font-size:9.0pt;line-height:150%;font-family:黑体'>第十条&nbsp; 其他</span></b></p>
+
+<p class=MsoNormal style='text-indent:24.0pt;line-height:150%;text-autospace:
+none'><span lang=EN-US style='font-size:9.0pt;line-height:150%'>1</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>、本合同在履行中发生争议，任何一方均可向企业劳动争议调解委员会申请调解，也可向劳动争议仲裁委员会申请仲裁。对仲裁裁决不服的，可以向人民法院起诉。</span><span
+lang=EN-US style='font-size:9.0pt;line-height:150%'>2</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>、本合同未尽事项，按国家有关法律法规执行。</span><span
+lang=EN-US style='font-size:9.0pt;line-height:150%'>3</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>、本合同条款如与今后国家颁布的法律法规相抵触时，按国家新的法律法规执行。</span><span
+lang=EN-US style='font-size:9.0pt;line-height:150%'>4</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>、本合同依法订立，双方签字盖章后生效，双方必须严格履行。</span><span
+lang=EN-US style='font-size:9.0pt;line-height:150%'>5</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>、本合同一式两份，甲乙双方各执一份。</span></p>
+
+<p class=MsoNormal style='text-indent:45.0pt;line-height:150%;text-autospace:
+none'>
+<span style='font-size:9.0pt;line-height:150%;font-family:宋体'>甲方（盖章）：&nbsp;&nbsp;&nbsp;&nbsp;
+</span>
+<span lang=EN-US style='font-size:9.0pt;line-height:150%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;乙方（签字）：<%if @sign_up_att_id%>
+<img src="<%=money_arrival_files_send_display_path(id: @sign_up_att_id)%>" width="300" height="100" />
+<%end%></span></p>
+&nbsp;&nbsp;&nbsp;&nbsp;
+</span>
+<span lang=EN-US style='font-size:9.0pt;line-height:150%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<p class=MsoNormal style='text-indent:45.0pt;line-height:100%;text-autospace:
+none'>
+<span style='font-size:9.0pt;line-height:150%;font-family:宋体'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-indent:45.0pt;line-height:150%;text-autospace:
+none'><span style='font-size:9.0pt;line-height:150%;font-family:宋体'>法定代表人（主要负责人）签名：</span></p>
+
+<p class=MsoNormal style='text-indent:45.0pt;line-height:150%;text-autospace:
+none'><span style='font-size:9.0pt;line-height:150%;font-family:宋体'>签约日期：</span><span
+lang=EN-US style='font-size:9.0pt;line-height:150%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+style='font-size:9.0pt;line-height:150%;font-family:宋体'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;签约日期：</span></p>
+
+</div>
+
+<%= javascript_tag do %>
+window.print();
+<%end%>

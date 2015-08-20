@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  single_customer_id: 1
+  account_no: MyString
+  workflow_state: MyString
+
+two:
+  single_customer_id: 1
+  account_no: MyString
+  workflow_state: MyString
