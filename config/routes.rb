@@ -100,7 +100,7 @@ Rails.application.routes.draw do
     get 'for_commission_input_allowed' => :commission_input_allowed #缴费后允许输入提成单
     get 'for_leader_check' => :list_for_leader_check #需要领导审核的缴费单列表
     post 'leader_check/:id' => :leader_check, :as => "leader_check" #领导完成审核缴费单
-    get 'list_total(.:format)/(:money_arrival_date_from)/(:money_arrival_date_to)' => :list_total, :as => "list_total" #所有缴费单列表,与index的区别是1.不作客户对当前业务员用户的归属判断;2.不需要传入客户id条件
+    get 'list_total(.:format)/(a:money_arrival_date_from)/(b:money_arrival_date_to)/(c:money_check_date_from)/(d:money_check_date_to)' => :list_total, :as => "list_total" #所有缴费单列表,与index的区别是1.不作客户对当前业务员用户的归属判断;2.不需要传入客户id条件
   end
 
   resources :charges do #客户缴费

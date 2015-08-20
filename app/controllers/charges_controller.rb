@@ -112,12 +112,19 @@ class ChargesController < ApplicationController
 
         @money_arrival_date_from = params[:money_arrival_date_from] if params[:money_arrival_date_from]
         @money_arrival_date_to = params[:money_arrival_date_to] if params[:money_arrival_date_to]
+        @money_check_date_from = params[:money_check_date_from] if params[:money_check_date_from]
+        @money_check_date_to = params[:money_check_date_to] if params[:money_check_date_to]
         
-        if @money_arrival_date_from && @money_arrival_date_to
-          @charges = Charge.where("money_arrival_date >= :money_arrival_date_from and money_arrival_date <=:money_arrival_date_to",
-            money_arrival_date_from: @money_arrival_date_from, money_arrival_date_to: Date.parse(@money_arrival_date_to))
+        if @money_check_date_from && @money_check_date_to
+          @charges = Charge.where("money_check_date >= :money_check_date_from and money_check_date <=:money_check_date_to",
+            money_check_date_from: @money_check_date_from, money_check_date_to: Date.parse(@money_check_date_to))
         else
           @charges = Charge.all
+        end
+
+        if @money_arrival_date_from && @money_arrival_date_to
+          @charges = @charges.where("money_arrival_date >= :money_arrival_date_from and money_arrival_date <=:money_arrival_date_to",
+            money_arrival_date_from: @money_arrival_date_from, money_arrival_date_to: Date.parse(@money_arrival_date_to))
         end
 
         Spreadsheet.client_encoding = 'UTF-8'

@@ -1,5 +1,5 @@
 <h1 class="text-center">客户缴费所有记录列表&nbsp;
-	<%= link_to "下载所有客户缴费记录>>", charges_list_total_path(format: :xls, money_arrival_date_from: @money_arrival_date_from, money_arrival_date_to: @money_arrival_date_to) , tabindex: "-1", class: "btn btn-primary btn-sm btn-warning" %>
+	<%= link_to "下载所有客户缴费记录>>", charges_list_total_path(format: :xls, money_arrival_date_from: @money_arrival_date_from, money_arrival_date_to: @money_arrival_date_to, money_check_date_from: @money_check_date_from, money_check_date_to: @money_check_date_to) , tabindex: "-1", class: "btn btn-primary btn-sm btn-warning" %>
 </h1>
 <%= render 'query'%>
 
