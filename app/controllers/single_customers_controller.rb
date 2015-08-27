@@ -203,7 +203,8 @@ class SingleCustomersController < ApplicationController
         # =>                      0          1      2     3       4       5       6       7         8             9                10               11
         sheet1.row(0).concat %w{内部序号 档案编号 姓名 服务状态 身份证号 电话 其他电话 业务员 上次缴费日期 上次社保缴费金额 上次社保服务开始 上次社保服务结束}
         @single_customers.each_with_index do |r,i|
-          last_charge = Charge.of_same_customer(r.id).where("months_shebao>0").order(end_date_shebao: :desc).first
+          #last_charge = Charge.of_same_customer(r.id).where("months_shebao>0").order(end_date_shebao: :desc).first
+          last_charge = Charge.of_same_customer(r.id).where.not(end_date_shebao: nil).order(end_date_shebao: :desc).first
           sheet1.row(i+1).push r.id, r.document_no, r.name, r.translate_workflow_state_name(SingleCustomer::WORKFLOW_STATE_NAMES).to_s,
                                 r.id_no, r.tel, r.other_contact_call, User.find(r.user_id).name, 
                                 last_charge.money_arrival_date, last_charge.price_shebao*last_charge.months_shebao,

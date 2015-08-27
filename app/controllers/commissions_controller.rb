@@ -47,7 +47,15 @@ class CommissionsController < ApplicationController
   def update
     respond_to do |format|
       if @commission.update(commission_params)
-        format.html { redirect_to commissions_need_finance_check_path, notice: '提成单已成功修改.' }
+        format.html do
+          if @commission.workflow_state == "approved" #转回财务审批
+            redirect_to commissions_need_finance_check_path, notice: '提成单已成功修改.' 
+            return
+          else #转回公司管理->提成单查询
+            redirect_to commissions_list_total_path, notice: '提成单已成功修改.' 
+            return
+          end
+        end
         format.json { render :show, status: :ok, location: @commission }
       else
         format.html { render :edit }
@@ -91,6 +99,10 @@ class CommissionsController < ApplicationController
         @input_date_to = params[:commission][:input_date_to] if params[:commission][:input_date_to]
       end
       
+      if params[:commission] && params[:commission][:single_customer_name].length>0
+        @single_customer_name = params[:commission][:single_customer_name]
+      end
+      
       if @input_date_from && @input_date_to
         @charges = Charge.where("money_arrival_date >= :input_date_from and money_arrival_date <=:input_date_to",
             input_date_from: @input_date_from, input_date_to: @input_date_to)
@@ -99,6 +111,11 @@ class CommissionsController < ApplicationController
       else
         @commissions = Commission.all
         @input_date_from = @input_date_to = nil
+      end
+
+      if @single_customer_name
+        charge_ids = Charge.of_customer_name_like(@single_customer_name).collect(&:id)
+        @commissions = @commissions.where('charge_id in (?)',charge_ids)
       end
 
       format.html { @commissions = @commissions.page params[:page]} #网页正常显示

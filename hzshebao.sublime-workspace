@@ -191,7 +191,7 @@
 			"file": "config/routes.rb",
 			"settings":
 			{
-				"buffer_size": 7904,
+				"buffer_size": 8012,
 				"line_ending": "Unix"
 			}
 		},
@@ -207,7 +207,7 @@
 			"file": "app/models/charge.rb",
 			"settings":
 			{
-				"buffer_size": 3483,
+				"buffer_size": 3826,
 				"line_ending": "Unix"
 			}
 		},
@@ -215,15 +215,47 @@
 			"file": "app/controllers/charges_controller.rb",
 			"settings":
 			{
-				"buffer_size": 10970,
+				"buffer_size": 12273,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/C/Data/MyProjs/RoR/hzshebao/app/views/charges/_query.html.erb",
+			"file": "/C/Data/MyProjs/RoR/hzshebao/app/views/charges/list_total.html.erb",
 			"settings":
 			{
-				"buffer_size": 1921,
+				"buffer_size": 458,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Data/MyProjs/RoR/hzshebao/app/views/charges/money_arrival_check.html.erb",
+			"settings":
+			{
+				"buffer_size": 182,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/views/charges/_simple_query.html.erb",
+			"settings":
+			{
+				"buffer_size": 398,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Data/MyProjs/RoR/hzshebao/app/views/charges/_form.html.erb",
+			"settings":
+			{
+				"buffer_size": 8065,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/Data/MyProjs/RoR/hzshebao/app/views/charges/_show_items.html.erb",
+			"settings":
+			{
+				"buffer_size": 3589,
 				"line_ending": "Windows"
 			}
 		},
@@ -231,8 +263,48 @@
 			"file": "app/views/charges/_table.html.erb",
 			"settings":
 			{
-				"buffer_size": 4210,
+				"buffer_size": 4355,
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Data/MyProjs/RoR/hzshebao/app/views/single_customers/list_apply_stop.html.erb",
+			"settings":
+			{
+				"buffer_size": 164,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Data/MyProjs/RoR/hzshebao/app/views/single_customers/_simple_query.html.erb",
+			"settings":
+			{
+				"buffer_size": 337,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Data/MyProjs/RoR/hzshebao/app/models/single_customer.rb",
+			"settings":
+			{
+				"buffer_size": 3960,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/Data/MyProjs/RoR/hzshebao/app/controllers/single_customers_controller.rb",
+			"settings":
+			{
+				"buffer_size": 14719,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/Data/MyProjs/RoR/hzshebao/app/controllers/gongjijins_controller.rb",
+			"settings":
+			{
+				"buffer_size": 7850,
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -274,17 +346,21 @@
 	[
 		"/C/Data/MyProjs/RoR/hzshebao",
 		"/C/Data/MyProjs/RoR/hzshebao/app",
+		"/C/Data/MyProjs/RoR/hzshebao/app/assets",
 		"/C/Data/MyProjs/RoR/hzshebao/app/controllers",
-		"/C/Data/MyProjs/RoR/hzshebao/app/helpers",
-		"/C/Data/MyProjs/RoR/hzshebao/app/models",
-		"/C/Data/MyProjs/RoR/hzshebao/app/views",
-		"/C/Data/MyProjs/RoR/hzshebao/app/views/charges",
-		"/C/Data/MyProjs/RoR/hzshebao/config",
-		"/C/Data/MyProjs/RoR/hzshebao/config/environments",
-		"/C/Data/MyProjs/RoR/hzshebao/db"
+		"/C/Data/MyProjs/RoR/hzshebao/config"
 	],
 	"file_history":
 	[
+		"/C/Users/Thinkpad/Desktop/angular.js",
+		"/C/data/MyProjs/摄像头/AForge.NET Framework-2.2.5/Sources/Video.VFW/AVIWriter.cs",
+		"/C/Data/MyProjs/RoR/hzshebao/app/views/charges/_query.html.erb",
+		"/C/Data/MyProjs/RoR/hzshebao/app/views/charges/show.html.erb",
+		"/C/Data/MyProjs/RoR/hzshebao/app/controllers/commissions_controller.rb",
+		"/C/Data/MyProjs/RoR/hzshebao/app/views/commissions/_table.html.erb",
+		"/C/Data/MyProjs/RoR/hzshebao/app/assets/stylesheets/bootstrap_and_overrides.css.scss",
+		"/C/Data/MyProjs/RoR/hzshebao/db/migrate/20150819020524_add_geshui_and_chajia_to_charges.rb",
+		"/C/Users/Thinkpad/Desktop/1.html",
 		"/C/data/MyProjs/RoR/hzshebao/app/views/shared/_modal_dialog.html.erb",
 		"/C/data/MyProjs/RoR/hzshebao/app/controllers/single_customers_controller.rb",
 		"/C/data/MyProjs/RoR/hzshebao/app/views/single_customers/_table.html.erb",
@@ -295,10 +371,7 @@
 		"/C/temp/proangular/app/scripts/app.js",
 		"/C/Data/MyProjs/RoR/hzshebao/app/views/layouts/application.html.erb",
 		"/C/Data/MyProjs/RoR/hzshebao/app/views/commissions/set_user.html.erb",
-		"/C/Data/MyProjs/RoR/hzshebao/app/views/commissions/_table.html.erb",
-		"/C/Data/MyProjs/RoR/hzshebao/app/controllers/commissions_controller.rb",
 		"/C/Data/MyProjs/RoR/hzshebao/app/helpers/application_helper.rb",
-		"/C/Data/MyProjs/RoR/hzshebao/app/assets/stylesheets/bootstrap_and_overrides.css.scss",
 		"/C/Data/MyProjs/RoR/hzshebao/app/views/single_customers/set_user.html.erb",
 		"/C/Data/MyProjs/RoR/hzshebao/app/views/single_customers/list_set_user.html.erb",
 		"/C/Data/MyProjs/RoR/hzshebao/app/controllers/single_customers_controller.rb",
@@ -346,7 +419,6 @@
 		"/C/Data/MyProjs/RoR/hzshebao/app/views/charges/index.html.erb",
 		"/C/Data/MyProjs/RoR/hzshebao/app/views/charges/list_total.html.erb",
 		"/C/Data/MyProjs/RoR/hzshebao/app/views/commissions/list_total.html.erb",
-		"/C/Data/MyProjs/RoR/hzshebao/app/views/charges/_query.html.erb",
 		"/C/Data/MyProjs/RoR/hzshebao/app/views/gongjijins/list_apply_stop.html.erb",
 		"/C/Data/MyProjs/RoR/hzshebao/app/views/single_customers/_query.html.erb",
 		"/C/Data/MyProjs/RoR/hzshebao/app/views/single_customers/_simple_query.html.erb",
@@ -376,7 +448,6 @@
 		"/C/Data/MyProjs/RoR/hzshebao/app/views/single_customers/list_check.html.erb",
 		"/C/Data/MyProjs/RoR/hzshebao/db/migrate/20150716110002_add_query_index_to_money_arrival_files.rb",
 		"/C/Data/MyProjs/RoR/hzshebao/app/views/charges/new.html.erb",
-		"/C/Data/MyProjs/RoR/hzshebao/app/views/charges/show.html.erb",
 		"/C/Data/MyProjs/RoR/hzshebao/app/views/charges/commission_input_allowed.html.erb",
 		"/C/Data/MyProjs/RoR/hzshebao/app/views/charges/edit.html.erb",
 		"/C/Data/MyProjs/RoR/hzshebao/app/views/commissions/index.html.erb",
@@ -408,15 +479,11 @@
 		"/C/Data/MyProjs/RoR/hzshebao/db/migrate/20150714012648_add_salary_and_location_to_contracts.rb",
 		"/C/Data/MyProjs/RoR/hzshebao/app/models/function.rb",
 		"/C/Data/MyProjs/RoR/hzshebao/app/views/renewals/list_stopped.html.erb",
-		"/C/Data/MyProjs/RoR/hzshebao/app/views/single_customers/new.html.erb",
-		"/C/Data/MyProjs/RoR/hzshebao/app/models/concerns/file_field.rb",
-		"/C/Data/MyProjs/RoR/hzshebao/app/views/commissions/_form.html - 副本.erb",
-		"/C/Data/MyProjs/RoR/hzshebao/app/assets/stylesheets/home.scss",
-		"/C/Data/MyProjs/RoR/hzshebao/app/assets/javascripts/home.coffee"
+		"/C/Data/MyProjs/RoR/hzshebao/app/views/single_customers/new.html.erb"
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 30.0
 	},
 	"find_in_files":
 	{
@@ -480,7 +547,7 @@
 	"groups":
 	[
 		{
-			"selected": 5,
+			"selected": 4,
 			"sheets":
 			[
 				{
@@ -489,15 +556,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7904,
+						"buffer_size": 8012,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								599,
-								599
+								5812,
+								5812
 							]
 						],
 						"settings":
@@ -507,10 +574,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 703.0,
+						"translation.y": 1914.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
@@ -526,8 +593,8 @@
 						"selection":
 						[
 							[
-								264,
-								264
+								268,
+								268
 							]
 						],
 						"settings":
@@ -535,6 +602,94 @@
 							"syntax": "Packages/Rails/HTML (Rails).tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 14,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/models/charge.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3826,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1585,
+								1585
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 264.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/controllers/charges_controller.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12273,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4719,
+								4719
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2442.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/C/Data/MyProjs/RoR/hzshebao/app/views/charges/list_total.html.erb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 458,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								452,
+								452
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Rails/HTML (Rails).tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -544,120 +699,296 @@
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "app/models/charge.rb",
+					"buffer": 5,
+					"file": "/C/Data/MyProjs/RoR/hzshebao/app/views/charges/money_arrival_check.html.erb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3483,
+						"buffer_size": 182,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								739,
-								739
+								182,
+								182
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Ruby/Ruby.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/Rails/HTML (Rails).tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "app/controllers/charges_controller.rb",
+					"buffer": 6,
+					"file": "app/views/charges/_simple_query.html.erb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10970,
+						"buffer_size": 398,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6783,
-								6783
+								240,
+								261
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"syntax": "Packages/Rails/HTML (Rails).tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/C/Data/MyProjs/RoR/hzshebao/app/views/charges/_form.html.erb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8065,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3714,
+								3714
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Rails/HTML (Rails).tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2813.0,
+						"translation.y": 1782.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "/C/Data/MyProjs/RoR/hzshebao/app/views/charges/_show_items.html.erb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3589,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2587,
+								2587
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Rails/HTML (Rails).tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 792.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "app/views/charges/_table.html.erb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4355,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1491,
+								1491
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Rails/HTML (Rails).tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 858.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 4,
+			"sheets":
+			[
+				{
+					"buffer": 10,
+					"file": "/C/Data/MyProjs/RoR/hzshebao/app/views/single_customers/list_apply_stop.html.erb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 164,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								164,
+								164
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Rails/HTML (Rails).tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "/C/Data/MyProjs/RoR/hzshebao/app/views/single_customers/_simple_query.html.erb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 337,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								335,
+								335
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Rails/HTML (Rails).tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "/C/Data/MyProjs/RoR/hzshebao/app/views/charges/_query.html.erb",
+					"buffer": 12,
+					"file": "/C/Data/MyProjs/RoR/hzshebao/app/models/single_customer.rb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1921,
+						"buffer_size": 3960,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								616,
-								616
+								3088,
+								3088
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Rails/HTML (Rails).tmLanguage",
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1584.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "/C/Data/MyProjs/RoR/hzshebao/app/controllers/single_customers_controller.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 14719,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8157,
+								8157
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4376.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "app/views/charges/_table.html.erb",
+					"buffer": 14,
+					"file": "/C/Data/MyProjs/RoR/hzshebao/app/controllers/gongjijins_controller.rb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4210,
+						"buffer_size": 7850,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1338,
-								1338
+								6722,
+								6722
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Rails/HTML (Rails).tmLanguage",
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 480.0,
+						"translation.y": 3234.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -668,7 +999,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 23.0
+		"height": 30.0
 	},
 	"input":
 	{
@@ -683,6 +1014,12 @@
 				0,
 				1,
 				1
+			],
+			[
+				0,
+				1,
+				1,
+				2
 			]
 		],
 		"cols":
@@ -693,6 +1030,7 @@
 		"rows":
 		[
 			0.0,
+			0.226585131301,
 			1.0
 		]
 	},
@@ -705,7 +1043,7 @@
 	"project": "hzshebao.sublime-project",
 	"replace":
 	{
-		"height": 42.0
+		"height": 56.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -735,7 +1073,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 	},
@@ -743,7 +1081,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 133.0,
+	"side_bar_width": 427.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

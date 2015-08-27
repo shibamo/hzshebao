@@ -1,5 +1,8 @@
 <%= simple_form_for @commission ||= Commission.new, :url => url, :method => :post, html: {class: 'form-inline' } do |f| %>
   <div class="form-inputs">
+  客户姓名
+  <input class="string optional form-control" size="8" type="text" 
+                value="<%= @single_customer_name ||= nil %>" name="commission[single_customer_name]">&nbsp;
     资金到账日期从:
       <input class="string optional form-control dtp" size="10" type="text" value="<%=  @input_date_from ||= nil %>" id="dp1" data-date-format="yyyy-mm-dd" name="commission[input_date_from]">
       <span class="add-on"><i class="icon-th"></i></span>

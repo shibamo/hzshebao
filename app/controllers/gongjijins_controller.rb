@@ -161,7 +161,8 @@ class GongjijinsController < ApplicationController
         @gongjijins.each_with_index do |r,i|
           s = r.single_customer
           #last_charge = Charge.of_same_customer(s.id).first
-          last_charge = Charge.of_same_customer(s.id).where("months_gongjijin>0").order(end_date_gongjijin: :desc).first
+          #last_charge = Charge.of_same_customer(s.id).where("months_gongjijin>0").order(end_date_gongjijin: :desc).first
+          last_charge = Charge.of_same_customer(s.id).where.not(end_date_gongjijin: nil).order(end_date_gongjijin: :desc).first
           sheet1.row(i+1).push s.id, s.document_no, s.name, r.translate_workflow_state_name(Gongjijin::WORKFLOW_STATE_NAMES).to_s,
                                 s.id_no, s.tel, s.other_contact_call, User.find(s.user_id).name, 
                                 last_charge.money_arrival_date, last_charge.price_gongjijin*last_charge.months_gongjijin,

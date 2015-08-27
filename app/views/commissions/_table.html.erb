@@ -44,7 +44,9 @@
         <% if op_type== :finance_check %>
           <td><%= link_to "财务审核通过", commission_finance_check_path(commission), html_options={:method => "post",:class => "btn btn-primary btn-xs"}   %></td>
           <td><%= link_to "修改提成单", edit_charge_commission_path( commission.charge,commission), html_options={:class => "btn btn-primary btn-xs"}   %></td>
-          
+        <% end %>
+        <% if op_type== :list_total %>
+        <td><%= link_to "修改提成单", edit_charge_commission_path( commission.charge,commission), html_options={:class => "btn btn-primary btn-xs"}   %></td>
         <% end %>
       </tr>
     <% end %>
