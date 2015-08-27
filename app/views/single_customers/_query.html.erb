@@ -11,6 +11,8 @@
       所属业务员:<%= f.select :user_id, @users.collect{|d| [d.name,d.id]}, {include_blank: true}, class: 'form-control'%>
       &nbsp;
       客户状态:<%= f.select :workflow_state, SingleCustomer::WORKFLOW_STATE_NAMES.collect{|en,cn| [cn,en]}, {include_blank: true}, class: 'form-control'%>
+      &nbsp;
+      公积金:<%= select_tag "single_customer[gongjijin_workflow_state]", options_for_select(Gongjijin::WORKFLOW_STATE_NAMES.collect{|en,cn| [cn,en]}, @gongjijin_workflow_state), {include_blank: true , class: 'form-control'}%>
       <br>
 
     <strong>用途</strong>&nbsp;                          

@@ -312,6 +312,11 @@ class SingleCustomersController < ApplicationController
 
     ids = SingleCustomer.connection.select_all(s).rows.flatten
 
+    if params[:single_customer] && params[:single_customer][:gongjijin_workflow_state].length > 0
+      @gongjijin_workflow_state = params[:single_customer][:gongjijin_workflow_state]
+      ids = ids & Gongjijin.of_workflow_state(params[:single_customer][:gongjijin_workflow_state]).collect(&:single_customer_id)
+    end
+
     @single_customers = SingleCustomer.where('id in (?)',ids)
 
     #按照周总后来的意见,暂时不作查询出的业务员直属的客户的限制
