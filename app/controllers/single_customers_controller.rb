@@ -239,13 +239,14 @@ class SingleCustomersController < ApplicationController
         book = Spreadsheet::Workbook.new
         sheet1 = book.create_worksheet name: "客户信息表" + Date.today.to_s
         sheet1.row(0).default_format = Spreadsheet::Format.new color: :blue, weight: :bold,size: 12
-        # =>                      0          1      2     3       4   5       6       7         8         9         10    11    12        13      14
-        sheet1.row(0).concat %w{内部序号 档案编号 姓名 服务状态 性别 民族 出生日期 身份证号 身份证地址 户口类型 教育程度 电话 通讯地址 业务员 录入日期 }
+        # =>                      0          1      2     3       4     5    6       7       8         9         10       11     12     13      14      15
+        sheet1.row(0).concat %w{内部序号 档案编号 姓名 客户状态 公积金 性别 民族 出生日期 身份证号 身份证地址 户口类型 教育程度 电话 通讯地址 业务员 录入日期 }
         SingleCustomer.all.each_with_index do |r,i| 
           sheet1.row(i+1).push r.id, r.document_no, r.name, r.translate_workflow_state_name(SingleCustomer::WORKFLOW_STATE_NAMES).to_s,
+                                r.gongjijin.nil? ? nil : r.gongjijin.translate_workflow_state_name(Gongjijin::WORKFLOW_STATE_NAMES).to_s,
                                 r.gender==1 ? '男' : '女', r.ethnic_name, r.birth, r.id_no, r.id_address, r.hukou_type_name(r.hukou_type),
                                 r.education, r.tel , r.communication_address, User.find(r.user_id).name, r.input_date
-          [6,14].each {|col| sheet1.row(i+1).set_format col, Spreadsheet::Format.new(:number_format => 'YYYY-MM-DD')}                                
+          [7,15].each {|col| sheet1.row(i+1).set_format col, Spreadsheet::Format.new(:number_format => 'YYYY-MM-DD')}                                
         end
 
         book.write file_contents
