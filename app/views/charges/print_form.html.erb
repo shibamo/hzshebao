@@ -74,11 +74,7 @@
     </tr>
 
     <tr class="print-table-row">
-      <td class="text-right"><h4>合计: <%= format("%.2f",@charge.price_shebao*@charge.months_shebao + 
-                    @charge.price_gongjijin*@charge.months_gongjijin +
-                    @charge.price_fuwufei*@charge.months_fuwufei +
-                    @charge.price_cailiaofei*@charge.months_cailiaofei +
-                    @charge.price_bujiao*@charge.months_bujiao)  %> 元&nbsp;</h4></td>
+      <td class="text-right"><h4>合计: <%= format("%.2f",@charge.money_total)  %> 元&nbsp;</h4></td>
     </tr>
 
     <tr class="print-table-row">
