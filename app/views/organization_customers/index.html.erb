@@ -1,0 +1,107 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Organization Customers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Organzation</th>
+      <th>Gender</th>
+      <th>Ethnic name</th>
+      <th>Birth</th>
+      <th>Id no</th>
+      <th>Id address</th>
+      <th>Hukou type</th>
+      <th>Education</th>
+      <th>Tel</th>
+      <th>Other contact person</th>
+      <th>Other contact call</th>
+      <th>Qq</th>
+      <th>Wechat</th>
+      <th>Email</th>
+      <th>Communication address</th>
+      <th>Is doc for shebao</th>
+      <th>Is doc for shigong</th>
+      <th>Is doc for shenggong</th>
+      <th>Is doc for butuichajia</th>
+      <th>Is doc for xufei</th>
+      <th>Is doc for qita</th>
+      <th>Is usage zhengchang</th>
+      <th>Is usage ruxue</th>
+      <th>Is usage luohu</th>
+      <th>Is usage shenyu</th>
+      <th>Is usage yiliao</th>
+      <th>Is usage gouche</th>
+      <th>Is usage goufang</th>
+      <th>Is usage daikuan</th>
+      <th>Creator</th>
+      <th>Creator tel</th>
+      <th>Comment</th>
+      <th>User</th>
+      <th>Input date</th>
+      <th>Document no</th>
+      <th>Comment for qita</th>
+      <th>Workflow state</th>
+      <th>Is valid</th>
+      <th>Valid start</th>
+      <th>Valid end</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @organization_customers.each do |organization_customer| %>
+      <tr>
+        <td><%= organization_customer.name %></td>
+        <td><%= organization_customer.organization_id %></td>
+        <td><%= organization_customer.gender %></td>
+        <td><%= organization_customer.ethnic_name %></td>
+        <td><%= organization_customer.birth %></td>
+        <td><%= organization_customer.id_no %></td>
+        <td><%= organization_customer.id_address %></td>
+        <td><%= organization_customer.hukou_type %></td>
+        <td><%= organization_customer.education %></td>
+        <td><%= organization_customer.tel %></td>
+        <td><%= organization_customer.other_contact_person %></td>
+        <td><%= organization_customer.other_contact_call %></td>
+        <td><%= organization_customer.qq %></td>
+        <td><%= organization_customer.wechat %></td>
+        <td><%= organization_customer.email %></td>
+        <td><%= organization_customer.communication_address %></td>
+        <td><%= organization_customer.is_doc_for_shebao %></td>
+        <td><%= organization_customer.is_doc_for_shigong %></td>
+        <td><%= organization_customer.is_doc_for_shenggong %></td>
+        <td><%= organization_customer.is_doc_for_butuichajia %></td>
+        <td><%= organization_customer.is_doc_for_xufei %></td>
+        <td><%= organization_customer.is_doc_for_qita %></td>
+        <td><%= organization_customer.is_usage_zhengchang %></td>
+        <td><%= organization_customer.is_usage_ruxue %></td>
+        <td><%= organization_customer.is_usage_luohu %></td>
+        <td><%= organization_customer.is_usage_shenyu %></td>
+        <td><%= organization_customer.is_usage_yiliao %></td>
+        <td><%= organization_customer.is_usage_gouche %></td>
+        <td><%= organization_customer.is_usage_goufang %></td>
+        <td><%= organization_customer.is_usage_daikuan %></td>
+        <td><%= organization_customer.creator %></td>
+        <td><%= organization_customer.creator_tel %></td>
+        <td><%= organization_customer.comment %></td>
+        <td><%= organization_customer.user_id %></td>
+        <td><%= organization_customer.input_date %></td>
+        <td><%= organization_customer.document_no %></td>
+        <td><%= organization_customer.comment_for_qita %></td>
+        <td><%= organization_customer.workflow_state %></td>
+        <td><%= organization_customer.is_valid %></td>
+        <td><%= organization_customer.valid_start %></td>
+        <td><%= organization_customer.valid_end %></td>
+        <td><%= link_to 'Show', organization_customer %></td>
+        <td><%= link_to 'Edit', edit_organization_customer_path(organization_customer) %></td>
+        <td><%= link_to 'Destroy', organization_customer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Organization customer', new_organization_customer_path %>

@@ -1,6 +1,47 @@
 Rails.application.routes.draw do
+  resources :organization_charges #机构日常缴费按员工记录,是机构日常缴费总表organization_charge_totals的子记录
 
-  
+  scope path: '/organization_charge_totals', controller: :organization_charge_totals, as: 'organization_charge_totals' do
+    get "list/(:organization_id)" => :list, as: 'list' #显示指定机构的缴费记录列表
+    get "new/(:organization_id)" => :new, as: 'new' #新建指定机构的缴费记录
+  end
+  resources :organization_charge_totals , except: [:index, :new]
+  #机构日常缴费总表(由业务员自行输入所缴服务费的服务时间段与总值,系统生成时预先根据选定的人和月份数算好初始值,但允许业务员修改)
+
+  scope path: '/organization_charge_templates', controller: :organization_charge_templates, as: 'organization_charge_templates' do
+    get "list_by_organization/:organization_id" => :list_by_organization, as: 'list_by_organization'
+  end
+  resources :organization_charge_templates, except: [:new] #机构所属员工日常缴费模板
+
+  scope path: '/organization_customers', controller: :organization_customers, as: 'organization_customers' do
+    match "list_managed" => :list_managed, via: [:get, :post] #本人管理的机构员工客户查询列表
+    match "list_total" => :list_total, via: [:get, :post] #所有机构员工客户查询列表
+    #指定机构所属的员工客户查询列表
+    match "list_by_organization/:organization_id" => :list_by_organization, via: [:get, :post], as: 'list_by_organization'
+    get "new/(:organization_id)" => :new, as: 'new'
+    get "list_check" => :list_check #需要复核的机构员工客户列表
+    post "finish_check/:id" => :finish_check, as: "finish_check" #完成机构员工客户资料复核
+    match "list_edit" => :list_edit, via: [:get, :post] #可能修改客户资料的客户列表
+  end
+  resources :organization_customers, except: [:new] do #机构员工客户
+    resources :organization_charge_templates #机构所属员工日常缴费模板
+  end
+
+  #原为客户身份证照片,现复用做所有的客户附件文件
+  scope path: '/customer_id_card_pictures', controller: :customer_id_card_pictures, as: 'customer_id_card_pictures' do
+    get "new_organization_customer_item/:organization_customer_id" => :new_organization_customer_item, 
+                                                                  as: 'new_organization_customer_item'
+    post "create_organization_customer_item" => :create_organization_customer_item, as: 'create_organization_customer_item'
+  end
+
+  scope path: '/organizations', controller: :organizations, as: 'organizations' do
+    match "query" => :query , via: [:get, :post] #机构查询
+    get "list_check" => :list_check #需要复核的机构列表   
+    post "finish_check/:id" => :finish_check, as: "finish_check" #完成机构复核
+    match "list_total" => :list_total, via: [:get, :post] #机构列表
+    match "list_edit" => :list_edit, via: [:get, :post] #修改机构资料的列表
+  end
+  resources :organizations #机构
 
   get 'home/index'
 
@@ -49,7 +90,7 @@ Rails.application.routes.draw do
     match "list_edit" => :list_edit, via: [:get, :post] #可能修改客户资料的客户列表
   end
   resources :single_customers do #客户信息记录
-    resources :customer_id_card_pictures #原为客户身份证照片,******现直接复用做所有的客户附件文件
+    resources :customer_id_card_pictures #原为客户身份证照片,现直接复用做所有的客户附件文件
 
     resources :contracts do #客户劳动合同
       get :print_form 
@@ -84,7 +125,9 @@ Rails.application.routes.draw do
     post "update_user/:id" => :update_user, :as => "update_user"#执行更新提成单的业务员
     #get 'list_total/(:input_date_from)/(:input_date_from)(.:format)' =>  :list_total, :as => "list_total"
     #post 'list_total(.:format)' =>  :list_total, :as => "list_total"
-    match 'list_total(.:format)/(:input_date_from)/(:input_date_to)' =>  :list_total, via:[:get, :post], :as => "list_total" #所有提成单列表,与index的区别是不对当前业务员用户的归属判断
+
+    #所有提成单列表,与index的区别是不对当前业务员用户的归属判断
+    match 'list_total(.:format)/(:input_date_from)/(:input_date_to)' =>  :list_total, via:[:get, :post], :as => "list_total" 
   end
 
   resources :commissions do #提成单
@@ -100,7 +143,8 @@ Rails.application.routes.draw do
     get 'for_commission_input_allowed' => :commission_input_allowed #缴费后允许输入提成单
     get 'for_leader_check' => :list_for_leader_check #需要领导审核的缴费单列表
     post 'leader_check/:id' => :leader_check, :as => "leader_check" #领导完成审核缴费单
-    get 'list_total(.:format)/(a:money_arrival_date_from)/(b:money_arrival_date_to)/(c:money_check_date_from)/(d:money_check_date_to)' => :list_total, :as => "list_total" #所有缴费单列表,与index的区别是1.不作客户对当前业务员用户的归属判断;2.不需要传入客户id条件
+    get 'list_total(.:format)/(a:money_arrival_date_from)/(b:money_arrival_date_to)/(c:money_check_date_from)/(d:money_check_date_to)' => :list_total, 
+        :as => "list_total" #所有缴费单列表,与index的区别是1.不作客户对当前业务员用户的归属判断;2.不需要传入客户id条件
   end
 
   resources :charges do #客户缴费

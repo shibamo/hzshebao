@@ -114,18 +114,17 @@
 <% end %>
 
 <script type="text/javascript">
-$('.dtp').datepicker();
-$(function () {
-  $('#single_customer_id_no').change(function (event) {
-    var id_no = $('#single_customer_id_no').val();
-    if (id_no.length != 18){
-      alert("身份证号码应该为18位!");
-      return;
-    }
-    else{
-      $('#single_customer_birth').val(id_no.substr(6,4) + "-" + id_no.substr(10,2) + "-" + id_no.substr(12,2));
-    }
-
+  $('.dtp').datepicker();
+  $(function () {
+    $('#single_customer_id_no').change(function (event) {
+      var id_no = $('#single_customer_id_no').val();
+      if (id_no.length != 18){
+        alert("身份证号码应该为18位!");
+        return;
+      }
+      else{
+        $('#single_customer_birth').val(id_no.substr(6,4) + "-" + id_no.substr(10,2) + "-" + id_no.substr(12,2));
+      }
     });
-});
+  });
 </script>

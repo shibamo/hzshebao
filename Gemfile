@@ -72,7 +72,7 @@ gem 'cancancan'
 
 #调试时使用pry,目前发现对中文输入字段支持会有问题
 group :development do
-  gem 'pry-rails'
+  #gem 'pry-rails'
 end
 
 #用于生成导出的excel表

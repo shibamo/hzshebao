@@ -25,16 +25,16 @@
         <td><%= charge.single_customer.name %></td>
         <td><%= commission.user.name %></td> <!-- 可能缴费单的操作业务员与提成单最终的业务员不一样 -->
         <td><%= charge.charge_type %></td>
-        <td><%= charge.price_shebao*charge.months_shebao %></td>
-        <td><%= charge.price_gongjijin*charge.months_gongjijin %></td>
-        <td><%= charge.price_fuwufei*charge.months_fuwufei %></td>
-        <td><%= charge.price_cailiaofei*charge.months_cailiaofei %></td>
-        <td><%= charge.price_bujiao*charge.months_bujiao %></td>
-        <td><%= charge.price_chajia*charge.months_chajia %></td>
-        <td><%= charge.price_geshui*charge.months_geshui %></td>        
-        <td><%= charge.money_total %></td>
-        <td><strong><%= commission.bonus_reference %></strong></td>
-        <td><strong><%= commission.bonus %></strong></td>
+        <td><%= format("%.2f",charge.price_shebao*charge.months_shebao) %></td>
+        <td><%= format("%.2f",charge.price_gongjijin*charge.months_gongjijin) %></td>
+        <td><%= format("%.2f",charge.price_fuwufei*charge.months_fuwufei) %></td>
+        <td><%= format("%.2f",charge.price_cailiaofei*charge.months_cailiaofei) %></td>
+        <td><%= format("%.2f",charge.price_bujiao*charge.months_bujiao) %></td>
+        <td><%= format("%.2f",charge.price_chajia*charge.months_chajia) %></td>
+        <td><%= format("%.2f",charge.price_geshui*charge.months_geshui) %></td>        
+        <td><%= format("%.2f",charge.money_total) %></td>
+        <td><strong><%= format("%.2f",commission.bonus_reference) %></strong></td>
+        <td><strong><%= format("%.2f",commission.bonus) %></strong></td>
         <td><%= commission.translate_workflow_state_name(Commission::WORKFLOW_STATE_NAMES) %></td>
         <td><%= link_to '查看缴费单', single_customer_charge_path(commission.charge.single_customer,commission.charge.id) , class: "btn active btn-default btn-xs" %></td>
         <% if op_type== :approve %>

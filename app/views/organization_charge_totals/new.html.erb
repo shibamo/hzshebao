@@ -1,0 +1,252 @@
+<h1 class="text-center">新建机构(<%=@organization.name%>)缴费记录</h1>
+<div class="container" id="root_div" style="padding-left:0px;">
+<form class="form-inline">
+<div class="form-inputs">
+费用所属日期从:<input class="string optional form-control dtp" size="10" type="text" value="" id="start_date" data-date-format="yyyy-mm-dd" name="single_customer[input_date_from]">
+      <span class="add-on"><i class="icon-th"></i></span>
+    到:    
+      <input class="string optional form-control dtp" size="10" type="text" value="" id="end_date" data-date-format="yyyy-mm-dd"  name="single_customer[input_date_to]">
+      <span class="add-on"><i class="icon-th"></i></span><br>
+</div></div>
+
+<div id="OrgChrgFormPlaceholder"></div>
+
+</form>
+<script type="text/babel">
+  var organization_id = <%=@organization.id%>;
+
+  var urls = {
+    org_chrg_tpl_url: "<%=organization_charge_templates_list_by_organization_path(@organization)%>",
+    create_submit_url: "<%=organization_charge_totals_path%>",
+    update_submit_url: "",
+    foo: ""
+  };
+
+  var OrgChrgOps = React.createClass({
+    render: function(){
+      var chrgTplId = this.props.chrgTplId;
+      return(
+        <span className="dropdown">
+          <button className="btn btn-xs btn-primary dropdown-toggle" type="button" id="dropdownMenuUpload1" data-toggle="dropdown" aria-expanded="true">操作<span className="caret"></span></button>
+          <ul className="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+            <li role="presentation"><a role= "menuitem" tabIndex= "-1" chrgTplId="{chrgTplId}" 
+            onClick={this.props.chrg_ops.deleteChrg.bind(this.props.form, chrgTplId)} >{this.props.deleted ? "取消删除" : "删除"}</a></li>
+
+            <li role="presentation"><a role= "menuitem" tabIndex= "-1" chrgTplId="{chrgTplId}" 
+            onClick={this.props.isEditing ? this.props.chrg_ops.exitEditChrg.bind(this.props.form, chrgTplId) : this.props.chrg_ops.editChrg.bind(this.props.form, chrgTplId)} >{this.props.isEditing ? "退出修改" : "修改"}</a></li>
+
+            <li role="presentation"><a role= "menuitem" tabIndex= "-1" chrgTplId="{chrgTplId}" 
+            onClick={this.props.chrg_ops.restoreChrg.bind(this.props.form, chrgTplId)} >恢复初始值</a></li>
+          </ul>
+        </span>
+      );
+    }
+  });
+
+  var OrgChrg = React.createClass({
+    render: function(){
+      var _d = this.props.chrg_data;
+      var renderStaticTD = function(content){ 
+        return <td className="sheet">{content}</td> 
+      };
+      var handleChange = function(fieldName, form, event){
+        this.props.chrg_ops.handleChrgPriceFieldChange(this.props.chrg_data.id, fieldName, form ,event.target.value);
+      };
+      var renderPriceTD = function(content,fieldName, form,that){ 
+        var idx = form.utils.getIndex(form.state.chrg_datas,that.props.chrg_data["id"]);
+        var isModified = (form.state.chrg_datas[idx][fieldName] !== form.state.tpl_datas[idx][fieldName]);
+        if (_d.isEditing){
+          return <td className={isModified ? "modified" : "" } ><input type="text" size="6" value={content} fieldName={fieldName}  onChange={handleChange.bind(that, fieldName, form)} /></td>
+        }
+        else {
+          return <td className= { "sheet " + (isModified ? "modified" : "") }>{content}</td> 
+        }
+      };
+      var renderTextInputTD = function(content,fieldName,that){ 
+        if (_d.isEditing){
+          return <td><input type="text" defaultValue={content} /></td>
+        }
+        else {
+          return <td className="sheet">{content}</td> 
+        }
+      };
+      return (
+        <tr className={_d.deleted ? "deleted" : ""}>
+          {renderStaticTD(_d.organization_customer_name)}
+          {renderPriceTD(_d.price_shebao_base, "price_shebao_base", this.props.form, this)}
+          {renderPriceTD(_d.price_shebao_qiye,"price_shebao_qiye", this.props.form,this)}
+          {renderPriceTD(_d.price_shebao_geren,"price_shebao_geren", this.props.form,this)}
+          {renderPriceTD(_d.price_canbao,"price_canbao", this.props.form,this)}
+          {renderPriceTD(_d.price_shebao_guanli,"price_shebao_guanli", this.props.form,this)}
+          {renderPriceTD(_d.price_gongjijin_base,"price_gongjijin_base", this.props.form,this)}
+          {renderPriceTD(_d.price_gongjijin_qiye,"price_gongjijin_qiye", this.props.form,this)}
+          {renderPriceTD(_d.price_gongjijin_geren,"price_gongjijin_geren", this.props.form,this)}
+          {renderPriceTD(_d.price_gongjijin_guanli,"price_gongjijin_guanli", this.props.form,this)}
+          {renderPriceTD(_d.price_geshui,"price_geshui", this.props.form,this)}
+          {renderPriceTD(_d.price_qita_1,"price_qita_1", this.props.form,this)}
+          {renderPriceTD(_d.price_qita_2,"price_qita_2", this.props.form,this)}
+          {renderPriceTD(_d.price_qita_3,"price_qita_3", this.props.form,this)}
+          {renderPriceTD(_d.price_bujiao,"price_bujiao", this.props.form,this)}
+          {renderPriceTD(_d.price_yujiao,"price_yujiao", this.props.form,this)}
+          {renderPriceTD(_d.price_gongzi,"price_gongzi", this.props.form,this)}
+          <td><OrgChrgOps chrgTplId={_d.id} chrg_ops={this.props.chrg_ops} form={this.props.form} 
+              deleted={_d.deleted} isEditing={_d.isEditing} updated={_d.updated} /></td>
+        </tr>);
+    }
+  });
+
+  var OrgChrgs = React.createClass({
+    render: function(){
+      var chrgNodes = this.props.chrg_datas.map(chrg => <OrgChrg chrg_data={chrg} key={chrg.id} chrg_ops={this.props.chrg_ops} form={this.props.form} /> );
+      var renderTH = function(content){ return <th className="th-small">{content}&nbsp;</th> };
+      var renderTotalTD = function(fieldName,that){ 
+        var total = _.reduce(that.props.chrg_datas, function(memo,chrg){ return memo + (chrg["deleted"] ? 0 : Number(chrg[fieldName])) },0).toFixed(2);
+        return <td className="sheet">{total}</td>
+      };
+      return (
+        <table><thead><tr>
+          {renderTH("员工姓名")}{renderTH("社保基数")}{renderTH("企业社保金")}{renderTH("个人社保金")}
+          {renderTH("残保金")}{renderTH("社保管理费")}{renderTH("公积金基数")}{renderTH("企业公积金")}
+          {renderTH("个人公积金")}{renderTH("公积金管理费")}{renderTH("个税")}{renderTH("其它1")}
+          {renderTH("其它2")}{renderTH("其它3")}{renderTH("补缴")}{renderTH("预缴")}
+          {renderTH("应发工资")}{renderTH("操作")}
+            </tr>
+          </thead>
+          <tbody>
+          {chrgNodes}
+          <tr className="sum-line"><td className="sheet">总计</td>{renderTotalTD("price_shebao_base",this)}
+          {renderTotalTD("price_shebao_qiye",this)}{renderTotalTD("price_shebao_geren",this)}
+          {renderTotalTD("price_canbao",this)}{renderTotalTD("price_shebao_guanli",this)}
+          {renderTotalTD("price_gongjijin_base",this)}{renderTotalTD("price_gongjijin_qiye",this)}
+          {renderTotalTD("price_gongjijin_geren",this)}{renderTotalTD("price_gongjijin_guanli",this)}
+          {renderTotalTD("price_geshui",this)}{renderTotalTD("price_qita_1",this)}
+          {renderTotalTD("price_qita_2",this)}{renderTotalTD("price_qita_3",this)}
+          {renderTotalTD("price_bujiao",this)}{renderTotalTD("price_yujiao",this)}
+          {renderTotalTD("price_gongzi",this)}
+          </tr>
+          </tbody>
+        </table> 
+      );
+    }
+  });
+
+  var OrgChrgForm = React.createClass({
+    utils:{
+      getIndex: function(dataArray,id){
+        return _.findIndex(dataArray, {id: id})
+      }
+    },
+    chrgOps:{
+      deleteChrg: function(chrgTplId){ //删除与取消删除
+        var idx = this.utils.getIndex(this.state.chrg_datas,chrgTplId);
+        this.state.chrg_datas[idx].deleted = !this.state.chrg_datas[idx].deleted;
+        this.setState({chrg_datas: this.state.chrg_datas});
+      },
+      editChrg: function(chrgTplId){ //修改
+        var idx = this.utils.getIndex(this.state.chrg_datas,chrgTplId);
+        this.state.chrg_datas[idx].isEditing = !this.state.chrg_datas[idx].isEditing;
+        this.setState({chrg_datas: this.state.chrg_datas});
+      },
+      exitEditChrg: function(chrgTplId){ //退出修改
+        var idx = this.utils.getIndex(this.state.chrg_datas,chrgTplId);
+        this.state.chrg_datas[idx].isEditing = !this.state.chrg_datas[idx].isEditing;
+        this.setState({chrg_datas: this.state.chrg_datas});
+      },
+      confirmUpdateChrg: function(chrgTplId){ //确认修改
+        
+      },
+      restoreChrg: function(chrgTplId){ //恢复初始值
+        var idx = this.utils.getIndex(this.state.chrg_datas,chrgTplId);
+        this.state.chrg_datas[idx] = _.clone(this.state.tpl_datas[idx]);
+         this.setState({chrg_datas: this.state.chrg_datas});
+      },
+      handleChrgPriceFieldChange: function(chrgTplId, fieldName, form, newValue){
+        if(newValue==="") newValue= "0";
+        var patt = /^[0-9]+\.{0,1}[0-9]{0,2}$/;
+        if(patt.test(newValue)){
+          console.log(newValue);
+          var idx = form.utils.getIndex(form.state.chrg_datas,chrgTplId);
+          form.state.chrg_datas[idx][fieldName] = newValue;
+          form.setState({chrg_datas: form.state.chrg_datas});
+          //console.log("fieldName:"+ fieldName +"newValue:" + newValue);
+        }
+      },
+      handleChrgTextFieldChange: function(chrgTplId, fieldName, form, newValue){
+        var idx = form.utils.getIndex(form.state.chrg_datas,chrgTplId);
+        form.state.chrg_datas[idx][fieldName] = newValue;
+        form.setState({chrg_datas: form.state.chrg_datas});
+      },
+      foo: function(chrgTplId){
+
+      }
+    },
+    createInServer: function(){
+      if (!($("#start_date").val()) || !($("#end_date").val())){
+        this.setState({error_message: "需要输入服务日期!"});
+        return false;
+      }
+      var _data = {
+        organization_charge_total: {
+          organization_id: organization_id,
+          comment: $("#comment").val(),
+          start_date: $("#start_date").val(),
+          end_date: $("#end_date").val()
+        },
+        organization_charges: this.state.chrg_datas};
+      $.ajax({
+        type : "POST",
+        url :  this.props.create_submit_url,
+        dataType: 'json',
+        contentType: 'application/json',
+        data : JSON.stringify(_data),
+        success: function(){
+          window.alert("Success");
+        },
+        error: function(){
+          window.alert("error");
+        }
+      });
+    },
+    getInitialState: function(){
+      return {
+        tpl_datas: [],    //机构员工缴费模板
+        chrg_datas: [],   //机构员工缴费实际数据另外增加了deleted和updated两个字段反映用户的操作,目前不支持added类型的操作
+        error_message: "" //错误信息
+      };
+    },
+    componentDidMount: function(){
+      $.ajax({
+        url: this.props.org_chrg_tpl_url,
+        dataType: 'json',
+        cache: false,
+        success: function(data){
+          this.setState({tpl_datas: data});
+          var _data = _.map(data, _.clone).map(d => _.extend(d,{deleted: false, updated: false, isEditing: false}));
+          this.setState({chrg_datas: _data});
+        }.bind(this),
+        error: function(xhr,status,err){
+          window.alert("系统异步获取数据出错!\nURL:" + this.props.org_chrg_tpl_url + 
+            "\nStatus:" + status + "\nError:" + err.toString());
+          console.error(this.props.org_chrg_tpl_url,status,err.toString());
+        }.bind(this)
+      });
+    },
+    render: function(){
+      return <div style= {{width: '1200px'}}> 
+              <OrgChrgs chrg_datas={this.state.chrg_datas} chrg_ops={this.chrgOps} form={this} />
+              备注:<br/><textarea id="comment" style={{width: "960px"}} className="form-control" name="comment" rows="2" ></textarea>
+              <button onClick={this.createInServer} className="btn btn-default" type="button">提 交</button>
+              <span style={{color: "red"}}>{this.state.error_message}</span>
+            </div> ;
+    }
+  });
+
+  ReactDOM.render(
+    <OrgChrgForm org_chrg_tpl_url= {urls.org_chrg_tpl_url} create_submit_url={urls.create_submit_url} />,
+    document.getElementById('OrgChrgFormPlaceholder')
+    );
+</script>
+
+<script type="text/javascript">
+$('.dtp').datepicker();
+</script>

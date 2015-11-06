@@ -1,0 +1,65 @@
+<p>
+  <strong>机构名称:</strong>
+  <%= @organization.name %>
+</p>
+
+<p>
+  <strong>简称:</strong>
+  <%= @organization.abbr %>
+</p>
+
+<p>
+  <strong>地址:</strong>
+  <%= @organization.address %>
+</p>
+
+<p>
+  <strong>负责人:</strong>
+  <%= @organization.person_in_charge %>
+</p>
+
+<p>
+  <strong>电子邮件:</strong>
+  <%= @organization.email %>
+</p>
+
+<p>
+  <strong>电话:</strong>
+  <%= @organization.tel %>
+</p>
+
+<p>
+  <strong>传真:</strong>
+  <%= @organization.fax %>
+</p>
+
+<p>
+  <strong>联系人:</strong>
+  <%= @organization.contact_person %>
+</p>
+
+<p>
+  <strong>联系电话:</strong>
+  <%= @organization.contact_tel %>
+</p>
+
+<p>
+  <strong>联系传真:</strong>
+  <%= @organization.contact_fax %>
+</p>
+
+<p>
+  <strong>服务开始日期:</strong>
+  <%= @organization.start_date %>
+</p>
+
+<p>
+  <strong>状态:</strong>
+  <%= @organization.translate_workflow_state_name(Organization::WORKFLOW_STATE_NAMES) %>
+</p>
+
+<p>
+  <strong>业务员:</strong>
+  <%= @organization.user.name %>
+</p>
+

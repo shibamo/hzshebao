@@ -1,0 +1,95 @@
+<table class="table table-striped table-hover table-condensed">
+  <thead>
+    <tr>
+      <th>机构名缩写</th>
+      <th>员工姓名</th>
+      <th>电话</th>
+      <th>Q/微信/电邮</th>
+      <th>状态</th>
+      <th>社保</th>
+      <th>公积金</th>
+      <th>业务员</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @organization_customers.each do |organization_customer| %>
+      <tr>
+        <td><%= organization_customer.organization.abbr %></td>
+        <td><%= organization_customer.name %></td>
+        <td><%= organization_customer.tel %></td>
+        <td><%= organization_customer.qq.to_s + '/' + organization_customer.wechat.to_s + '/' +organization_customer.email.to_s %></td>
+        <td><%= organization_customer.translate_workflow_state_name(OrganizationCustomer::WORKFLOW_STATE_NAMES) %></td>
+        <td style="background-color: red"><%= "编程中..." %></td>
+        <td style="background-color: red"><%= "编程中..." %></td> 
+        <td><%= organization_customer.user.name %></td>
+        <td>
+          <%= link_to "查看", "#", class: "btn btn-primary btn-xs", "data-toggle" => "modal", "data-target" => "#modal_organization_customer", "data-url" => organization_customer_path(organization_customer) %>
+          <% if op_type == :edit%>
+          <%= link_to '更改', edit_organization_customer_path(organization_customer), class: "btn btn-primary btn-xs", target: "_blank" %>
+          <% end %>
+          <% if organization_customer.charge_template_exist? %>
+            <%= link_to '更改收费模板', edit_organization_customer_organization_charge_template_path(organization_customer,organization_customer.organization_charge_template), class: "btn btn-primary btn-xs", target: "_blank" %>
+          <% else %>
+            <%= link_to '新建收费模板', new_organization_customer_organization_charge_template_path(organization_customer), class: "btn btn-danger btn-xs", target: "_blank" %>
+          <% end %>
+
+          <span class="dropdown">
+            <button class="btn btn-xs btn-primary dropdown-toggle" type="button" id="dropdownMenuUpload" data-toggle="dropdown" aria-expanded="true">
+              资料/合同
+              <span class="caret"></span><xsall><span class="badge"> <%= MoneyArrivalFile.business_files("OrganizationCustomer",organization_customer.id, organization_customer.updated_at.to_s, op_type).count %></span></xsall>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+
+              <% MoneyArrivalFile.business_files("OrganizationCustomer",organization_customer.id, organization_customer.updated_at.to_s, op_type).select(:id,:file_name,:created_at).each do |attach| %>
+              <li role="presentation"><%= link_to attach.file_name, money_arrival_files_send_raw_path(attach), role: "menuitem", tabindex: "-1" %></li>
+              <% end %>
+
+              <li class="divider"></li>
+              <li role="presentation"><%= link_to '上传资料/合同...', money_arrival_files_new_path(business_type: "OrganizationCustomer",extra_data: organization_customer.updated_at.to_s,main_object_id: organization_customer.id, business_action: op_type), target: "_blank", role: "menuitem", tabindex: "-1" %></li>
+            </ul>
+          </span>
+
+          <% if op_type == :daily_operation%>
+          <span class="dropdown">
+            <button class="btn btn-xs btn-primary dropdown-toggle" type="button" id="dropdownMenuUpload" data-toggle="dropdown" aria-expanded="true">
+              社保
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+              <% MoneyArrivalFile.business_files("organizationCustomer",organization_customer.id, organization_customer.updated_at.to_s, [:finish_apply_start, :finish_apply_stop, :finish_apply_restart]).select(:id,:file_name,:created_at).each do |attach| %>
+              <li role="presentation"><%= link_to attach.created_at.to_date.to_s + ": " + attach.file_name, money_arrival_files_send_raw_path(attach), role: "menuitem", tabindex: "-1" %></li>
+              <% end %>
+            </ul>
+          </span>
+          <span class="dropdown">
+            <button class="btn btn-xs btn-primary dropdown-toggle" type="button" id="dropdownMenuUpload" data-toggle="dropdown" aria-expanded="true">
+              公积
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+              <%if organization_customer.respond_to?("gongjijin") && organization_customer.gongjijin
+                MoneyArrivalFile.business_files("Gongjijin",organization_customer.gongjijin.id, organization_customer.gongjijin.updated_at.to_s, [:finish_apply_start, :finish_apply_stop, :finish_apply_restart]).select(:id,:file_name,:created_at).each do |attach| %>
+                <li role="presentation"><%= link_to attach.created_at.to_date.to_s + ": " + attach.file_name, money_arrival_files_send_raw_path(attach), role: "menuitem", tabindex: "-1" %></li>
+                <%  end
+                end %>
+            </ul>
+          </span>
+          <%end%>
+
+          <%if op_type == :list_check%>
+          <%= link_to '复核通过', organization_customers_finish_check_path(organization_customer),  method: :post,  tabindex: "-1", class: "btn btn-primary btn-xs" %>
+          <%end%>
+
+          </td>
+        
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @organization_customers %>
+
+<%=render "shared/modal_dialog", 
+    object_name: :organization_customer, size_option: :large, title: "查看机构员工客户资料" %><!-- 查看对话框 -->

@@ -11,6 +11,9 @@ class MoneyArrivalFile < ActiveRecord::Base
 															where(business_type: business_type, main_object_id: main_object_id,
 																extra_data: extra_data, business_action: business_action)}
 	
+	scope :business_files_all, ->(business_type, main_object_id) {
+															where(business_type: business_type, main_object_id: main_object_id)}
+
 	include FileField
 	
 end

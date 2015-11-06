@@ -1,0 +1,34 @@
+<%= simple_form_for(@organization_charge_total) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :organization_id %>
+    <%= f.input :user_id %>
+    <%= f.input :price_shebao_base %>
+    <%= f.input :price_shebao_qiye %>
+    <%= f.input :price_shebao_geren %>
+    <%= f.input :price_canbao %>
+    <%= f.input :price_shebao_guanli %>
+    <%= f.input :price_gongjijin_base %>
+    <%= f.input :price_gongjijin_qiye %>
+    <%= f.input :price_gongjijin_geren %>
+    <%= f.input :price_gongjijin_guanli %>
+    <%= f.input :price_geshui %>
+    <%= f.input :price_qita_1 %>
+    <%= f.input :price_qita_2 %>
+    <%= f.input :price_qita_3 %>
+    <%= f.input :price_bujiao %>
+    <%= f.input :price_yujiao %>
+    <%= f.input :price_gongzi %>
+    <%= f.input :start_date %>
+    <%= f.input :end_date %>
+    <%= f.input :comment %>
+    <%= f.input :money_arrival_date %>
+    <%= f.input :money_check_date %>
+    <%= f.input :workflow_state %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

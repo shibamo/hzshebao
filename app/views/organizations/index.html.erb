@@ -1,0 +1,7 @@
+<h1 class="text-center">机构列表</h1>
+
+<%= render 'simple_query', url: :organizations_query%>
+
+<%= render 'table', op_type: :daily_operation%>
+
+<%= link_to '新建', new_organization_path, class: "btn active btn-primary btn-sm" %>

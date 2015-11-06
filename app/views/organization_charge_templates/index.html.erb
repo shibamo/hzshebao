@@ -1,0 +1,63 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Organization Charge Templates</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Organization customer</th>
+      <th>User</th>
+      <th>Price shebao base</th>
+      <th>Price shebao qiye</th>
+      <th>Price shebao geren</th>
+      <th>Price canbao</th>
+      <th>Price shebao guanli</th>
+      <th>Price gongjijin base</th>
+      <th>Price gongjijin qiye</th>
+      <th>Price gongjijin geren</th>
+      <th>Price gongjijin guanli</th>
+      <th>Price geshui</th>
+      <th>Price qita 1</th>
+      <th>Price qita 2</th>
+      <th>Price qita 3</th>
+      <th>Price bujiao</th>
+      <th>Price yujiao</th>
+      <th>Price gongzi</th>
+      <th>Comment</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @organization_charge_templates.each do |organization_charge_template| %>
+      <tr>
+        <td><%= organization_charge_template.organization_customer_id %></td>
+        <td><%= organization_charge_template.user_id %></td>
+        <td><%= organization_charge_template.price_shebao_base %></td>
+        <td><%= organization_charge_template.price_shebao_qiye %></td>
+        <td><%= organization_charge_template.price_shebao_geren %></td>
+        <td><%= organization_charge_template.price_canbao %></td>
+        <td><%= organization_charge_template.price_shebao_guanli %></td>
+        <td><%= organization_charge_template.price_gongjijin_base %></td>
+        <td><%= organization_charge_template.price_gongjijin_qiye %></td>
+        <td><%= organization_charge_template.price_gongjijin_geren %></td>
+        <td><%= organization_charge_template.price_gongjijin_guanli %></td>
+        <td><%= organization_charge_template.price_geshui %></td>
+        <td><%= organization_charge_template.price_qita_1 %></td>
+        <td><%= organization_charge_template.price_qita_2 %></td>
+        <td><%= organization_charge_template.price_qita_3 %></td>
+        <td><%= organization_charge_template.price_bujiao %></td>
+        <td><%= organization_charge_template.price_yujiao %></td>
+        <td><%= organization_charge_template.price_gongzi %></td>
+        <td><%= organization_charge_template.comment %></td>
+        <td><%= link_to 'Show', organization_charge_template %></td>
+        <td><%= link_to 'Edit', edit_organization_charge_template_path(organization_charge_template) %></td>
+        <td><%= link_to 'Destroy', organization_charge_template, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Organization charge template', new_organization_charge_template_path %>

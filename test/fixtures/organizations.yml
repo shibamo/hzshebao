@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  abbr: MyString
+  address: MyString
+  person_in_charge: MyString
+  email: MyString
+  tel: MyString
+  fax: MyString
+  contact_person: MyString
+  contact_tel: MyString
+  contact_fax: MyString
+  start_date: 2015-09-08
+  workflow_state: MyString
+  user_id: 1
+  is_valid: 1
+
+two:
+  name: MyString
+  abbr: MyString
+  address: MyString
+  person_in_charge: MyString
+  email: MyString
+  tel: MyString
+  fax: MyString
+  contact_person: MyString
+  contact_tel: MyString
+  contact_fax: MyString
+  start_date: 2015-09-08
+  workflow_state: MyString
+  user_id: 1
+  is_valid: 1

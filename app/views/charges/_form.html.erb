@@ -146,7 +146,7 @@ $.extend(
   {
     calculate:function(price_field,months_field,sum_field){
       if (price_field.val()*months_field.val()){
-        sum_field.val(price_field.val() * months_field.val()) ;
+        sum_field.val((price_field.val() * months_field.val()).toFixed(2)) ;
       }
       else{
         sum_field.val("0");
@@ -166,7 +166,7 @@ $(function () {
     $.calculate($('#charge_price_bujiao'),$('#charge_months_bujiao'),$('#sum_bujiao'))+
     $.calculate($('#charge_price_chajia'),$('#charge_months_chajia'),$('#sum_chajia'))+
     $.calculate($('#charge_price_geshui'),$('#charge_months_geshui'),$('#sum_geshui'));
-    $('#sum_total').val(changeTwoDecimal(i_sum_total));
+    $('#sum_total').val(Number(i_sum_total).toFixed(2));
   });
 
   $('#new_charge').bind('submit', function (event) {

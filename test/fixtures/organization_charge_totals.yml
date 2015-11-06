@@ -1,0 +1,53 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  organization_id: 1
+  user_id: 1
+  price_shebao_base: 9.99
+  price_shebao_qiye: 9.99
+  price_shebao_geren: 9.99
+  price_canbao: 9.99
+  price_shebao_guanli: 9.99
+  price_gongjijin_base: 9.99
+  price_gongjijin_qiye: 9.99
+  price_gongjijin_geren: 9.99
+  price_gongjijin_guanli: 9.99
+  price_geshui: 9.99
+  price_qita_1: 9.99
+  price_qita_2: 9.99
+  price_qita_3: 9.99
+  price_bujiao: 9.99
+  price_yujiao: 9.99
+  price_gongzi: 9.99
+  start_date: 2015-10-31
+  end_date: 2015-10-31
+  comment: MyString
+  money_arrival_date: 2015-10-31
+  money_check_date: 2015-10-31
+  workflow_state: MyString
+
+two:
+  organization_id: 1
+  user_id: 1
+  price_shebao_base: 9.99
+  price_shebao_qiye: 9.99
+  price_shebao_geren: 9.99
+  price_canbao: 9.99
+  price_shebao_guanli: 9.99
+  price_gongjijin_base: 9.99
+  price_gongjijin_qiye: 9.99
+  price_gongjijin_geren: 9.99
+  price_gongjijin_guanli: 9.99
+  price_geshui: 9.99
+  price_qita_1: 9.99
+  price_qita_2: 9.99
+  price_qita_3: 9.99
+  price_bujiao: 9.99
+  price_yujiao: 9.99
+  price_gongzi: 9.99
+  start_date: 2015-10-31
+  end_date: 2015-10-31
+  comment: MyString
+  money_arrival_date: 2015-10-31
+  money_check_date: 2015-10-31
+  workflow_state: MyString

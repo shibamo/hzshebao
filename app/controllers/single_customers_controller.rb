@@ -259,7 +259,7 @@ class SingleCustomersController < ApplicationController
     end
   end
 
-  def list_edit
+  def list_edit #客户信息列表与查询
     if params[:single_customer] && params[:single_customer][:name]
       @single_customers = SingleCustomer.by_partial_name(params[:single_customer][:name]).page params[:page]
       @single_customer = SingleCustomer.new(single_customer_params)

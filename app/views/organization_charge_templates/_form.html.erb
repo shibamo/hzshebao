@@ -1,0 +1,60 @@
+<%= simple_form_for([@organization_customer,@organization_charge_template]) do |f| %>
+    <%= f.error_notification %>
+  <div class="form-inputs">
+    <div class="form-group col-xs-2">
+    <%= f.input :price_shebao_base, label:"社保基数:", input_html: { class: 'text-right' }  %>
+    </div>
+    <div class="form-group col-xs-2">
+    <%= f.input :price_shebao_qiye, label:"社保金（企业）:", input_html: { class: 'text-right' }  %>
+    </div>
+    <div class="form-group col-xs-2">
+    <%= f.input :price_shebao_geren, label:"社保金（个人）:", input_html: { class: 'text-right' }  %>
+    </div>
+    <div class="form-group col-xs-2">
+    <%= f.input :price_canbao, label:"残保金:", input_html: { class: 'text-right' }  %>
+    </div>
+    <div class="form-group col-xs-2">
+    <%= f.input :price_shebao_guanli, label:"社保管理费:", input_html: { class: 'text-right' }  %>
+    </div>
+    <div class="form-group col-xs-2">
+    <%= f.input :price_gongjijin_base, label:"公积金基数:", input_html: { class: 'text-right' }  %>
+    </div>
+    <div class="form-group col-xs-2">
+    <%= f.input :price_gongjijin_qiye, label:"公积金（企业）:", input_html: { class: 'text-right' }  %>
+    </div>
+    <div class="form-group col-xs-2">
+    <%= f.input :price_gongjijin_geren, label:"公积金（个人）:", input_html: { class: 'text-right' }  %>
+    </div>
+    <div class="form-group col-xs-2">
+    <%= f.input :price_gongjijin_guanli, label:"公积金管理费:", input_html: { class: 'text-right' }  %>
+    </div>
+    <div class="form-group col-xs-2">
+    <%= f.input :price_geshui, label:"个税:", input_html: { class: 'text-right' }  %>
+    </div>
+    <div class="form-group col-xs-2">
+    <%= f.input :price_qita_1, label:"其它1:", input_html: { class: 'text-right' }  %>
+    </div>
+    <div class="form-group col-xs-2">
+    <%= f.input :price_qita_2, label:"其它2:", input_html: { class: 'text-right' }  %>
+    </div>
+    <div class="form-group col-xs-2">
+    <%= f.input :price_qita_3, label:"其它3:", input_html: { class: 'text-right' }  %>
+    </div>
+    <div class="form-group col-xs-2">
+    <%= f.input :price_bujiao, label:"补缴:", input_html: { class: 'text-right' }  %>
+    </div>
+    <div class="form-group col-xs-2">
+    <%= f.input :price_yujiao, label:"预缴:", input_html: { class: 'text-right' }  %>
+    </div>
+    <div class="form-group col-xs-2">
+    <%= f.input :price_gongzi, label:"应发工资:", input_html: { class: 'text-right' }  %>
+    </div>    
+  </div>
+  <br>
+  <div class="form-actions col-xs-12">
+    <%= f.button :submit, "提交" , class: "actions btn btn-primary noprint"%>
+    <%= link_to '返回员工列表', 
+        organization_customers_list_by_organization_path(@organization_customer.organization),
+        class: "btn btn-default noprint" %>
+  </div>
+<% end %>

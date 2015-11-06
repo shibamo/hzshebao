@@ -1,0 +1,4 @@
+json.array!(@organization_customers) do |organization_customer|
+  json.extract! organization_customer, :id, :name, :organization_id, :gender, :ethnic_name, :birth, :id_no, :id_address, :hukou_type, :education, :tel, :other_contact_person, :other_contact_call, :qq, :wechat, :email, :communication_address, :is_doc_for_shebao, :is_doc_for_shigong, :is_doc_for_shenggong, :is_doc_for_butuichajia, :is_doc_for_xufei, :is_doc_for_qita, :is_usage_zhengchang, :is_usage_ruxue, :is_usage_luohu, :is_usage_shenyu, :is_usage_yiliao, :is_usage_gouche, :is_usage_goufang, :is_usage_daikuan, :creator, :creator_tel, :comment, :user_id, :input_date, :document_no, :comment_for_qita, :workflow_state, :is_valid, :valid_start, :valid_end
+  json.url organization_customer_url(organization_customer, format: :json)
+end

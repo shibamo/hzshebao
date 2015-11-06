@@ -30,14 +30,14 @@
         <td><%= charge.single_customer.name %></td>
         <td><%= charge.user.name %></td>
         <td><%= charge.charge_type %></td>
-        <td><%= charge.price_shebao*charge.months_shebao %></td>
-        <td><%= charge.price_gongjijin*charge.months_gongjijin %></td>
-        <td><%= charge.price_fuwufei*charge.months_fuwufei %></td>
-        <td><%= charge.price_cailiaofei*charge.months_cailiaofei %></td>
-        <td><%= charge.price_bujiao*charge.months_bujiao %></td>
-        <td><%= charge.price_chajia*charge.months_chajia %></td>
-        <td><%= charge.price_geshui*charge.months_geshui %></td>
-        <td><%= charge.money_total %></td>
+        <td><%= format("%.2f",charge.price_shebao*charge.months_shebao) %></td>
+        <td><%= format("%.2f",charge.price_gongjijin*charge.months_gongjijin) %></td>
+        <td><%= format("%.2f",charge.price_fuwufei*charge.months_fuwufei) %></td>
+        <td><%= format("%.2f",charge.price_cailiaofei*charge.months_cailiaofei) %></td>
+        <td><%= format("%.2f",charge.price_bujiao*charge.months_bujiao) %></td>
+        <td><%= format("%.2f",charge.price_chajia*charge.months_chajia) %></td>
+        <td><%= format("%.2f",charge.price_geshui*charge.months_geshui) %></td>
+        <td><%= format("%.2f",charge.money_total) %></td>
         <% if op_type == :money_check %>
         <td><%= charge.created_at.to_date %></td>
         <% else %>

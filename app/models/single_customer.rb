@@ -3,7 +3,7 @@ class SingleCustomer < ActiveRecord::Base
   include ChinesifyWorkflow
 
 	belongs_to :user #归属的业务员
-	has_many :customer_id_card_pictures ,foreign_key: :customer_id
+	has_many :customer_id_card_pictures, -> { where(customer_type: "个人客户") } ,foreign_key: :customer_id
   has_many :charges #缴费单
 	has_one :renewal #续费状态
   has_one :gongjijin #公积金
@@ -33,7 +33,7 @@ class SingleCustomer < ActiveRecord::Base
     end
   end
 
-  #使用状态机管理缴费单状态
+  #使用状态机管理状态
   workflow do
   	state :new do #新建
   		event :finish_check, :transitions_to => :checked

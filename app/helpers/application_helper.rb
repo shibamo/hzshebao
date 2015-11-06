@@ -18,17 +18,17 @@ module ApplicationHelper
   end
 
 	def can_u_a_c?(user, action, controller)
-		#return true #目前对所有人开放所有权限
+		#return true #对所有人开放所有权限,仅调试时使用
+    return true if user.logon_name == "kingc" #用于troubleshooting
 
     get_user_functions(user).include? controller.to_s + '|' + action.to_s
-
-    #改用cache
-		#user.functions.where(action: action, controller: controller).count > 0 
 	end
   
   def dialog_size_option(size_option)
     {small: "modal-sm", medium: "", large: "modal-lg"}[size_option]
   end
+
+
 end
 
 class Symbol

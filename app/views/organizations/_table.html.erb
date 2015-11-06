@@ -1,0 +1,72 @@
+<table class="table table-striped table-hover table-condensed">
+  <thead>
+    <tr>
+      <th>机构名称</th>
+      <th>缩写</th>
+      <th>负责人</th>
+      <th>Email</th>
+      <th>联系人</th>
+      <th>联系电话</th>
+      <th>开始服务日期</th>
+      <th>状态</th>
+      <th>业务员</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @organizations.each do |organization| %>
+      <tr>
+        <td><%= organization.name %></td>
+        <td><%= organization.abbr %></td>
+        <td><%= organization.person_in_charge %></td>
+        <td><%= organization.email %></td>
+        <td><%= organization.contact_person %></td>
+        <td><%= organization.contact_tel %></td>
+        <td><%= organization.start_date %></td>
+        <td><%= organization.translate_workflow_state_name(Organization::WORKFLOW_STATE_NAMES) %></td>
+        <td><%= organization.user.name %></td>
+        <td>
+          <%if op_type == :list_check%>
+            <%= link_to '复核通过', organizations_finish_check_path(organization),  method: :post,  tabindex: "-1", class: "btn btn-primary btn-xs" %>
+          <%end%>
+          <%= link_to "查看", "#", class: "btn btn-primary btn-xs", "data-toggle" => "modal", "data-target" => "#modal_organization", "data-url" => organization_path(organization) %>
+          <span class="dropdown">
+            <button class="btn btn-xs btn-primary dropdown-toggle" type="button" id="dropdownMenuUpload" data-toggle="dropdown" aria-expanded="true">
+              附件文件
+              <span class="caret"></span><xsall><span class="badge"> <%= MoneyArrivalFile.business_files_all("Organization",organization.id).count %>
+              </span></xsall>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+
+              <% MoneyArrivalFile.business_files_all("Organization",organization.id).select(:id,:file_name,:created_at).each do |attach| %>
+              <li role="presentation"><%= link_to attach.file_name, money_arrival_files_send_raw_path(attach), role: "menuitem", tabindex: "-1" %></li>
+              <% end %>
+
+              <li class="divider"></li>
+              <li role="presentation"><%= link_to '上传附件文件...', money_arrival_files_new_path(business_type: "Organization",extra_data: organization.updated_at.to_s,main_object_id: organization.id, business_action: op_type), target: "_blank", role: "menuitem", tabindex: "-1" %></li>
+            </ul>
+          </span>
+          <%= link_to '更改', edit_organization_path(organization), class: "btn btn-primary btn-xs" %>
+
+          <span class="dropdown">
+            <button class="btn btn-xs <%= organization.any_customer_need_create_charge_template? ? "btn-danger" : "btn-primary" %> dropdown-toggle" type="button" id="dropdownMenuOrganizationCustomers" data-toggle="dropdown" aria-expanded="true">员工管理<span class="caret"></span></button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+
+              <li role="presentation"><%= link_to '员工列表('+ organization.organization_customers.count.to_s + ')', organization_customers_list_by_organization_path(organization), class: (organization.any_customer_need_create_charge_template? ? "btn-danger" : "primary" ) , target: "_blank" %>
+              </li>
+              <li role="presentation"><%= link_to '新员工', organization_customers_new_path(organization),  target: "_blank" %></li>
+            </ul>
+          </span>
+          <%= link_to '缴费管理', organization_charge_totals_list_path(organization), class: "btn btn-primary btn-xs" %>
+
+      </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @organizations %>
+
+<%=render "shared/modal_dialog", 
+    object_name: :organization, size_option: :large, title: "查看机构资料" %><!-- 查看对话框 -->

@@ -79,3 +79,30 @@ input[type="checkbox"]{ /*表单中的选项控件间隙调整,分开*/
 	border-color: red;
 	color: black;
 }
+
+td .wip{
+  background-color: red !important;
+}
+
+.entity-name-text{
+  color: blue;
+}
+
+tr.deleted{
+  text-decoration: line-through;
+  color: red;
+}
+
+tr.sum-line{
+  background-color: #ccc;
+}
+
+td.sheet{
+  border-width: 1px;
+  border-style: solid;
+  text-align: right;
+}
+
+td.modified{
+  background-color: yellow;
+}
