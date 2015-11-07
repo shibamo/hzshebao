@@ -27,7 +27,17 @@ class OrganizationChargeTotalsController < ApplicationController
   def create
     @organization_charge_total = OrganizationChargeTotal.new(organization_charge_total_params)
     @organization_charge_total.user_id = current_user.id
-    
+    organization_charges = []
+    organization_charges_params.each do |t|
+      oc = OrganizationCharge.new(t)
+      oc.user_id = current_user.id
+      oc.start_date = @organization_charge_total.start_date
+      oc.end_date = @organization_charge_total.end_date
+      oc.organization = @organization_charge_total.organization
+      organization_charges.push oc
+    end
+    @organization_charge_total.organization_charges = organization_charges
+    sum_organization_charge_total_fields @organization_charge_total, organization_charges
 
     respond_to do |format|
       if @organization_charge_total.save
@@ -85,6 +95,18 @@ class OrganizationChargeTotalsController < ApplicationController
         :end_date, :comment, :money_arrival_date, :money_check_date, :workflow_state)
     end
 
+    #接收机构员工缴费对象数组
+    def organization_charges_params
+      params.require(:organization_charges).reject{|t| t[:deleted]}.map do |t|
+        t.permit(:organization_customer_id, :price_shebao_base, :price_shebao_qiye, 
+        :price_shebao_geren, :price_canbao, :price_shebao_guanli, 
+        :price_gongjijin_base, :price_gongjijin_qiye, :price_gongjijin_geren, 
+        :price_gongjijin_guanli, :price_geshui, :price_qita_1, :price_qita_2, 
+        :price_qita_3, :price_bujiao, :price_yujiao, :price_gongzi)
+      end
+    end
+
+    #设置机构
     def set_organization
       if @organization_charge_total
         @organization = @organization_charge_total.organization
@@ -98,5 +120,30 @@ class OrganizationChargeTotalsController < ApplicationController
         @organization = Organization.find(params[:organization_customer][:organization_id])
         return
       end
+    end
+
+    #根据机构员工缴费明细数据汇总计算机构应付的各个项目金额
+    def sum_organization_charge_total_fields(organization_charge_total, organization_charges)
+      organization_charge_total.price_shebao_base = sum_array_field(organization_charges,:price_shebao_base)
+      organization_charge_total.price_shebao_qiye = sum_array_field(organization_charges,:price_shebao_qiye)
+      organization_charge_total.price_shebao_geren = sum_array_field(organization_charges,:price_shebao_geren)
+      organization_charge_total.price_canbao = sum_array_field(organization_charges,:price_canbao)
+      organization_charge_total.price_shebao_guanli = sum_array_field(organization_charges,:price_shebao_guanli)
+      organization_charge_total.price_gongjijin_base = sum_array_field(organization_charges,:price_gongjijin_base)
+      organization_charge_total.price_gongjijin_qiye = sum_array_field(organization_charges,:price_gongjijin_qiye)
+      organization_charge_total.price_gongjijin_geren = sum_array_field(organization_charges,:price_gongjijin_geren)
+      organization_charge_total.price_gongjijin_guanli = sum_array_field(organization_charges,:price_gongjijin_guanli)
+      organization_charge_total.price_geshui = sum_array_field(organization_charges,:price_geshui)
+      organization_charge_total.price_qita_1 = sum_array_field(organization_charges,:price_qita_1)
+      organization_charge_total.price_qita_2 = sum_array_field(organization_charges,:price_qita_2)
+      organization_charge_total.price_qita_3 = sum_array_field(organization_charges,:price_qita_3)
+      organization_charge_total.price_bujiao = sum_array_field(organization_charges,:price_bujiao)
+      organization_charge_total.price_yujiao = sum_array_field(organization_charges,:price_yujiao)
+      organization_charge_total.price_gongzi = sum_array_field(organization_charges,:price_gongzi)
+    end
+
+    #计算字典数组的指定字段的和
+    def sum_array_field(array, fieldName)
+      array.reduce(0){|memo,obj| memo + obj[fieldName]}
     end
 end

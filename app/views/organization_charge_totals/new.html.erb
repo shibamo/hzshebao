@@ -134,6 +134,9 @@
     utils:{
       getIndex: function(dataArray,id){
         return _.findIndex(dataArray, {id: id})
+      },
+      getSubmitButtonText: function(submit_status){
+        return {"waitMount":"等待数据","new":"提 交", "submitting":"提交中,请稍候...", "submitted":"成功提交,本页已可关闭","failed":"重新提交"}[submit_status];
       }
     },
     chrgOps:{
@@ -164,11 +167,9 @@
         if(newValue==="") newValue= "0";
         var patt = /^[0-9]+\.{0,1}[0-9]{0,2}$/;
         if(patt.test(newValue)){
-          console.log(newValue);
           var idx = form.utils.getIndex(form.state.chrg_datas,chrgTplId);
           form.state.chrg_datas[idx][fieldName] = newValue;
           form.setState({chrg_datas: form.state.chrg_datas});
-          //console.log("fieldName:"+ fieldName +"newValue:" + newValue);
         }
       },
       handleChrgTextFieldChange: function(chrgTplId, fieldName, form, newValue){
@@ -193,6 +194,7 @@
           end_date: $("#end_date").val()
         },
         organization_charges: this.state.chrg_datas};
+      this.setState({submit_status: "submitting"});
       $.ajax({
         type : "POST",
         url :  this.props.create_submit_url,
@@ -200,18 +202,21 @@
         contentType: 'application/json',
         data : JSON.stringify(_data),
         success: function(){
-          window.alert("Success");
-        },
-        error: function(){
-          window.alert("error");
-        }
+          this.setState({submit_status: "submitted"});
+        }.bind(this),
+        error: function(xhr,status,err){
+          this.setState({error_message: "提交数据返回错误! URL:" + this.props.create_submit_url + 
+            " Status:" + status + " Error:" + err.toString()});
+          this.setState({submit_status: "failed"});
+        }.bind(this)
       });
     },
     getInitialState: function(){
       return {
-        tpl_datas: [],    //机构员工缴费模板
-        chrg_datas: [],   //机构员工缴费实际数据另外增加了deleted和updated两个字段反映用户的操作,目前不支持added类型的操作
-        error_message: "" //错误信息
+        tpl_datas: [],        //机构员工缴费模板,用于当用户改了缴费原预设的数据后选择恢复原预设值
+        chrg_datas: [],       //机构员工缴费实际数据另外增加了deleted和updated两个字段反映用户的操作,目前不支持added类型的操作
+        error_message: "",    //错误信息
+        submit_status: "waitMount"  //提交保存状态 "waitMount":等待数据填充, "new":正在编辑, "submitting":已提交等待结果返回, "submitted":已成功提交,"failed":上次提交失败
       };
     },
     componentDidMount: function(){
@@ -220,14 +225,15 @@
         dataType: 'json',
         cache: false,
         success: function(data){
-          this.setState({tpl_datas: data});
           var _data = _.map(data, _.clone).map(d => _.extend(d,{deleted: false, updated: false, isEditing: false}));
-          this.setState({chrg_datas: _data});
+          this.setState({tpl_datas: data, chrg_datas: _data, submit_status: "new"}); //获得数据后初始化组件的显示
         }.bind(this),
         error: function(xhr,status,err){
-          window.alert("系统异步获取数据出错!\nURL:" + this.props.org_chrg_tpl_url + 
-            "\nStatus:" + status + "\nError:" + err.toString());
-          console.error(this.props.org_chrg_tpl_url,status,err.toString());
+          this.setState({error_message: "系统异步获取数据出错,请刷新页面重试或联系系统管理员! URL:" + this.props.create_submit_url + 
+            " Status:" + status + " Error:" + err.toString()});
+          // window.alert("系统异步获取数据出错!\nURL:" + this.props.org_chrg_tpl_url + 
+          //   "\nStatus:" + status + "\nError:" + err.toString());
+          // console.error(this.props.org_chrg_tpl_url, status, err.toString());
         }.bind(this)
       });
     },
@@ -235,7 +241,10 @@
       return <div style= {{width: '1200px'}}> 
               <OrgChrgs chrg_datas={this.state.chrg_datas} chrg_ops={this.chrgOps} form={this} />
               备注:<br/><textarea id="comment" style={{width: "960px"}} className="form-control" name="comment" rows="2" ></textarea>
-              <button onClick={this.createInServer} className="btn btn-default" type="button">提 交</button>
+              <button onClick={this.createInServer} className="btn btn-default" type="button" 
+              disabled={this.state.submit_status=="submitting" || this.state.submit_status=="submitted" || 
+                        this.state.submit_status=="waitMount"}>{
+                this.utils.getSubmitButtonText(this.state.submit_status)}</button>
               <span style={{color: "red"}}>{this.state.error_message}</span>
             </div> ;
     }

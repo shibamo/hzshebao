@@ -32,8 +32,7 @@ class OrganizationChargeTemplatesController < ApplicationController
     @organization_charge_template = OrganizationChargeTemplate.new(organization_charge_template_params)
     @organization_charge_template.user = current_user
     @organization_charge_template.organization_customer = @organization_customer
-
-    
+    @organization_charge_template.organization = @organization_customer.organization
 
     respond_to do |format|
       if @organization_charge_template.save
