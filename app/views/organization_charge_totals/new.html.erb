@@ -9,20 +9,20 @@
       <span class="add-on"><i class="icon-th"></i></span><br>
 </div></div>
 
-<div id="OrgChrgFormPlaceholder"></div>
+<div id="OrgChrgFormPlaceholder"><!--React组件OrgChrgForm的初始化放置位置--></div>
 
 </form>
 <script type="text/babel">
   var organization_id = <%=@organization.id%>;
 
   var urls = {
-    org_chrg_tpl_url: "<%=organization_charge_templates_list_by_organization_path(@organization)%>",
-    create_submit_url: "<%=organization_charge_totals_path%>",
-    update_submit_url: "",
+    org_chrg_tpl_url: "<%=organization_charge_templates_list_by_organization_path(@organization)%>", //获取初始数据Url
+    create_submit_url: "<%=organization_charge_totals_path%>", //提交新建数据Url
+    update_submit_url: "", //提交变更数据Url
     foo: ""
   };
 
-  var OrgChrgOps = React.createClass({
+  var OrgChrgOps = React.createClass({ //缴费数据行操作组件,无状态数据操作
     render: function(){
       var chrgTplId = this.props.chrgTplId;
       return(
@@ -43,7 +43,7 @@
     }
   });
 
-  var OrgChrg = React.createClass({
+  var OrgChrg = React.createClass({ //缴费数据行数据显示与输入组件,无状态数据操作
     render: function(){
       var _d = this.props.chrg_data;
       var renderStaticTD = function(content){ 
@@ -95,7 +95,7 @@
     }
   });
 
-  var OrgChrgs = React.createClass({
+  var OrgChrgs = React.createClass({ //缴费数据集组件,无状态数据操作
     render: function(){
       var chrgNodes = this.props.chrg_datas.map(chrg => <OrgChrg chrg_data={chrg} key={chrg.id} chrg_ops={this.props.chrg_ops} form={this.props.form} /> );
       var renderTH = function(content){ return <th className="th-small">{content}&nbsp;</th> };
@@ -130,13 +130,14 @@
     }
   });
 
-  var OrgChrgForm = React.createClass({
+  var OrgChrgForm = React.createClass({ //缴费数据Form父组件,维护所有状态数据
     utils:{
       getIndex: function(dataArray,id){
-        return _.findIndex(dataArray, {id: id})
+        return _.findIndex(dataArray, {id: id});
       },
       getSubmitButtonText: function(submit_status){
-        return {"waitMount":"等待数据","new":"提 交", "submitting":"提交中,请稍候...", "submitted":"成功提交,本页已可关闭","failed":"重新提交"}[submit_status];
+        return {"waitMount":"等待数据","new":"提 交", "submitting":"提交中,请稍候...", 
+                "submitted":"成功提交,本页已可关闭","failed":"重新提交"}[submit_status];
       }
     },
     chrgOps:{
@@ -229,11 +230,8 @@
           this.setState({tpl_datas: data, chrg_datas: _data, submit_status: "new"}); //获得数据后初始化组件的显示
         }.bind(this),
         error: function(xhr,status,err){
-          this.setState({error_message: "系统异步获取数据出错,请刷新页面重试或联系系统管理员! URL:" + this.props.create_submit_url + 
-            " Status:" + status + " Error:" + err.toString()});
-          // window.alert("系统异步获取数据出错!\nURL:" + this.props.org_chrg_tpl_url + 
-          //   "\nStatus:" + status + "\nError:" + err.toString());
-          // console.error(this.props.org_chrg_tpl_url, status, err.toString());
+          this.setState({error_message: "系统异步获取数据出错,请刷新页面重试或联系系统管理员! URL:" + 
+            this.props.create_submit_url + " Status:" + status + " Error:" + err.toString()});
         }.bind(this)
       });
     },
