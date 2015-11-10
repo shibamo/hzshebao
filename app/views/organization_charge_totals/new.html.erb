@@ -132,40 +132,44 @@
     chrgOps:{
       deleteChrg: function(chrgTplId){ //删除与取消删除
         var idx = this.utils.getIndex(this.state.chrg_datas,chrgTplId);
-        this.state.chrg_datas[idx].deleted = !this.state.chrg_datas[idx].deleted;
-        this.setState({chrg_datas: this.state.chrg_datas});
+        var _stateDataCloned = _.cloneDeep(this.state.chrg_datas);
+        _stateDataCloned[idx].deleted = !_stateDataCloned[idx].deleted;
+        this.setState({chrg_datas: _stateDataCloned});
       },
       editChrg: function(chrgTplId){ //修改
         var idx = this.utils.getIndex(this.state.chrg_datas,chrgTplId);
-        this.state.chrg_datas[idx].isEditing = !this.state.chrg_datas[idx].isEditing;
-        this.setState({chrg_datas: this.state.chrg_datas});
+        var _stateDataCloned = _.cloneDeep(this.state.chrg_datas);
+        _stateDataCloned[idx].isEditing = !_stateDataCloned[idx].isEditing;
+        this.setState({chrg_datas: _stateDataCloned});
       },
       exitEditChrg: function(chrgTplId){ //退出修改
         var idx = this.utils.getIndex(this.state.chrg_datas,chrgTplId);
-        this.state.chrg_datas[idx].isEditing = !this.state.chrg_datas[idx].isEditing;
-        this.setState({chrg_datas: this.state.chrg_datas});
+        var _stateDataCloned = _.cloneDeep(this.state.chrg_datas);
+        console.log(_stateDataCloned[0]);
+        _stateDataCloned[idx].isEditing = !_stateDataCloned[idx].isEditing;
+        this.setState({chrg_datas: _stateDataCloned});
       },
       restoreChrg: function(chrgTplId){ //恢复初始值
         var idx = this.utils.getIndex(this.state.chrg_datas,chrgTplId);
-        this.state.chrg_datas[idx] = _.clone(this.state.tpl_datas[idx]);
-        this.setState({chrg_datas: this.state.chrg_datas});
+        var _stateDataCloned = _.cloneDeep(this.state.chrg_datas);
+        _stateDataCloned[idx] = _.clone(this.state.tpl_datas[idx]);
+        this.setState({chrg_datas: _stateDataCloned});
       },
       handleChrgPriceFieldChange: function(chrgTplId, fieldName, form, newValue){
         if(newValue==="") newValue= "0";
         var patt = /^[0-9]+\.{0,1}[0-9]{0,2}$/;
         if(patt.test(newValue)){
           var idx = form.utils.getIndex(form.state.chrg_datas,chrgTplId);
-          form.state.chrg_datas[idx][fieldName] = newValue;
-          form.setState({chrg_datas: form.state.chrg_datas});
+          var _stateDataCloned = _.cloneDeep(form.state.chrg_datas);
+          _stateDataCloned[idx][fieldName] = newValue;
+          form.setState({chrg_datas: _stateDataCloned});
         }
       },
       handleChrgTextFieldChange: function(chrgTplId, fieldName, form, newValue){
         var idx = form.utils.getIndex(form.state.chrg_datas,chrgTplId);
-        form.state.chrg_datas[idx][fieldName] = newValue;
-        form.setState({chrg_datas: form.state.chrg_datas});
-      },
-      foo: function(chrgTplId){
-
+        var _stateDataCloned = _.cloneDeep(form.state.chrg_datas);
+        _stateDataCloned[idx][fieldName] = newValue;
+        form.setState({chrg_datas: _stateDataCloned});
       }
     },
     createInServer: function(){
