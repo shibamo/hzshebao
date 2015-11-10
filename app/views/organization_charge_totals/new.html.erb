@@ -62,6 +62,10 @@
           return <td className= { "sheet " + (isModified ? "modified" : "") }>{content}</td> 
         }
       };
+      var renderPriceTDs = function(fieldNames, form, that){
+        return _.map(fieldNames, function(fieldName){
+          return renderPriceTD(_d[fieldName], fieldName, form, that);});
+      };
       var renderTextInputTD = function(content,fieldName,that){ 
         if (_d.isEditing){
           return <td><input type="text" defaultValue={content} /></td>
@@ -73,22 +77,7 @@
       return (
         <tr className={_d.deleted ? "deleted" : ""}>
           {renderStaticTD(_d.organization_customer_name)}
-          {renderPriceTD(_d.price_shebao_base, "price_shebao_base", this.props.form, this)}
-          {renderPriceTD(_d.price_shebao_qiye,"price_shebao_qiye", this.props.form,this)}
-          {renderPriceTD(_d.price_shebao_geren,"price_shebao_geren", this.props.form,this)}
-          {renderPriceTD(_d.price_canbao,"price_canbao", this.props.form,this)}
-          {renderPriceTD(_d.price_shebao_guanli,"price_shebao_guanli", this.props.form,this)}
-          {renderPriceTD(_d.price_gongjijin_base,"price_gongjijin_base", this.props.form,this)}
-          {renderPriceTD(_d.price_gongjijin_qiye,"price_gongjijin_qiye", this.props.form,this)}
-          {renderPriceTD(_d.price_gongjijin_geren,"price_gongjijin_geren", this.props.form,this)}
-          {renderPriceTD(_d.price_gongjijin_guanli,"price_gongjijin_guanli", this.props.form,this)}
-          {renderPriceTD(_d.price_geshui,"price_geshui", this.props.form,this)}
-          {renderPriceTD(_d.price_qita_1,"price_qita_1", this.props.form,this)}
-          {renderPriceTD(_d.price_qita_2,"price_qita_2", this.props.form,this)}
-          {renderPriceTD(_d.price_qita_3,"price_qita_3", this.props.form,this)}
-          {renderPriceTD(_d.price_bujiao,"price_bujiao", this.props.form,this)}
-          {renderPriceTD(_d.price_yujiao,"price_yujiao", this.props.form,this)}
-          {renderPriceTD(_d.price_gongzi,"price_gongzi", this.props.form,this)}
+          {renderPriceTDs(this.props.config_datas.priceFieldNames,this.props.form,this)}
           <td><OrgChrgOps chrgTplId={_d.id} chrg_ops={this.props.chrg_ops} form={this.props.form} 
               deleted={_d.deleted} isEditing={_d.isEditing} updated={_d.updated} /></td>
         </tr>);
@@ -97,32 +86,26 @@
 
   var OrgChrgs = React.createClass({ //缴费数据集组件,无状态数据操作
     render: function(){
-      var chrgNodes = this.props.chrg_datas.map(chrg => <OrgChrg chrg_data={chrg} key={chrg.id} chrg_ops={this.props.chrg_ops} form={this.props.form} /> );
+      var chrgNodes = this.props.chrg_datas.map(chrg => <OrgChrg chrg_data={chrg} key={chrg.id} chrg_ops={this.props.chrg_ops} config_datas={this.props.config_datas} form={this.props.form} /> );
       var renderTH = function(content){ return <th className="th-small">{content}&nbsp;</th> };
+      var renderTHs = function(contents){return _.map(contents,renderTH)};
       var renderTotalTD = function(fieldName,that){ 
         var total = _.reduce(that.props.chrg_datas, function(memo,chrg){ return memo + (chrg["deleted"] ? 0 : Number(chrg[fieldName])) },0).toFixed(2);
         return <td className="sheet">{total}</td>
       };
+      var renderTotalTDs = function(fieldNames,that){ 
+        return _.map(fieldNames, function(fieldName){return renderTotalTD(fieldName,that);});
+      };
       return (
         <table><thead><tr>
-          {renderTH("员工姓名")}{renderTH("社保基数")}{renderTH("企业社保金")}{renderTH("个人社保金")}
-          {renderTH("残保金")}{renderTH("社保管理费")}{renderTH("公积金基数")}{renderTH("企业公积金")}
-          {renderTH("个人公积金")}{renderTH("公积金管理费")}{renderTH("个税")}{renderTH("其它1")}
-          {renderTH("其它2")}{renderTH("其它3")}{renderTH("补缴")}{renderTH("预缴")}
-          {renderTH("应发工资")}{renderTH("操作")}
+            {renderTHs(["员工姓名","社保基数","企业社保金","个人社保金","残保金","社保管理费","公积金基数",
+              "企业公积金","个人公积金","公积金管理费","个税","其它1","其它2","其它3","补缴","预缴","应发工资","操作"])}
             </tr>
           </thead>
           <tbody>
           {chrgNodes}
-          <tr className="sum-line"><td className="sheet">总计</td>{renderTotalTD("price_shebao_base",this)}
-          {renderTotalTD("price_shebao_qiye",this)}{renderTotalTD("price_shebao_geren",this)}
-          {renderTotalTD("price_canbao",this)}{renderTotalTD("price_shebao_guanli",this)}
-          {renderTotalTD("price_gongjijin_base",this)}{renderTotalTD("price_gongjijin_qiye",this)}
-          {renderTotalTD("price_gongjijin_geren",this)}{renderTotalTD("price_gongjijin_guanli",this)}
-          {renderTotalTD("price_geshui",this)}{renderTotalTD("price_qita_1",this)}
-          {renderTotalTD("price_qita_2",this)}{renderTotalTD("price_qita_3",this)}
-          {renderTotalTD("price_bujiao",this)}{renderTotalTD("price_yujiao",this)}
-          {renderTotalTD("price_gongzi",this)}
+          <tr className="sum-line"><td className="sheet">总计</td>
+          {renderTotalTDs(this.props.config_datas.priceFieldNames,this)}
           </tr>
           </tbody>
         </table> 
@@ -140,6 +123,12 @@
                 "submitted":"成功提交,本页已可关闭","failed":"重新提交"}[submit_status];
       }
     },
+    configDatas:{
+      priceFieldNames : ["price_shebao_base","price_shebao_qiye","price_shebao_geren","price_canbao",
+            "price_shebao_guanli","price_gongjijin_base","price_gongjijin_qiye","price_gongjijin_geren",
+            "price_gongjijin_guanli","price_geshui","price_qita_1","price_qita_2","price_qita_3",
+            "price_bujiao","price_yujiao","price_gongzi"]
+    },
     chrgOps:{
       deleteChrg: function(chrgTplId){ //删除与取消删除
         var idx = this.utils.getIndex(this.state.chrg_datas,chrgTplId);
@@ -156,13 +145,10 @@
         this.state.chrg_datas[idx].isEditing = !this.state.chrg_datas[idx].isEditing;
         this.setState({chrg_datas: this.state.chrg_datas});
       },
-      confirmUpdateChrg: function(chrgTplId){ //确认修改
-        
-      },
       restoreChrg: function(chrgTplId){ //恢复初始值
         var idx = this.utils.getIndex(this.state.chrg_datas,chrgTplId);
         this.state.chrg_datas[idx] = _.clone(this.state.tpl_datas[idx]);
-         this.setState({chrg_datas: this.state.chrg_datas});
+        this.setState({chrg_datas: this.state.chrg_datas});
       },
       handleChrgPriceFieldChange: function(chrgTplId, fieldName, form, newValue){
         if(newValue==="") newValue= "0";
@@ -237,7 +223,8 @@
     },
     render: function(){
       return <div style= {{width: '1200px'}}> 
-              <OrgChrgs chrg_datas={this.state.chrg_datas} chrg_ops={this.chrgOps} form={this} />
+              <OrgChrgs chrg_datas={this.state.chrg_datas} chrg_ops={this.chrgOps} 
+                        config_datas={this.configDatas} form={this} />
               备注:<br/><textarea id="comment" style={{width: "960px"}} className="form-control" name="comment" rows="2" ></textarea>
               <button onClick={this.createInServer} className="btn btn-default" type="button" 
               disabled={this.state.submit_status=="submitting" || this.state.submit_status=="submitted" || 
