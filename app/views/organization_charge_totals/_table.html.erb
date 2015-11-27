@@ -5,17 +5,18 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>社保基数</th>
-      <th>社保金</th>
-      <th>社保管理费</th>
-      <th>公积金基数</th>
-      <th>公积金</th>
-      <th>公积金管理费</th>
+      <th>基数</th>
+      <th>社保</th>
+      <th>管理费</th>
+      <th>基数</th>
+      <th>公积</th>
+      <th>管理费</th>
       <th>个税</th>
       <th>其他费用</th>
       <th>应发工资</th>
-      <th>开始日期</th>
-      <th>结束日期</th>
+      <th>总收费金额</th>
+      <th>费用开始日期</th>
+      <th>费用结束日期</th>
       <th>资金到账日</th>
       <th>资金审核日</th>
       <th>状态</th>
@@ -45,6 +46,7 @@
         <%= oct.price_qita_1+oct.price_qita_2+oct.price_qita_3+oct.price_bujiao+oct.price_yujiao %></a>
         </td>
         <td><%= oct.price_gongzi %></td>
+        <td><strong><%=  oct.price_shebao_qiye + oct.price_shebao_geren + oct.price_canbao + oct.price_shebao_guanli + oct.price_gongjijin_qiye + oct.price_gongjijin_geren + oct.price_gongjijin_guanli + oct.price_geshui + oct.price_qita_1 + oct.price_qita_2 + oct.price_qita_3 + oct.price_bujiao + oct.price_yujiao + oct.price_gongzi %></strong></td>
         <td><%= oct.start_date %></td>
         <td><%= oct.end_date %></td>
         <td><%= oct.money_arrival_date %></td>
