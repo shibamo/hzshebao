@@ -1,6 +1,5 @@
-<h1>Editing Organization Charge Total</h1>
+<h1 class="text-center">更改机构(<%=@organization.name%>)缴费记录</h1>
 
-<%= render 'form' %>
+<%= render 'detail_form', op_mode: "edit" %>
 
-<%= link_to 'Show', @organization_charge_total %> |
-<%= link_to 'Back', organization_charge_totals_path %>
+

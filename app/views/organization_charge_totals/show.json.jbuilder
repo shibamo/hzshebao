@@ -1,1 +1,26 @@
-json.extract! @organization_charge_total, :id, :organization_id, :user_id, :price_shebao_base, :price_shebao_qiye, :price_shebao_geren, :price_canbao, :price_shebao_guanli, :price_gongjijin_base, :price_gongjijin_qiye, :price_gongjijin_geren, :price_gongjijin_guanli, :price_geshui, :price_qita_1, :price_qita_2, :price_qita_3, :price_bujiao, :price_yujiao, :price_gongzi, :start_date, :end_date, :comment, :money_arrival_date, :money_check_date, :workflow_state, :created_at, :updated_at
+json.extract! @organization_charge_total, :id, :comment, :start_date, :end_date
+
+json.organization_charges @organization_charge_total.organization_charges do |oc| 
+  json.id oc.id
+  json.organization_customer_id oc.organization_customer_id
+  json.user_id oc.user_id
+  json.price_shebao_base oc.price_shebao_base
+  json.price_shebao_qiye oc.price_shebao_qiye
+  json.price_shebao_geren oc.price_shebao_geren
+  json.price_canbao oc.price_canbao
+  json.price_shebao_guanli oc.price_shebao_guanli
+  json.price_gongjijin_base oc.price_gongjijin_base
+  json.price_gongjijin_qiye oc.price_gongjijin_qiye
+  json.price_gongjijin_geren oc.price_gongjijin_geren
+  json.price_gongjijin_guanli oc.price_gongjijin_guanli
+  json.price_geshui oc.price_geshui
+  json.price_qita_1 oc.price_qita_1
+  json.price_qita_2 oc.price_qita_2
+  json.price_qita_3 oc.price_qita_3
+  json.price_bujiao oc.price_bujiao
+  json.price_yujiao oc.price_yujiao
+  json.price_gongzi oc.price_gongzi
+  json.comment oc.comment
+  json.organization_customer_name oc.organization_customer.name
+end
+

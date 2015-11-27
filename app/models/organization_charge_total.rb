@@ -3,7 +3,7 @@ class OrganizationChargeTotal < ActiveRecord::Base
   include ChinesifyWorkflow
   include ModelHelper
 
-  has_many :organization_charges
+  has_many :organization_charges, autosave: true
   belongs_to :organization
   #belongs_to :user
 

@@ -1,0 +1,324 @@
+<div class="container" id="root_div" style="padding-left:0px;">
+<form class="form-inline">
+  <div class="form-inputs">
+  费用所属日期从:<input class="string optional form-control dtp" size="10" type="text" value="" id="start_date" data-date-format="yyyy-mm-dd" name="single_customer[input_date_from]">
+        <span class="add-on"><i class="icon-th"></i></span>
+      到:    
+        <input class="string optional form-control dtp" size="10" type="text" value="" id="end_date" data-date-format="yyyy-mm-dd"  name="single_customer[input_date_to]">
+        <span class="add-on"><i class="icon-th"></i></span><br>
+  </div></div>
+
+  <div id="OrgChrgFormPlaceholder"><!--React组件OrgChrgForm的初始化放置位置--></div>
+</form>
+
+<script type="text/babel">
+  // op_mode=new:新建模式    op_mode=edit:编辑更改模式 
+  var isNewMode = function(){return <%= op_mode=="new" %>};
+  var isEditMode = function(){return <%= op_mode=="edit" %>};
+  var opMode = function(){return "<%= op_mode %>"};
+
+  var organization_id = <%=@organization.id%>;
+
+  var urls = {
+    org_chrg_tpl_url: "<%=organization_charge_templates_list_by_organization_path(@organization)%>", //获取模板数据Url
+    org_chrg_data_url: "<%=organization_charge_total_path(@organization_charge_total) if @organization_charge_total.id%>", //获取已存在的缴费数据Url
+    create_submit_url: "<%=organization_charge_totals_path%>", //提交新建数据Url
+    update_submit_url: "<%=organization_charge_total_path(@organization_charge_total) if @organization_charge_total.id%>", //提交变更数据Url
+    back_url: "<%=organization_charge_totals_list_path(@organization)%>", //返回该机构的缴费历史记录表Url
+    foo: ""
+  };
+
+  var OrgChrgOps = React.createClass({ //缴费数据行操作按钮组件,无状态数据操作
+    render: function(){
+      var organization_customer_id = this.props.organization_customer_id;
+      return(
+        <span className="dropdown">
+          <button className="btn btn-xs btn-primary dropdown-toggle" type="button" id="dropdownMenuUpload1" data-toggle="dropdown" aria-expanded="true">操作<span className="caret"></span></button>
+          <ul className="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+            <li role="presentation"><a role= "menuitem" tabIndex= "-1" organization_customer_id="{organization_customer_id}" 
+            onClick={this.props.chrg_ops.deleteChrg.bind(this.props.form, organization_customer_id)} >{this.props.deleted ? "取消删除" : "删除"}</a></li>
+
+            <li role="presentation"><a role= "menuitem" tabIndex= "-1" organization_customer_id="{organization_customer_id}" 
+            onClick={this.props.isEditing ? this.props.chrg_ops.exitEditChrg.bind(this.props.form, organization_customer_id) : this.props.chrg_ops.editChrg.bind(this.props.form, organization_customer_id)} >{this.props.isEditing ? "退出修改" : "修改"}</a></li>
+
+            <li role="presentation"><a role= "menuitem" tabIndex= "-1" organization_customer_id="{organization_customer_id}" 
+            onClick={this.props.chrg_ops.restoreChrg.bind(this.props.form, organization_customer_id)} >恢复模板初始值</a></li>
+          </ul>
+        </span>
+      );
+    }
+  });
+
+  var OrgChrg = React.createClass({ //缴费数据行数据显示与输入组件,无状态数据操作
+    render: function(){
+      var _d = this.props.chrg_data;
+      var renderStaticTD = function(content){ 
+        return <td className="sheet">{content}</td> 
+      };
+      var handleChange = function(fieldName, form, event){
+        this.props.chrg_ops.handleChrgPriceFieldChange(this.props.chrg_data.organization_customer_id, fieldName, form ,event.target.value);
+      };
+      var renderPriceTD = function(content,fieldName, form,that){ 
+        var idx = form.utils.getIndex(form.state.chrg_datas, that.props.chrg_data["organization_customer_id"]);
+        var isModified;
+        if (isNewMode()){//初始缴费数据为模板数据的记录集复制
+          isModified  = (form.state.chrg_datas[idx][fieldName] !== form.state.tpl_datas[idx][fieldName]);
+        }
+        else if (isEditMode()){ //初始缴费数据为服务器上缴费数据历史记录的记录集复制
+          isModified  = (form.state.chrg_datas[idx][fieldName] !== form.state.chrg_server_datas[idx][fieldName]);
+        }
+        if (_d.isEditing){
+          return <td className={isModified ? "modified" : "" } ><input type="text" size="6" value={content} fieldName={fieldName}  onChange={handleChange.bind(that, fieldName, form)} /></td>
+        }
+        else {
+          return <td className= { "sheet " + (isModified ? "modified" : "") }>{content}</td> 
+        }
+      };
+      var renderPriceTDs = function(fieldNames, form, that){
+        return _.map(fieldNames, function(fieldName){
+          return renderPriceTD(_d[fieldName], fieldName, form, that);});
+      };
+      var renderTextInputTD = function(content,fieldName,that){ 
+        if (_d.isEditing){
+          return <td><input type="text" defaultValue={content} /></td>
+        }
+        else {
+          return <td className="sheet">{content}</td> 
+        }
+      };
+      return (
+        <tr className={_d.deleted ? "deleted" : ""} key={_d.organization_customer_id}>
+          {renderStaticTD(_d.organization_customer_name)}
+          {renderPriceTDs(this.props.config_datas.priceFieldNames,this.props.form,this)}
+          <td><OrgChrgOps organization_customer_id={_d.organization_customer_id} chrg_ops={this.props.chrg_ops} form={this.props.form} 
+              deleted={_d.deleted} isEditing={_d.isEditing} updated={_d.updated} /></td>
+        </tr>);
+    }
+  });
+
+  var OrgChrgs = React.createClass({ //缴费数据集组件,无状态数据操作
+    render: function(){
+      var chrgNodes = this.props.chrg_datas.map(chrg => <OrgChrg chrg_data={chrg} key={chrg.organization_customer_id} chrg_ops={this.props.chrg_ops} config_datas={this.props.config_datas} form={this.props.form} /> );
+      var renderTH = function(content){ return <th className="th-small text-center">{content}&nbsp;</th> };
+      var renderTHs = function(contents){return _.map(contents,renderTH)};
+      var renderTotalTD = function(fieldName,that){ //指定列汇总显示
+        var total = _.reduce(that.props.chrg_datas, function(memo,chrg){ return memo + (chrg["deleted"] ? 0 : Number(chrg[fieldName])) },0).toFixed(2);
+        return <td className="sheet">{total}</td>
+      };
+      var renderTotalTDs = function(fieldNames,that){ //每列汇总显示
+        return _.map(fieldNames, function(fieldName){return renderTotalTD(fieldName,that);});
+      };
+      var renderSumTotalTD = function(fieldNames,that){ //将所有指定的列所有值汇总显示,即总计
+        var total = _.reduce(fieldNames, 
+                      function(sum_memo, fieldName){ 
+                        return sum_memo + 
+                          _.reduce(that.props.chrg_datas, 
+                            function(memo,chrg){ return memo + 
+                              (chrg["deleted"] ? 0 : Number(chrg[fieldName])) },0); }, 
+                      0);
+        return <td className="sheet">{total.toFixed(2)}</td>
+      };
+
+      return (
+        <table className="table table-striped table-hover table-condensed"><thead><tr key="head">
+            {renderTHs(["员工名","基数","企业社保","个人社保","残保","社保管理费","基数",
+              "企业公积","个人公积","公积管理费","个税","其它1","其它2","其它3","补缴","预缴","应发工资","操作"])}
+            </tr>
+          </thead>
+          <tbody>
+          {chrgNodes}
+          <tr className="sum-line" key="foot"><td className="sheet">总计</td>
+          {renderTotalTDs(this.props.config_datas.priceFieldNames,this)}
+          {renderSumTotalTD(this.props.config_datas.validPriceFieldNames,this)}
+          </tr>
+          </tbody>
+        </table> 
+      );
+    }
+  });
+
+  var OrgChrgForm = React.createClass({ //缴费数据Form父组件,维护所有状态数据
+    utils:{
+      getIndex: function(dataArray,id){
+        return _.findIndex(dataArray, {organization_customer_id: id});
+      },
+      getSubmitButtonText: function(submit_status){
+        return {"waitMount":"等待数据","new":"提 交", "submitting":"提交中,请稍候...", 
+                "submitted":"成功提交,请点击'返回'按钮->返回机构收费历史","failed":"重新提交"}[submit_status];
+      }
+    },
+    configDatas:{
+      priceFieldNames : ["price_shebao_base","price_shebao_qiye","price_shebao_geren","price_canbao",
+            "price_shebao_guanli","price_gongjijin_base","price_gongjijin_qiye","price_gongjijin_geren",
+            "price_gongjijin_guanli","price_geshui","price_qita_1","price_qita_2","price_qita_3",
+            "price_bujiao","price_yujiao","price_gongzi"], //按顺序排列的所有的金额相关字段
+      validPriceFieldNames : ["price_shebao_qiye","price_shebao_geren","price_canbao",
+            "price_shebao_guanli","price_gongjijin_qiye","price_gongjijin_geren",
+            "price_gongjijin_guanli","price_geshui","price_qita_1","price_qita_2","price_qita_3",
+            "price_bujiao","price_yujiao","price_gongzi"] //按顺序排列的所有的需要实际收费的金额相关字段,目前主要是去掉了基数类型字段price_shebao_base和price_gongjijin_base
+    },
+    chrgOps:{
+      deleteChrg: function(organization_customer_id){ //删除与取消删除
+        var idx = this.utils.getIndex(this.state.chrg_datas,organization_customer_id);
+        var _stateDataCloned = _.cloneDeep(this.state.chrg_datas);
+        _stateDataCloned[idx].deleted = !_stateDataCloned[idx].deleted;
+        this.setState({chrg_datas: _stateDataCloned});
+      },
+      editChrg: function(organization_customer_id){ //修改
+        var idx = this.utils.getIndex(this.state.chrg_datas,organization_customer_id);
+        var _stateDataCloned = _.cloneDeep(this.state.chrg_datas);
+        _stateDataCloned[idx].isEditing = !_stateDataCloned[idx].isEditing;
+        this.setState({chrg_datas: _stateDataCloned});
+      },
+      exitEditChrg: function(organization_customer_id){ //退出修改
+        var idx = this.utils.getIndex(this.state.chrg_datas,organization_customer_id);
+        var _stateDataCloned = _.cloneDeep(this.state.chrg_datas);
+        _stateDataCloned[idx].isEditing = !_stateDataCloned[idx].isEditing;
+        this.setState({chrg_datas: _stateDataCloned});
+      },
+      restoreChrg: function(organization_customer_id){ //恢复模板初始值
+        var idx = this.utils.getIndex(this.state.chrg_datas,organization_customer_id);
+        var tpl_index = this.utils.getIndex(this.state.tpl_datas,organization_customer_id);
+        var _stateDataCloned = _.cloneDeep(this.state.chrg_datas);
+        _stateDataCloned[idx] = _.clone(this.state.tpl_datas[tpl_index]);
+        _stateDataCloned[idx]["id"] = this.state.chrg_datas[idx]["id"];
+        this.setState({chrg_datas: _stateDataCloned});
+      },
+      handleChrgPriceFieldChange: function(organization_customer_id, fieldName, form, newValue){
+        if(newValue==="") newValue= "0";
+        var patt = /^[0-9]+\.{0,1}[0-9]{0,2}$/;
+        if(patt.test(newValue)){
+          var idx = form.utils.getIndex(form.state.chrg_datas,organization_customer_id);
+          var _stateDataCloned = _.cloneDeep(form.state.chrg_datas);
+          _stateDataCloned[idx][fieldName] = newValue;
+          form.setState({chrg_datas: _stateDataCloned});
+        }
+      },
+      handleChrgTextFieldChange: function(organization_customer_id, fieldName, form, newValue){
+        var idx = form.utils.getIndex(form.state.chrg_datas,organization_customer_id);
+        var _stateDataCloned = _.cloneDeep(form.state.chrg_datas);
+        _stateDataCloned[idx][fieldName] = newValue;
+        form.setState({chrg_datas: _stateDataCloned});
+      }
+    },
+    createInServer: function(){
+      if (!($("#start_date").val()) || !($("#end_date").val())){
+        this.setState({error_message: "需要输入服务日期!"});
+        return false;
+      }
+      var _data = {
+        organization_charge_total_id: this.state.organization_charge_total_id,
+        organization_charge_total: {
+          organization_id: organization_id,
+          comment: $("#comment").val(),
+          start_date: $("#start_date").val(),
+          end_date: $("#end_date").val()
+        },
+        organization_charges: this.state.chrg_datas};
+      this.setState({
+        submit_status: "submitting",
+        error_message: ""}); //等待返回结果前将以前可能出现的错误信息清除
+      var _submit_url, _http_method_type;
+      if (isNewMode()){
+        _submit_url = urls.create_submit_url;
+        _http_method_type = "POST";
+      }else if(isEditMode()){
+        _submit_url = urls.update_submit_url;
+        _http_method_type = "PATCH";
+        _data["_method"] = "patch";
+      }
+      $.ajax({
+        type : _http_method_type,
+        url :  _submit_url,
+        dataType: 'json',
+        contentType: 'application/json',
+        data : JSON.stringify(_data),
+        success: function(){
+          this.setState({submit_status: "submitted"});
+        }.bind(this),
+        error: function(xhr,status,err){
+          this.setState({error_message: "提交数据返回错误! URL:" + _submit_url + 
+            " Status:" + status + " Error:" + err.toString()});
+          this.setState({submit_status: "failed"});
+        }.bind(this)
+      });
+    },
+    getInitialState: function(){
+      return {
+        tpl_datas: [],          //机构员工缴费模板,用于当用户改了缴费原预设的数据后选择恢复原预设值
+        chrg_server_datas: [],  //机构员工缴费已存在服务器的数据,用户已经提交,该数据在修改模式下isEdit()==true有效
+        chrg_datas: [],         //机构员工缴费实际数据另外增加了deleted和updated两个字段反映用户的修改操作,目前无added类型操作的需要
+        error_message: "",      //错误信息
+        submit_status: "waitMount",  //提交保存状态 "waitMount":等待数据填充, "new":正在编辑, "submitting":已提交等待结果返回, "submitted":已成功提交,"failed":上次提交失败
+        organization_charge_total_id: ""
+      };
+    },
+    componentDidMount: function(){
+      if (isNewMode()){//新建记录模式,只需要从服务器获取模板
+        $.when($.ajax({
+          url: this.props.org_chrg_tpl_url, //获取机构员工缴费模板数据
+          dataType: 'json',
+          cache: false})
+        )
+        .then(function(data){
+            var _data = _.map(data, _.clone).
+                        map(d => _.omit(d, 'id')).
+                        map(d => _.extend(d,{deleted: false, updated: false, isEditing: false}));
+            this.setState({tpl_datas: data, chrg_datas: _data, submit_status: "new"}); //获得数据后初始化组件的显示
+          }.bind(this),
+          function(err){
+            this.setState({error_message: "系统异步获取数据出错,请刷新页面重试或联系系统管理员! " + err.toString()});
+          }.bind(this));
+      }
+      else if(isEditMode()){//修改记录模式,需要从服务器获取模板和缴费数据记录两类数据
+        $.when(
+          $.ajax({
+          url: this.props.org_chrg_tpl_url, //获取机构员工缴费模板数据
+          dataType: 'json',
+          cache: false}),
+          $.ajax({
+          url: this.props.org_chrg_data_url, //获取已存在的机构员工缴费数据
+          dataType: 'json',
+          cache: false})
+        )
+        .then(function(tpl_data/*模板数据*/, server_data/*服务器已存在数据记录*/){
+          //使用when模式进行多个并行ajax请求的异步调用,返回的每个数据会被jquery夹带额外的成功失败payload信息,
+          //因此需要格式与上面的单一调用返回的数据不一样,需要进行数组取值
+            var _data = _.map(server_data[0]['organization_charges'], _.clone).map(d => _.extend(d,{deleted: false, updated: false, isEditing: false}));
+            this.setState({tpl_datas: tpl_data[0], chrg_server_datas: server_data[0]['organization_charges'],
+                          chrg_datas: _data, submit_status: "new", organization_charge_total_id: server_data[0]['id']}); //获得数据后初始化组件的显示
+            $("#start_date").val(server_data[0]['start_date']);
+            $("#end_date").val(server_data[0]['end_date']);
+            $("#comment").val(server_data[0]['comment']);
+
+          }.bind(this),
+          function(err){
+            this.setState({error_message: "系统异步获取数据出错,请刷新页面重试或联系系统管理员! " + err.toString()});
+          }.bind(this));
+      }
+    },
+    render: function(){
+      return <div style= {{width: '1200px'}}> 
+              <OrgChrgs chrg_datas={this.state.chrg_datas} chrg_ops={this.chrgOps} 
+                        config_datas={this.configDatas} form={this} />
+              备注:<br/><textarea id="comment" style={{width: "960px"}} className="form-control" name="comment" rows="2" ></textarea>
+              <button onClick={this.createInServer} className="btn btn-primary" type="button" 
+              disabled={this.state.submit_status=="submitting" || this.state.submit_status=="submitted" || 
+                        this.state.submit_status=="waitMount"}>{
+                this.utils.getSubmitButtonText(this.state.submit_status)}</button> &nbsp; 
+              <a className="btn btn-default" href={urls.back_url}>返回</a>
+              <span style={{color: "red"}}>{this.state.error_message}</span>
+            </div> ;
+    }
+  });
+
+  ReactDOM.render(
+    <OrgChrgForm org_chrg_tpl_url= {urls.org_chrg_tpl_url} org_chrg_data_url={urls.org_chrg_data_url}
+    create_submit_url={urls.create_submit_url} update_submit_url={urls.update_submit_url} />,
+    document.getElementById('OrgChrgFormPlaceholder')
+    );
+</script>
+
+<script type="text/javascript">
+$('.dtp').datepicker();
+</script>

@@ -12,6 +12,7 @@ class OrganizationCustomer < ActiveRecord::Base
 
   has_many :customer_id_card_pictures, -> { where(customer_type: "机构客户") } ,foreign_key: :customer_id
   has_one :organization_charge_template #该机构员工客户对应的缴费模板
+  has_many :organization_charges #该机构员工客户对应的缴费历史记录
 
   validates_presence_of :organization_id, :name, :gender, :ethnic_name,:education,
             :birth, :id_no, :id_address, :hukou_type, :tel, :other_contact_person,

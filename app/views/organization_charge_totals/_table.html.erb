@@ -1,60 +1,64 @@
-<table>
+社保金 = 企业社保金 + 个人社保金 + 残保金<br/>
+公积金 = 企业公积金 + 个人公积金<br/>
+其他费用 = 其它1 + 其它2 + 其它3 + 补缴 + 预缴 <br/>
+
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Price shebao base</th>
-      <th>Price shebao qiye</th>
-      <th>Price shebao geren</th>
-      <th>Price canbao</th>
-      <th>Price shebao guanli</th>
-      <th>Price gongjijin base</th>
-      <th>Price gongjijin qiye</th>
-      <th>Price gongjijin geren</th>
-      <th>Price gongjijin guanli</th>
-      <th>Price geshui</th>
-      <th>Price qita 1</th>
-      <th>Price qita 2</th>
-      <th>Price qita 3</th>
-      <th>Price bujiao</th>
-      <th>Price yujiao</th>
-      <th>Price gongzi</th>
-      <th>Start date</th>
-      <th>End date</th>
-      <th>Comment</th>
-      <th>Money arrival date</th>
-      <th>Money check date</th>
-      <th>Workflow state</th>
-      <th colspan="3"></th>
+      <th>社保基数</th>
+      <th>社保金</th>
+      <th>社保管理费</th>
+      <th>公积金基数</th>
+      <th>公积金</th>
+      <th>公积金管理费</th>
+      <th>个税</th>
+      <th>其他费用</th>
+      <th>应发工资</th>
+      <th>开始日期</th>
+      <th>结束日期</th>
+      <th>资金到账日</th>
+      <th>资金审核日</th>
+      <th>状态</th>
+      <th>备注</th>
+      <th colspan="1">操作</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @organization_charge_totals.each do |organization_charge_total| %>
+    <% @organization_charge_totals.each do |oct| %>
       <tr>
-        <td><%= organization_charge_total.price_shebao_base %></td>
-        <td><%= organization_charge_total.price_shebao_qiye %></td>
-        <td><%= organization_charge_total.price_shebao_geren %></td>
-        <td><%= organization_charge_total.price_canbao %></td>
-        <td><%= organization_charge_total.price_shebao_guanli %></td>
-        <td><%= organization_charge_total.price_gongjijin_base %></td>
-        <td><%= organization_charge_total.price_gongjijin_qiye %></td>
-        <td><%= organization_charge_total.price_gongjijin_geren %></td>
-        <td><%= organization_charge_total.price_gongjijin_guanli %></td>
-        <td><%= organization_charge_total.price_geshui %></td>
-        <td><%= organization_charge_total.price_qita_1 %></td>
-        <td><%= organization_charge_total.price_qita_2 %></td>
-        <td><%= organization_charge_total.price_qita_3 %></td>
-        <td><%= organization_charge_total.price_bujiao %></td>
-        <td><%= organization_charge_total.price_yujiao %></td>
-        <td><%= organization_charge_total.price_gongzi %></td>
-        <td><%= organization_charge_total.start_date %></td>
-        <td><%= organization_charge_total.end_date %></td>
-        <td><%= organization_charge_total.comment %></td>
-        <td><%= organization_charge_total.money_arrival_date %></td>
-        <td><%= organization_charge_total.money_check_date %></td>
-        <td><%= organization_charge_total.workflow_state %></td>
-        <td><%= link_to 'Show', organization_charge_total %></td>
-        <td><%= link_to 'Edit', edit_organization_charge_total_path(organization_charge_total) %></td>
+        <td><%= oct.price_shebao_base %></td>
+        <td><a tabindex="0" class="btn btn-xs btn-warning" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="社保金 = 企业社保金 + 个人社保金 + 残保金" 
+          data-content="<%= "企业社保金: #{oct.price_shebao_qiye} <br/>个人社保金: #{oct.price_shebao_geren} <br/>残保金: #{oct.price_canbao} " %>">
+        <%= oct.price_shebao_qiye + oct.price_shebao_geren + oct.price_canbao %></a>
+        </td>
+        <td><%= oct.price_shebao_guanli %></td>
+        <td><%= oct.price_gongjijin_base %></td>
+        <td><a tabindex="0" class="btn btn-xs btn-warning" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="公积金 = 企业公积金 + 个人公积金" 
+          data-content="<%= "企业公积金: #{oct.price_shebao_qiye} <br/>个人公积金: #{oct.price_shebao_geren}" %>">
+        <%= oct.price_gongjijin_qiye + oct.price_gongjijin_geren %></a>
+        </td>        
+        <td><%= oct.price_gongjijin_guanli %></td>
+        <td><%= oct.price_geshui %></td>
+        <td><a tabindex="0" class="btn btn-xs btn-warning" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="其他费用 = 其它1 + 其它2 + 其它3 + 补缴 + 预缴" 
+          data-content="<%= "其它1: #{oct.price_qita_1} <br/>其它2: #{oct.price_qita_2} <br/>其它3: #{oct.price_qita_3} <br/>补缴: #{oct.price_bujiao} <br/>预缴: #{oct.price_yujiao} " %>">
+        <%= oct.price_qita_1+oct.price_qita_2+oct.price_qita_3+oct.price_bujiao+oct.price_yujiao %></a>
+        </td>
+        <td><%= oct.price_gongzi %></td>
+        <td><%= oct.start_date %></td>
+        <td><%= oct.end_date %></td>
+        <td><%= oct.money_arrival_date %></td>
+        <td><%= oct.money_check_date %></td>
+        <td><%= oct.translate_workflow_state_name(OrganizationChargeTotal::WORKFLOW_STATE_NAMES) %></td>
+        <td><a tabindex="0" class="btn btn-xs btn-info" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="备注" data-content="<%= oct.comment %>">备注</a></td>
+        <td><%= link_to '查看', oct %></td>
+        <td><%= link_to '修改', edit_organization_charge_total_path(oct) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+<script type="text/javascript">
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
+</script>
