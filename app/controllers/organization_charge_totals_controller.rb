@@ -20,7 +20,6 @@ class OrganizationChargeTotalsController < ApplicationController
 
   # GET /organization_charge_totals/1/edit
   def edit
-
   end
 
   # POST /organization_charge_totals

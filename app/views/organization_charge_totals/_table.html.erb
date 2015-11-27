@@ -51,8 +51,8 @@
         <td><%= oct.money_check_date %></td>
         <td><%= oct.translate_workflow_state_name(OrganizationChargeTotal::WORKFLOW_STATE_NAMES) %></td>
         <td><a tabindex="0" class="btn btn-xs btn-info" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="备注" data-content="<%= oct.comment %>">备注</a></td>
-        <td><%= link_to '查看', oct %></td>
-        <td><%= link_to '修改', edit_organization_charge_total_path(oct) %></td>
+        <td><%= link_to '查看', oct , class: "btn btn-xs btn-default"%></td>
+        <td><%= link_to '修改', edit_organization_charge_total_path(oct) , class: "btn btn-xs btn-primary"%></td>
       </tr>
     <% end %>
   </tbody>

@@ -12,9 +12,10 @@
 </form>
 
 <script type="text/babel">
-  // op_mode=new:新建模式    op_mode=edit:编辑更改模式 
+  // op_mode=new:新建模式; op_mode=edit:编辑更改模式; op_mode=show:显示查看模式; 
   var isNewMode = function(){return <%= op_mode=="new" %>};
   var isEditMode = function(){return <%= op_mode=="edit" %>};
+  var isShowMode = function(){return <%= op_mode=="show" %>};
   var opMode = function(){return "<%= op_mode %>"};
 
   var organization_id = <%=@organization.id%>;
@@ -31,6 +32,7 @@
   var OrgChrgOps = React.createClass({ //缴费数据行操作按钮组件,无状态数据操作
     render: function(){
       var organization_customer_id = this.props.organization_customer_id;
+      if (isShowMode()) return ( <span>无</span> ); //显示模式不允许对数据的操作
       return(
         <span className="dropdown">
           <button className="btn btn-xs btn-primary dropdown-toggle" type="button" id="dropdownMenuUpload1" data-toggle="dropdown" aria-expanded="true">操作<span className="caret"></span></button>
@@ -64,7 +66,7 @@
         if (isNewMode()){//初始缴费数据为模板数据的记录集复制
           isModified  = (form.state.chrg_datas[idx][fieldName] !== form.state.tpl_datas[idx][fieldName]);
         }
-        else if (isEditMode()){ //初始缴费数据为服务器上缴费数据历史记录的记录集复制
+        else if (isEditMode() || isShowMode()){ //初始缴费数据为服务器上缴费数据历史记录的记录集复制
           isModified  = (form.state.chrg_datas[idx][fieldName] !== form.state.chrg_server_datas[idx][fieldName]);
         }
         if (_d.isEditing){
@@ -90,7 +92,7 @@
         <tr className={_d.deleted ? "deleted" : ""} key={_d.organization_customer_id}>
           {renderStaticTD(_d.organization_customer_name)}
           {renderPriceTDs(this.props.config_datas.priceFieldNames,this.props.form,this)}
-          <td><OrgChrgOps organization_customer_id={_d.organization_customer_id} chrg_ops={this.props.chrg_ops} form={this.props.form} 
+          <td className="text-center"><OrgChrgOps organization_customer_id={_d.organization_customer_id} chrg_ops={this.props.chrg_ops} form={this.props.form} 
               deleted={_d.deleted} isEditing={_d.isEditing} updated={_d.updated} /></td>
         </tr>);
     }
@@ -270,7 +272,7 @@
             this.setState({error_message: "系统异步获取数据出错,请刷新页面重试或联系系统管理员! " + err.toString()});
           }.bind(this));
       }
-      else if(isEditMode()){//修改记录模式,需要从服务器获取模板和缴费数据记录两类数据
+      else if(isEditMode() || isShowMode()){//修改记录模式,需要从服务器获取模板和缴费数据记录两类数据
         $.when(
           $.ajax({
           url: this.props.org_chrg_tpl_url, //获取机构员工缴费模板数据
@@ -302,10 +304,13 @@
               <OrgChrgs chrg_datas={this.state.chrg_datas} chrg_ops={this.chrgOps} 
                         config_datas={this.configDatas} form={this} />
               备注:<br/><textarea id="comment" style={{width: "960px"}} className="form-control" name="comment" rows="2" ></textarea>
+
               <button onClick={this.createInServer} className="btn btn-primary" type="button" 
-              disabled={this.state.submit_status=="submitting" || this.state.submit_status=="submitted" || 
-                        this.state.submit_status=="waitMount"}>{
-                this.utils.getSubmitButtonText(this.state.submit_status)}</button> &nbsp; 
+                disabled={this.state.submit_status=="submitting" || this.state.submit_status=="submitted" || 
+                        this.state.submit_status=="waitMount" || isShowMode()}>{
+                this.utils.getSubmitButtonText(this.state.submit_status)}
+              </button> &nbsp; 
+
               <a className="btn btn-default" href={urls.back_url}>返回</a>
               <span style={{color: "red"}}>{this.state.error_message}</span>
             </div> ;
