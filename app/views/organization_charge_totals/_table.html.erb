@@ -6,10 +6,10 @@
   <thead>
     <tr>
       <th>基数</th>
-      <th>社保</th>
+      <th>社保金</th>
       <th>管理费</th>
       <th>基数</th>
-      <th>公积</th>
+      <th>公积金</th>
       <th>管理费</th>
       <th>个税</th>
       <th>其他费用</th>
@@ -46,7 +46,7 @@
         <%= oct.price_qita_1+oct.price_qita_2+oct.price_qita_3+oct.price_bujiao+oct.price_yujiao %></a>
         </td>
         <td><%= oct.price_gongzi %></td>
-        <td><strong><%=  oct.price_shebao_qiye + oct.price_shebao_geren + oct.price_canbao + oct.price_shebao_guanli + oct.price_gongjijin_qiye + oct.price_gongjijin_geren + oct.price_gongjijin_guanli + oct.price_geshui + oct.price_qita_1 + oct.price_qita_2 + oct.price_qita_3 + oct.price_bujiao + oct.price_yujiao + oct.price_gongzi %></strong></td>
+        <td><strong><%= oct.price_receivable_total %></strong></td>
         <td><%= oct.start_date %></td>
         <td><%= oct.end_date %></td>
         <td><%= oct.money_arrival_date %></td>

@@ -11,6 +11,12 @@ class OrganizationChargeTotal < ActiveRecord::Base
 
   scope :of_organization, ->(organization_ids) {where(organization_id: organization_ids).order(:start_date)}
 
+  def price_receivable_total #总收费金额
+    price_shebao_qiye + price_shebao_geren + price_canbao + price_shebao_guanli + price_gongjijin_qiye + 
+    price_gongjijin_geren + price_gongjijin_guanli + price_geshui + price_qita_1 + price_qita_2 + 
+    price_qita_3 + price_bujiao + price_yujiao + price_gongzi
+  end
+
   #使用状态机管理缴费单状态
   workflow do
     state :new do #新建
