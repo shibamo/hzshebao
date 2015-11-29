@@ -11,7 +11,13 @@ class OrganizationChargeTotal < ActiveRecord::Base
 
   scope :of_organization, ->(organization_ids) {where(organization_id: organization_ids).order(:start_date)}
 
-  def price_receivable_total #总收费金额
+  def self.price_receivable_list #需要收费的字段列表
+    ["price_shebao_qiye","price_shebao_geren","price_canbao","price_shebao_guanli"," price_gongjijin_qiye", 
+    "price_gongjijin_geren","price_gongjijin_guanli","price_geshui","price_qita_1","price_qita_2",
+    "price_qita_3","price_bujiao","price_yujiao","price_gongzi"]
+  end
+
+  def price_receivable_total #总收费金额,由需要收费的字段列表汇总,未来需要改为读取price_receivable_list的模式
     price_shebao_qiye + price_shebao_geren + price_canbao + price_shebao_guanli + price_gongjijin_qiye + 
     price_gongjijin_geren + price_gongjijin_guanli + price_geshui + price_qita_1 + price_qita_2 + 
     price_qita_3 + price_bujiao + price_yujiao + price_gongzi
@@ -38,6 +44,5 @@ class OrganizationChargeTotal < ActiveRecord::Base
   WORKFLOW_STATE_NAMES = {new: :新建, money_arrived: :资金已到账, commission_finished: :提成单已填写, leader_check_finished: :领导已审核}
   #事件(操作)名与中文名对应表
   WORKFLOW_EVENT_NAMES = {finish_money_check: :完成资金核对, finish_commission_form: :完成提成单填写, finish_leader_check: :完成领导审核}
-
 
 end
