@@ -13,10 +13,10 @@
 
 <script type="text/babel">
   // op_mode=new:新建模式; op_mode=edit:编辑更改模式; op_mode=show:显示查看模式; 
-  var isNewMode = function(){return <%= op_mode=="new" %>};
-  var isEditMode = function(){return <%= op_mode=="edit" %>};
-  var isShowMode = function(){return <%= op_mode=="show" %>};
-  var opMode = function(){return "<%= op_mode %>"};
+  var isNewMode = () => {return <%= op_mode=="new" %>};
+  var isEditMode = () => {return <%= op_mode=="edit" %>};
+  var isShowMode = () => {return <%= op_mode=="show" %>};
+  var opMode = () => {return "<%= op_mode %>"};
 
   var organization_id = <%=@organization.id%>;
 
@@ -101,9 +101,9 @@
   var OrgChrgs = React.createClass({ //缴费数据集组件,无状态数据操作
     render: function(){
       var chrgNodes = this.props.chrg_datas.map(chrg => <OrgChrg chrg_data={chrg} key={chrg.organization_customer_id} chrg_ops={this.props.chrg_ops} config_datas={this.props.config_datas} form={this.props.form} /> );
-      var renderTH = function(content){ return <th className="th-small text-center">{content}&nbsp;</th> };
-      var renderTHs = function(contents){return _.map(contents,renderTH)};
-      var renderTotalTD = function(fieldName,that){ //指定列汇总显示
+      var renderTH = content => { return <th className="th-small text-center">{content}&nbsp;</th> };
+      var renderTHs = contents => {return _.map(contents,renderTH)};
+      var renderTotalTD = (fieldName,that) => { //指定列汇总显示
         var total = _.reduce(that.props.chrg_datas, function(memo,chrg){ return memo + (chrg["deleted"] ? 0 : Number(chrg[fieldName])) },0).toFixed(2);
         return <td className="sheet">{total}</td>
       };
