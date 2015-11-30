@@ -54,8 +54,8 @@
   var OrgChrg = React.createClass({ //缴费数据行数据显示与输入组件,无状态数据操作
     render: function(){
       var _d = this.props.chrg_data;
-      var renderStaticTD = function(content){ 
-        return <td className="sheet">{content}</td> 
+      var renderStaticTD = function(content, key){ 
+        return <td className="sheet" key={key}>{content}</td> 
       };
       var handleChange = function(fieldName, form, event){
         this.props.chrg_ops.handleChrgPriceFieldChange(this.props.chrg_data.organization_customer_id, fieldName, form ,event.target.value);
@@ -70,10 +70,10 @@
           isModified  = (form.state.chrg_datas[idx][fieldName] !== form.state.chrg_server_datas[idx][fieldName]);
         }
         if (_d.isEditing){
-          return <td className={isModified ? "modified" : "" } ><input type="text" size="6" value={content} fieldName={fieldName}  onChange={handleChange.bind(that, fieldName, form)} /></td>
+          return <td className={isModified ? "modified" : "" } key={fieldName}><input type="text" size="6" value={content} fieldName={fieldName}  onChange={handleChange.bind(that, fieldName, form)} /></td>
         }
         else {
-          return <td className= { "sheet " + (isModified ? "modified" : "") }>{content}</td> 
+          return <td className= { "sheet " + (isModified ? "modified" : "") } key={fieldName}>{content}</td> 
         }
       };
       var renderPriceTDs = function(fieldNames, form, that){
@@ -90,9 +90,9 @@
       };
       return (
         <tr className={_d.deleted ? "deleted" : ""} key={_d.organization_customer_id}>
-          {renderStaticTD(_d.organization_customer_name)}
+          {renderStaticTD(_d.organization_customer_name,"organization_customer_name")}
           {renderPriceTDs(this.props.config_datas.priceFieldNames,this.props.form,this)}
-          <td className="text-center"><OrgChrgOps organization_customer_id={_d.organization_customer_id} chrg_ops={this.props.chrg_ops} form={this.props.form} 
+          <td className="text-center" key="operations"><OrgChrgOps organization_customer_id={_d.organization_customer_id} chrg_ops={this.props.chrg_ops} form={this.props.form} 
               deleted={_d.deleted} isEditing={_d.isEditing} updated={_d.updated} /></td>
         </tr>);
     }
@@ -101,11 +101,11 @@
   var OrgChrgs = React.createClass({ //缴费数据集组件,无状态数据操作
     render: function(){
       var chrgNodes = this.props.chrg_datas.map(chrg => <OrgChrg chrg_data={chrg} key={chrg.organization_customer_id} chrg_ops={this.props.chrg_ops} config_datas={this.props.config_datas} form={this.props.form} /> );
-      var renderTH = content => { return <th className="th-small text-center">{content}&nbsp;</th> };
+      var renderTH = content => { return <th className="th-small text-center" key={content}>{content}&nbsp;</th> };
       var renderTHs = contents => {return _.map(contents,renderTH)};
       var renderTotalTD = (fieldName,that) => { //指定列汇总显示
         var total = _.reduce(that.props.chrg_datas, function(memo,chrg){ return memo + (chrg["deleted"] ? 0 : Number(chrg[fieldName])) },0).toFixed(2);
-        return <td className="sheet">{total}</td>
+        return <td className="sheet" key={fieldName}>{total}</td>
       };
       var renderTotalTDs = function(fieldNames,that){ //每列汇总显示
         return _.map(fieldNames, function(fieldName){return renderTotalTD(fieldName,that);});
@@ -123,7 +123,7 @@
 
       return (
         <table className="table table-striped table-hover table-condensed"><thead><tr key="head">
-            {renderTHs(["员工名","基数","企业社保","个人社保","残保","社保管理费","基数",
+            {renderTHs(["员工名","社保基数","企业社保","个人社保","残保","社保管理费","公积基数",
               "企业公积","个人公积","公积管理费","个税","其它1","其它2","其它3","补缴","预缴","应发工资","操作"])}
             </tr>
           </thead>
