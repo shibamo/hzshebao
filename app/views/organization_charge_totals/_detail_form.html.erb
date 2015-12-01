@@ -25,7 +25,6 @@
     org_chrg_data_url: "<%=organization_charge_total_path(@organization_charge_total) if @organization_charge_total.id%>", //获取已存在的缴费数据Url
     create_submit_url: "<%=organization_charge_totals_path%>", //提交新建数据Url
     update_submit_url: "<%=organization_charge_total_path(@organization_charge_total) if @organization_charge_total.id%>", //提交变更数据Url
-    back_url: "<%=organization_charge_totals_list_path(@organization)%>", //返回该机构的缴费历史记录表Url
     foo: ""
   };
 
@@ -311,8 +310,6 @@
                         this.state.submit_status=="waitMount" || isShowMode()}>{
                 this.utils.getSubmitButtonText(this.state.submit_status)}
               </button> &nbsp; 
-
-              <a className="btn btn-default" href={urls.back_url}>返回</a>
               <span style={{color: "red"}}>{this.state.error_message}</span>
             </div> ;
     }

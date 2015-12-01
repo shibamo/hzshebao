@@ -2,8 +2,11 @@ Rails.application.routes.draw do
   resources :organization_charges #机构日常缴费按员工记录,是机构日常缴费总表organization_charge_totals的子记录
 
   scope path: '/organization_charge_totals', controller: :organization_charge_totals, as: 'organization_charge_totals' do
-    get "list/(:organization_id)" => :list, as: 'list' #显示指定机构的缴费记录列表
+    get "list_by_organization/:organization_id" => :list_by_organization, as: 'list_by_organization' #显示指定机构的缴费记录列表
     get "new/(:organization_id)" => :new, as: 'new' #新建指定机构的缴费记录
+    get "list_money_arrival_check"
+    match "set_money_arrival_date/:id" => :set_money_arrival_date, via: [:get,:patch], as: 'set_money_arrival_date'
+    get "finish_money_check/:id" => :finish_money_check, as: 'finish_money_check'
   end
   resources :organization_charge_totals , except: [:index, :new]
   #机构日常缴费总表(由业务员自行输入所缴服务费的服务时间段与总值,系统生成时预先根据选定的人和月份数算好初始值,但允许业务员修改)

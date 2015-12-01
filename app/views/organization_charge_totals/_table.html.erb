@@ -5,22 +5,27 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>基数</th>
-      <th>社保金</th>
-      <th>管理费</th>
-      <th>基数</th>
-      <th>公积金</th>
-      <th>管理费</th>
-      <th>个税</th>
-      <th>其他费用</th>
-      <th>应发工资</th>
-      <th>总收费金额</th>
-      <th>费用开始日期</th>
-      <th>费用结束日期</th>
-      <th>资金到账日</th>
-      <th>资金审核日</th>
-      <th>状态</th>
-      <th>备注</th>
+      <th class="text-center">机构名</th>
+      <th class="text-center">基数</th>
+      <th class="text-center">社保金</th>
+      <th class="text-center">管理费</th>
+      <th class="text-center">基数</th>
+      <th class="text-center">公积金</th>
+      <th class="text-center">管理费</th>
+      <th class="text-center">个税</th>
+      <th class="text-center">其他费用</th>
+      <th class="text-center">应发工资</th>
+      <th class="text-center">总收费</th>
+      <th class="text-center">费用开始~结束日期</th>
+      <% if op_type == :list_money_arriaval_check %>
+      <th class="text-center">表单创建日</th>
+      <% else %>
+      <th class="text-center">资金到账日</th>
+      <th class="text-center">资金审核日</th>
+      <% end %>
+
+      <th class="text-center">状态</th>
+      <th class="text-center">备注</th>
       <th colspan="1">操作</th>
     </tr>
   </thead>
@@ -28,6 +33,7 @@
   <tbody>
     <% @organization_charge_totals.each do |oct| %>
       <tr>
+        <td><%= oct.organization.abbr %></td>
         <td><%= oct.price_shebao_base %></td>
         <td><a tabindex="0" class="btn btn-xs btn-warning" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="社保金 = 企业社保金 + 个人社保金 + 残保金" 
           data-content="<%= "企业社保金: #{oct.price_shebao_qiye} <br/>个人社保金: #{oct.price_shebao_geren} <br/>残保金: #{oct.price_canbao} " %>">
@@ -47,14 +53,27 @@
         </td>
         <td><%= oct.price_gongzi %></td>
         <td><strong><%= oct.price_receivable_total %></strong></td>
-        <td><%= oct.start_date %></td>
-        <td><%= oct.end_date %></td>
+        <td><%= oct.start_date %>~<%= oct.end_date %></td>
+        <% if op_type == :list_money_arriaval_check %>
+        <td><%= oct.created_at.to_date %></td>
+        <% else %>
         <td><%= oct.money_arrival_date %></td>
         <td><%= oct.money_check_date %></td>
+        <% end %>
         <td><%= oct.translate_workflow_state_name(OrganizationChargeTotal::WORKFLOW_STATE_NAMES) %></td>
         <td><a tabindex="0" class="btn btn-xs btn-info" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="备注" data-content="<%= oct.comment %>">备注</a></td>
-        <td><%= link_to '查看', oct , class: "btn btn-xs btn-default"%></td>
+        <td><%= link_to '查看', oct , class: "btn btn-xs btn-default", target: "_blank"%></td>
+
+        <%if op_type == :list_by_organization && oct.workflow_state == "new"#只有未被财务审核过的业务员才能修改%>
         <td><%= link_to '修改', edit_organization_charge_total_path(oct) , class: "btn btn-xs btn-primary"%></td>
+        <%end%>
+
+        <% if op_type == :list_money_arriaval_check #等待资金到账核对%>
+        <td><%= link_to '上传文件', money_arrival_files_new_path(business_type: "OrganizationChargeTotal",extra_data: oct.updated_at.to_s,main_object_id: oct.id, business_action: "money_arrival_check"), class: "btn active btn-primary btn-xs", target: "_blank"  %></td>
+        <td>
+          <%= link_to '设置日期', organization_charge_totals_set_money_arrival_date_path(oct), class: "btn active btn-primary btn-xs" %>
+          <%= link_to '确认到账', organization_charge_totals_finish_money_check_path(oct), class: "btn active btn-primary btn-xs" %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

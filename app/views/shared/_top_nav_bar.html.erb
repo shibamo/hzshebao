@@ -144,6 +144,16 @@
               <% end %>
             </li>
             <%end%>
+
+            <li class="divider"></li>
+            <%if can_u_a_c? @current_user, :list_money_arrival_check, OrganizationChargeTotal %>
+            <li>
+              <%= link_to organization_charge_totals_list_money_arrival_check_path do %>
+                机构资金核对 <span class="badge alert-danger"> <%= OrganizationChargeTotal.with_new_state.count %> </span>
+              <% end %>
+            </li>
+            <%end%>
+
           </ul>
         </li>
 

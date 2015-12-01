@@ -2,6 +2,7 @@ class OrganizationChargeTotal < ActiveRecord::Base
   include Workflow
   include ChinesifyWorkflow
   include ModelHelper
+  include WorkflowHelper
 
   has_many :organization_charges, autosave: true
   belongs_to :organization
@@ -10,6 +11,7 @@ class OrganizationChargeTotal < ActiveRecord::Base
   validates_presence_of :organization_id, :user_id,:start_date,:end_date, message: "字段不能为空"
 
   scope :of_organization, ->(organization_ids) {where(organization_id: organization_ids).order(:start_date)}
+
 
   def self.price_receivable_list #需要收费的字段列表
     ["price_shebao_qiye","price_shebao_geren","price_canbao","price_shebao_guanli"," price_gongjijin_qiye", 

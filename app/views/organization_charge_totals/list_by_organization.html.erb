@@ -1,0 +1,3 @@
+<h1 class="text-center">机构(<%=@organization.name%>)缴费历史记录</h1>
+<%=render 'table', op_type: :list_by_organization%>
+<%= link_to '常规缴费', organization_charge_totals_new_path(@organization), class:"actions btn btn-primary noprint" %>

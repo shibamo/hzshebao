@@ -1,6 +1,7 @@
 class OrganizationChargeTotalsController < ApplicationController
-  before_action :set_organization_charge_total, only: [:show, :edit, :update, :destroy]
-  before_action :set_organization, only: [:list, :new, :create,:edit,:show]
+  before_action :set_organization_charge_total, only: [:show, :edit, :update, :destroy, 
+                :set_money_arrival_date,:finish_money_check]
+  before_action :set_organization, only: [:list_by_organization, :new, :create,:edit,:show]
 
   # GET /organization_charge_totals
   # GET /organization_charge_totals.json
@@ -106,8 +107,42 @@ class OrganizationChargeTotalsController < ApplicationController
     end
   end
 
-  def list
+  def list_by_organization #指定机构的缴费历史记录
     @organization_charge_totals = OrganizationChargeTotal.of_organization(@organization.id)
+  end
+
+  def list_money_arrival_check #需要进行资金核对的机构缴费记录
+    @organization_charge_totals = OrganizationChargeTotal.with_new_state
+  end
+
+  def set_money_arrival_date #设置资金到账日期
+    if params[:organization_charge_total] && params[:organization_charge_total][:money_arrival_date] #posted
+      if @organization_charge_total.update(money_arrival_date: params[:organization_charge_total][:money_arrival_date])
+        redirect_to  organization_charge_totals_list_money_arrival_check_path, 
+                notice: "机构客户 #{@organization_charge_total.organization.abbr} 的缴费到账时间已设置."
+        return
+      end
+    else #get
+      #
+    end
+  end
+
+  def finish_money_check
+    if MoneyArrivalFile.where(business_type: "OrganizationChargeTotal", main_object_id: @organization_charge_total.id).pluck(:id).count <= 0
+          redirect_to  organization_charge_totals_list_money_arrival_check_path, 
+                error: "机构客户 #{@organization_charge_total.organization.abbr} 的缴费记录附件尚未上传."
+          return
+    end
+    unless @organization_charge_total.money_arrival_date
+      redirect_to  organization_charge_totals_list_money_arrival_check_path, 
+                error: "机构客户 #{@organization_charge_total.organization.abbr} 的缴费到账时间尚未设置."
+          return
+    end
+
+    @organization_charge_total.finish_money_check! #同时完成缴费单的资金检查
+    @organization_charge_total.update(money_check_date: Date.current) #设置资金审核日期
+    redirect_to  organization_charge_totals_list_money_arrival_check_path, 
+                notice: "机构客户 #{@organization_charge_total.organization.abbr} 的缴费资金已确认到账."
   end
 
   private
