@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  commission_no: MyString
+  organization_charge_total_id: 1
+  user_id: 1
+  bonus_reference: 9.99
+  bonus: 9.99
+  approver_id: 1
+  financer_id: 1
+  workflow_state: MyString
+
+two:
+  commission_no: MyString
+  organization_charge_total_id: 1
+  user_id: 1
+  bonus_reference: 9.99
+  bonus: 9.99
+  approver_id: 1
+  financer_id: 1
+  workflow_state: MyString

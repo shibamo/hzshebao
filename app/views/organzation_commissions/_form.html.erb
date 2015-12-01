@@ -1,0 +1,18 @@
+<%= simple_form_for(@organzation_commission) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :commission_no %>
+    <%= f.input :organization_charge_total_id %>
+    <%= f.input :user_id %>
+    <%= f.input :bonus_reference %>
+    <%= f.input :bonus %>
+    <%= f.input :approver_id %>
+    <%= f.input :financer_id %>
+    <%= f.input :workflow_state %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

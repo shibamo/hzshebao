@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :organzation_commissions
+
   resources :organization_charges #机构日常缴费按员工记录,是机构日常缴费总表organization_charge_totals的子记录
 
   scope path: '/organization_charge_totals', controller: :organization_charge_totals, as: 'organization_charge_totals' do
@@ -125,7 +127,7 @@ Rails.application.routes.draw do
     get 'need_finance_check' => :need_finance_check #财务复核
     get 'need_pay' => :need_pay #支付
     get "set_user/:id" => :set_user , :as => "set_user" #指定提成单业务员设置
-    post "update_user/:id" => :update_user, :as => "update_user"#执行更新提成单的业务员
+    post "update_user/:id" => :update_user, :as => "update_user"#更新提成单的业务员
     #get 'list_total/(:input_date_from)/(:input_date_from)(.:format)' =>  :list_total, :as => "list_total"
     #post 'list_total(.:format)' =>  :list_total, :as => "list_total"
 
