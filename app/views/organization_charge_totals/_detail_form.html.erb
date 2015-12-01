@@ -80,18 +80,18 @@
         return _.map(fieldNames, function(fieldName){
           return renderPriceTD(_d[fieldName], fieldName, form, that);});
       };
-      var renderTextInputTD = function(content,fieldName,that){ 
-        if (_d.isEditing){
-          return <td><input type="text" defaultValue={content} /></td>
-        }
-        else {
-          return <td className="sheet">{content}</td> 
-        }
+      var renderValidPriceTotalTD = function(form, key){
+        var total = _.reduce(form.configDatas.validPriceFieldNames, 
+                      function(sum_memo, fieldName){ 
+                        return sum_memo + (_d["deleted"] ? 0 : Number(_d[fieldName]))},
+                      0).toFixed(2);
+        return <td className="sheet" key={key}>{total}</td>
       };
       return (
         <tr className={_d.deleted ? "deleted" : ""} key={_d.organization_customer_id}>
           {renderStaticTD(_d.organization_customer_name,"organization_customer_name")}
           {renderPriceTDs(this.props.config_datas.priceFieldNames,this.props.form,this)}
+          {renderValidPriceTotalTD(this.props.form,"合计")}
           <td className="text-center" key="operations"><OrgChrgOps organization_customer_id={_d.organization_customer_id} chrg_ops={this.props.chrg_ops} form={this.props.form} 
               deleted={_d.deleted} isEditing={_d.isEditing} updated={_d.updated} /></td>
         </tr>);
@@ -124,7 +124,8 @@
       return (
         <table className="table table-striped table-hover table-condensed"><thead><tr key="head">
             {renderTHs(["员工名","社保基数","企业社保","个人社保","残保","社保管理费","公积基数",
-              "企业公积","个人公积","公积管理费","个税","其它1","其它2","其它3","补缴","预缴","应发工资","操作"])}
+              "企业公积","个人公积","公积管理费","个税","其它1","其它2","其它3","补缴","预缴","应发工资",
+              "合计","操作"])}
             </tr>
           </thead>
           <tbody>
