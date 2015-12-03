@@ -1,0 +1,8 @@
+<h1 class="text-center">机构常规收费提成单记录列表(所有)&nbsp;
+	<%= link_to "下载所有提成单记录>>", 
+  organzation_commissions_list_total_path(format: :xls, input_date_from: @input_date_from, input_date_to: @input_date_to) , tabindex: "-1", class: "btn btn-primary btn-sm btn-warning" %>
+</h1>
+
+<%= render 'organzation_commissions/simple_query', url: :organzation_commissions_list_total%>
+
+<%= render 'table', organzation_commissions: @organzation_commissions, op_type: :list_total %>

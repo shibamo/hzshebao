@@ -6,6 +6,7 @@
       <th>收费总计</th>
       <th>计奖金额</th>
       <th>奖金</th>
+      <th>资金到账日期</th>
       <th>状态</th>
       <th>操作</th>
     </tr>
@@ -16,24 +17,25 @@
       <tr>
         <td><%= oct.organization.name %></td>
         <td><%= oc.user.name %></td> <!-- 可能缴费单的操作业务员与提成单最终的业务员不一样 -->
-        <td><%= format("%.2f",oct.money_total) %></td>
+        <td><%= format("%.2f",oct.price_receivable_total) %></td>
         <td><strong><%= format("%.2f",oc.bonus_reference) %></strong></td>
         <td><strong><%= format("%.2f",oc.bonus) %></strong></td>
+        <td><strong><%= oct.money_arrival_date %></strong></td>
         <td><%= oc.translate_workflow_state_name(Commission::WORKFLOW_STATE_NAMES) %></td>
         <td><%= link_to '查看缴费单', oct , class: "btn active btn-default btn-xs", target: "_blank" %></td>
         <% if op_type== :approve %>
-          <td><%= link_to "更改业务员", organization_commissions_set_user_path(oc), class: "btn btn-primary btn-xs" %></td>
-          <td><%= link_to "审批通过", organization_commission_approve_path(oc), html_options={:method => "post",:class => "btn btn-primary btn-xs"}   %></td>
+          <td><%= link_to "更改业务员", organzation_commissions_set_user_path(oc), class: "btn btn-primary btn-xs" %></td>
+          <td><%= link_to "审批通过", organzation_commission_approve_path(oc), html_options={:method => "post",:class => "btn btn-primary btn-xs"}   %></td>
         <% end %>
         <% if op_type== :finance_check %>
-          <td><%= link_to "财务审核通过", organization_commission_finance_check_path(oc), html_options={:method => "post",:class => "btn btn-primary btn-xs"}   %></td>
-          <td><%= link_to "修改提成单", edit_organization_commission_path(oc), class: "btn btn-primary btn-xs" %></td>
+          <td><%= link_to "财务审核通过", organzation_commission_finance_check_path(oc), html_options={:method => "post",:class => "btn btn-primary btn-xs"}   %></td>
+          <td><%= link_to "修改提成单", edit_organzation_commission_path(oc), class: "btn btn-primary btn-xs" %></td>
         <% end %>
         <% if op_type== :list_total %>
-        <td><%= link_to "修改提成单", edit_organization_commission_path(oc), class: "btn btn-primary btn-xs" %></td>
+        <td><%= link_to "修改提成单", edit_organzation_commission_path(oc), class: "btn btn-primary btn-xs" %></td>
         <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= paginate commissions %>
+<%= paginate organzation_commissions %>

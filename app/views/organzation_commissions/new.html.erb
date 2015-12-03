@@ -1,5 +1,6 @@
-<h1>New Organzation Commission</h1>
-
+<h1 class="text-center">填写机构常规提成单</h1>
+<div class="col-xs-12">
+<%= render 'organization_charge_totals/table' , op_type: :display, organization_charge_totals: [@organization_charge_total] %>
+</div>
 <%= render 'form' %>
 
-<%= link_to 'Back', organzation_commissions_path %>

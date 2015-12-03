@@ -3,7 +3,6 @@ class ChargesController < ApplicationController
                                     :print_form, :leader_check,
                                     :finish_money_check,:set_money_arrival_date]
   before_action :set_single_customer, only: [:index, :new, :create, :update, :print_form, :show]
-  before_action :set_users, only: [ :query, :list_total]
 
   # GET /charges
   # GET /charges.json
@@ -163,7 +162,7 @@ class ChargesController < ApplicationController
   #query函数此处实现主要用了where chaining, 根据
   #http://stackoverflow.com/questions/11702341/lazy-loading-in-rails-3-2-6, 将只会在最后产生一次查询,无性能影响.
   def query 
-    redirect_to list_total_url and return unless params[:charge]
+    redirect_to charges_list_total_url and return unless params[:charge]
 
     @charge = Charge.new(charge_params)
     @single_customer_name = params[:charge][:single_customer_name]
@@ -275,9 +274,5 @@ class ChargesController < ApplicationController
 
     def set_single_customer
       @single_customer = SingleCustomer.find(params[:single_customer_id])
-    end
-
-    def set_users
-      @users = User.all
     end
 end

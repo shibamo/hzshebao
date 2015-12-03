@@ -1,12 +1,13 @@
 class OrganzationCommissionsController < ApplicationController
   before_action :set_organzation_commission, only: [:show, :edit, :update, :approve, 
                                         :finance_check, :set_user, :update_user]
-  before_action :set_organization_charge_total, only: [:new, :create, :edit, :update]
+  before_action :set_organization_charge_total, only: [:new, :create]
+  before_action :set_model_class
 
   # GET /organzation_commissions
   # GET /organzation_commissions.json
   def index
-    @organzation_commissions = OrganzationCommission.all.page params[:page]
+    @organzation_commissions = @model_class.all.page params[:page]
   end
 
   # GET /organzation_commissions/1
@@ -16,8 +17,8 @@ class OrganzationCommissionsController < ApplicationController
 
   # GET /organzation_commissions/new
   def new
-    @organzation_commission = OrganzationCommission.new(
-      commission_no: @organization_charge_total.abbr + Time.current.strftime("%Y%m%d%H%M%S"))
+    @organzation_commission = @model_class.new(
+      commission_no: @organization_charge_total.organization.abbr + Time.current.strftime("%Y%m%d%H%M%S"))
     #此处机构收费提成单号的生成规则与个人收费提成单号规则不一样,取 "机构简称"+时间戳
   end
 
@@ -28,14 +29,14 @@ class OrganzationCommissionsController < ApplicationController
   # POST /organzation_commissions
   # POST /organzation_commissions.json
   def create
-    @organzation_commission = OrganzationCommission.new(organzation_commission_params)
+    @organzation_commission = @model_class.new(organzation_commission_params)
     @organzation_commission.organization_charge_total = @organization_charge_total
-    @commission.user_id = session["current_user_id"]
+    @organzation_commission.user_id = session["current_user_id"]
 
     respond_to do |format|
       if @organzation_commission.save
-        @organization_charge_total.finish_commission_form! #设置机构收费单为提成单已完成状态,工作流继续
-        format.html { redirect_to @organzation_commission, notice: '机构提成单已成功提交.' }
+        @organization_charge_total.finish_commission_form! #设置机构收费单为提成单已完成状态,工作流推进
+        format.html { redirect_to organization_charge_totals_commission_input_allowed_path, notice: '机构提成单已成功提交.' }
         format.json { render :show, status: :created, location: @organzation_commission }
       else
         format.html { render :new }
@@ -49,7 +50,6 @@ class OrganzationCommissionsController < ApplicationController
   def update
     respond_to do |format|
       if @organzation_commission.update(organzation_commission_params)
-        format.html { redirect_to @organzation_commission, notice: 'Organzation commission was successfully updated.' }
         format.html do
           if @organzation_commission.workflow_state == "approved" #转回财务审批
             redirect_to organzation_commissions_need_finance_check_path, notice: '机构提成单已成功修改.' 
@@ -69,7 +69,7 @@ class OrganzationCommissionsController < ApplicationController
 
 #############################################################################################################
   def need_approve #待审批列表
-    @organzation_commissions = OrganzationCommission.with_new_state.page params[:page]
+    @organzation_commissions = @model_class.with_new_state.page params[:page]
   end
 
   def approve #审批操作
@@ -78,7 +78,7 @@ class OrganzationCommissionsController < ApplicationController
   end
 
   def need_finance_check #待财务审核列表
-    @organzation_commissions = OrganzationCommission.with_approved_state.page params[:page]
+    @organzation_commissions = @model_class.with_approved_state.page params[:page]
   end
 
   def finance_check #财务审核
@@ -101,9 +101,9 @@ class OrganzationCommissionsController < ApplicationController
         @organization_charge_totals = OrganizationChargeTotal.where("money_arrival_date >= :input_date_from and money_arrival_date <=:input_date_to",
             input_date_from: @input_date_from, input_date_to: @input_date_to)
 
-        @organzation_commissions = OrganizationCommission.where(organization_charge_total_id: @organization_charge_totals.collect(&:id))
+        @organzation_commissions = @model_class.where(organization_charge_total_id: @organization_charge_totals.collect(&:id))
       else
-        @organzation_commissions = OrganizationCommission.all
+        @organzation_commissions = @model_class.all
         @input_date_from = @input_date_to = nil
       end
 
@@ -125,24 +125,24 @@ class OrganzationCommissionsController < ApplicationController
         @input_date_from = params[:input_date_from] if params[:input_date_from]
         @input_date_to = params[:input_date_to] if params[:input_date_to]
         if @input_date_from && @input_date_to
-          @charges = OrganizationChargeTotal.where("money_arrival_date >= :input_date_from and money_arrival_date <=:input_date_to",
+          octs = OrganizationChargeTotal.where("money_arrival_date >= :input_date_from and money_arrival_date <=:input_date_to",
             input_date_from: @input_date_from, input_date_to: @input_date_to)
-          @organzation_commissions = OrganizationCommission.where(charge_id: @charges.collect(&:id))
+          @organzation_commissions = @model_class.where(organization_charge_total_id: octs.collect(&:id))
         else
-          @organzation_commissions = OrganizationCommission.all
+          @organzation_commissions = @model_class.all
         end
         @organzation_commissions.each_with_index do |r,i| 
-          sheet1.row(i+1).push r.id, r.organization_charge_total.organization_customer.name, r.user.name, 
+          sheet1.row(i+1).push r.id, r.organization_charge_total.organization.name, r.user.name, 
                               r.organization_charge_total.price_receivable_total, r.bonus_reference,
                               r.organization_charge_total.money_arrival_date, r.bonus,
-                              r.translate_workflow_state_name(OrganizationCommission::WORKFLOW_STATE_NAMES).to_s
-          [12].each {|col| sheet1.row(i+1).set_format col, Spreadsheet::Format.new(:number_format => 'YYYY-MM-DD')}                                
+                              r.translate_workflow_state_name(@model_class::WORKFLOW_STATE_NAMES).to_s
+          [5].each {|col| sheet1.row(i+1).set_format col, Spreadsheet::Format.new(:number_format => 'YYYY-MM-DD')}                                
         end
 
         book.write file_contents
         file_contents.rewind
         send_data file_contents.read,
-              filename: "机构日常缴费提成单记录表" + Date.today.to_s + ".xls",
+              filename: "机构常规缴费提成单记录表" + Date.today.to_s + ".xls",
               type: :xls,
               disposition: "attachment"
       end
@@ -150,20 +150,26 @@ class OrganzationCommissionsController < ApplicationController
   end
 
   def set_user
-  end
-
-  def update_user
-    if @organzation_commission.update(user: User.find(params[:organzation_commission][:user_id]))
-      redirect_to organzation_commissions_need_approve_path , notice: "该提成单的业务员已成功更改为#{User.find(params[:organzation_commission][:user_id]).name}."
-    else
-      render :set_user 
+    if params[:organzation_commission] && params[:organzation_commission][:user_id] && 
+      @organzation_commission.update(user: User.find(params[:organzation_commission][:user_id]))
+      redirect_to organzation_commissions_need_approve_path , 
+        notice: "该提成单的业务员已成功更改为#{User.find(params[:organzation_commission][:user_id]).name}."
+      return 
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_organzation_commission
-      @organzation_commission = OrganzationCommission.find(params[:id])
+      @organzation_commission = OrganzationCommission.find(params[:id] || params[:organzation_commission_id])
+    end
+
+    def set_model_class
+      @model_class = OrganzationCommission
+    end
+
+    def set_organization_charge_total #设置对应所属的机构收费记录对象
+      @organization_charge_total = OrganizationChargeTotal.find(params[:organization_charge_total_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

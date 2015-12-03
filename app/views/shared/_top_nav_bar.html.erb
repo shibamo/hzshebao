@@ -95,6 +95,7 @@
             <%end%>            
           </ul>
         </li>
+
         <li class="dropdown" funciton="内部结算">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><strong>内部结算</strong> <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
@@ -114,7 +115,7 @@
               <% end %>
             </li>
             <%end%>
-
+            
             <%if can_u_a_c? @current_user, :index, Commission %>
             <li>
               <%= link_to commissions_path do %>
@@ -122,6 +123,25 @@
               <% end %>
             </li>
             <%end%>
+            
+            <li class="divider"></li>
+
+            <%if can_u_a_c? @current_user, :commission_input_allowed, OrganizationChargeTotal %>
+            <li>
+              <%= link_to organization_charge_totals_commission_input_allowed_path do %>
+                机构常规提成单录入<span class="badge alert-danger"> <%= OrganizationChargeTotal.with_money_arrived_state.managed_by_users(session["current_user_id"]).count %>
+              <% end %>
+            </li>
+            <%end%>
+            
+            <%if can_u_a_c? @current_user, :need_approve, OrganzationCommission %>
+            <li>
+              <%= link_to organzation_commissions_need_approve_path do %>
+                机构常规提成单审批 <span class="badge alert-danger"> <%= OrganzationCommission.with_new_state.count %> </span>
+              <% end %>
+            </li>
+            <%end%>
+
           </ul>
         </li>
 
@@ -149,7 +169,15 @@
             <%if can_u_a_c? @current_user, :list_money_arrival_check, OrganizationChargeTotal %>
             <li>
               <%= link_to organization_charge_totals_list_money_arrival_check_path do %>
-                机构资金核对 <span class="badge alert-danger"> <%= OrganizationChargeTotal.with_new_state.count %> </span>
+                机构常规资金核对 <span class="badge alert-danger"> <%= OrganizationChargeTotal.with_new_state.count %> </span>
+              <% end %>
+            </li>
+            <%end%>
+
+            <%if can_u_a_c? @current_user, :need_finance_check, OrganzationCommission %>
+            <li>
+              <%= link_to organzation_commissions_need_finance_check_path do %>
+                机构常规提成单复核 <span class="badge alert-danger"> <%= OrganzationCommission.with_approved_state.count %> </span>
               <% end %>
             </li>
             <%end%>
@@ -167,8 +195,6 @@
               <% end %>
             </li>
             <%end%>
-
-            <li class="divider"></li>
             <%if can_u_a_c? @current_user, :list_total, SingleCustomer %>
             <li><%=link_to "客户查询", single_customers_list_total_path  %></li>
             <% end %>
@@ -179,14 +205,29 @@
 
             <%if can_u_a_c? @current_user, :list_total, Commission %>
             <li>
-              <%= link_to commissions_list_total_path do %>
-                提成单查询
+              <%= link_to "提成单查询", commissions_list_total_path %></li>
+            <% end %>
+
+            <li class="divider"></li>
+            <% if can_u_a_c? @current_user, :list_leader_check, OrganizationChargeTotal %>
+            <li>
+              <%= link_to organization_charge_totals_list_leader_check_path do %>
+                机构常规缴费单终审 <span class="badge alert-danger"> <%= OrganizationChargeTotal.with_commission_finished_state.count %> </span>
               <% end %>
             </li>
-            <% end %>
-            <li class="divider"></li>
+            <%end%>
+
             <%if can_u_a_c? @current_user, :list_total, Organization %>
             <li><%=link_to "机构查询", organizations_list_total_path  %></li>
+            <% end %>
+
+            <% if can_u_a_c? @current_user, :list_total, OrganizationChargeTotal %>
+            <li><%=link_to "机构常规缴费单查询", organization_charge_totals_list_total_path  %></li>
+            <% end %>
+
+            <%if can_u_a_c? @current_user, :list_total, OrganzationCommission %>
+            <li>
+              <%= link_to "机构常规提成单查询", organzation_commissions_list_total_path %></li>
             <% end %>
           </ul>
         </li>

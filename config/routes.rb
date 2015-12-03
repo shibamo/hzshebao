@@ -1,7 +1,17 @@
 Rails.application.routes.draw do
-  resources :organzation_commissions, except:[:new,:create] #机构提成单
+  scope path: '/organzation_commissions', controller: :organzation_commissions, as: 'organzation_commissions' do
+    get 'need_approve' => :need_approve #审批
+    get 'need_finance_check' => :need_finance_check #财务复核
+    match "set_user/:id" => :set_user, via: [:get,:patch], :as => "set_user" #更新提成单业务员设置
+    #所有提成单列表,与index的区别是不对当前业务员用户的归属判断
+    match 'list_total(.:format)/(:input_date_from)/(:input_date_to)' =>  :list_total, via:[:get, :post], :as => "list_total" 
+  end  
+  resources :organzation_commissions, except:[:new,:create,:destroy] do #机构提成单
+    post :approve
+    post :finance_check
+  end
 
-  resources :organization_charges #机构日常缴费按员工记录,是机构日常缴费总表organization_charge_totals的子记录
+  resources :organization_charges,except:[:destroy] #机构日常缴费按员工记录,是机构日常缴费总表organization_charge_totals的子记录
 
   scope path: '/organization_charge_totals', controller: :organization_charge_totals, as: 'organization_charge_totals' do
     get "list_by_organization/:organization_id" => :list_by_organization, as: 'list_by_organization' #显示指定机构的缴费记录列表
@@ -10,8 +20,13 @@ Rails.application.routes.draw do
     match "set_money_arrival_date/:id" => :set_money_arrival_date, via: [:get,:patch], as: 'set_money_arrival_date'#设置资金到账日期
     get "finish_money_check/:id" => :finish_money_check, as: 'finish_money_check' #完成资金到账审核
     get 'commission_input_allowed' => :commission_input_allowed #缴费后允许输入提成单
+    get 'list_leader_check' => :list_leader_check #需要领导审核的缴费单列表
+    post 'leader_check/:id' => :leader_check, :as => "leader_check" #领导完成审核缴费单
+    match "query" => :query , via: [:get, :post] #缴费查询
+    get 'list_total(.:format)/(a:money_arrival_date_from)/(b:money_arrival_date_to)/(c:money_check_date_from)/(d:money_check_date_to)' => :list_total, 
+        :as => "list_total" #所有缴费单列表
   end
-  resources :organization_charge_totals , except: [:index, :new] do
+  resources :organization_charge_totals , except: [:index, :new, :destroy] do
   #机构日常缴费总表(由业务员自行输入所缴服务费的服务时间段与总值,系统生成时预先根据选定的人和月份数算好初始值,但允许业务员修改)
     resources :organzation_commissions, except: [:index, :edit, :update, :destroy]#机构提成单
   end

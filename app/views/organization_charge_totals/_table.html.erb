@@ -31,7 +31,7 @@
   </thead>
 
   <tbody>
-    <% @organization_charge_totals.each do |oct| %>
+    <% organization_charge_totals.each do |oct| %>
       <tr>
         <td><%= oct.organization.abbr %></td>
         <td><%= oct.price_shebao_base %></td>
@@ -65,7 +65,7 @@
         <td><%= link_to '查看', oct , class: "btn btn-xs btn-default", target: "_blank"%></td>
 
         <%if op_type == :list_by_organization && oct.workflow_state == "new"#只有未被财务审核过的业务员才能修改%>
-        <td><%= link_to '修改', edit_organization_charge_total_path(oct) , class: "btn btn-xs btn-primary"%></td>
+        <td><%= link_to '修改', edit_organization_charge_total_path(oct) , class: "btn btn-xs active btn-warning"%></td>
         <%end%>
 
         <% if op_type == :list_money_arriaval_check #等待资金到账核对%>
@@ -73,6 +73,19 @@
         <td>
           <%= link_to '设置日期', organization_charge_totals_set_money_arrival_date_path(oct), class: "btn active btn-primary btn-xs" %>
           <%= link_to '确认到账', organization_charge_totals_finish_money_check_path(oct), class: "btn active btn-primary btn-xs" %></td>
+        <% end %>
+
+        <% if op_type == :input_commission #等待填写提成单%>
+        <td><%= link_to '填写提成单', new_organization_charge_total_organzation_commission_path(oct), class: "btn active btn-primary btn-xs"  %></td>
+        <% end %>
+
+        <% if op_type == :leader_check #等待领导审核%>
+        <td><%= link_to '审核完毕', organization_charge_totals_leader_check_path(oct),  method: :post, class: "btn active btn-primary btn-xs"  %></td>
+        <% end %>
+
+        <% if op_type == :list_total && User.find(session["current_user_id"]).is_leader #公司领导可以更改缴费单 %>
+          <td><%= link_to '修改', edit_organization_charge_total_path(oct), class: "btn active btn-warning btn-xs"  %></td>
+          <td><%= link_to '上传文件', money_arrival_files_new_path(business_type: "OrganizationChargeTotal",extra_data: oct.updated_at.to_s,main_object_id: oct.id, business_action: "list_total"), class: "btn active btn-warning btn-xs", target: "_blank"  %></td>
         <% end %>
       </tr>
     <% end %>

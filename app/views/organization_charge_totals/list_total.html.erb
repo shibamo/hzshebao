@@ -1,0 +1,7 @@
+<h1 class="text-center">机构客户常规缴费所有记录列表&nbsp;
+	<%= link_to "下载所有机构客户常规缴费记录>>", organization_charge_totals_list_total_path(format: :xls, money_arrival_date_from: @money_arrival_date_from, money_arrival_date_to: @money_arrival_date_to, money_check_date_from: @money_check_date_from, money_check_date_to: @money_check_date_to) , tabindex: "-1", class: "btn btn-primary btn-sm btn-warning" %>
+</h1>
+<%= render 'query'%>
+
+<%= render 'table' , op_type: :list_total, organization_charge_totals: @organization_charge_totals %>
+<br>

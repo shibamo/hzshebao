@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate
   before_action :current_user
+  before_action :set_users
 
   def authenticate
   	redirect_to user_login_path unless session[:current_user_id]
@@ -30,5 +31,9 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user ||=  User.find(session["current_user_id"]) if session["current_user_id"]
+  end
+
+  def set_users
+    @users = User.all
   end
 end

@@ -6,15 +6,28 @@ class OrganizationChargeTotal < ActiveRecord::Base
 
   has_many :organization_charges, autosave: true
   belongs_to :organization
-  #belongs_to :user
+  belongs_to :user
 
   validates_presence_of :organization_id, :user_id,:start_date,:end_date, message: "字段不能为空"
 
   scope :of_organization, ->(organization_ids) {where(organization_id: organization_ids).order(:start_date)}
 
+  scope :managed_by_users, ->(user_ids) { joins(:organization).where("organizations.user_id = :user_ids", user_ids: user_ids) }
+
+  scope :of_customer_name_like, ->(partial_name) { joins(:organization).where("organizations.name like :partial_name",
+                                                                          partial_name: '%' + partial_name + '%')}
+  scope :of_money_arrival_date_from, ->(money_arrival_date_from) { where(":money_arrival_date_from <= money_arrival_date",
+                                                                    money_arrival_date_from:  money_arrival_date_from)}
+  scope :of_money_arrival_date_to, ->(money_arrival_date_to) { where("money_arrival_date <= :money_arrival_date_to", 
+                                                                    money_arrival_date_to:  money_arrival_date_to)}
+  scope :of_money_check_date_from, ->(money_check_date_from) { where(":money_check_date_from <= money_check_date",
+                                                                    money_check_date_from:  money_check_date_from)}
+  scope :of_money_check_date_to, ->(money_check_date_to) { where("money_check_date <= :money_check_date_to", 
+                                                                    money_check_date_to:  money_check_date_to)}  
+  scope :of_workflow_state, ->(workflow_state) {where(workflow_state: workflow_state)}
 
   def self.price_receivable_list #需要收费的字段列表
-    ["price_shebao_qiye","price_shebao_geren","price_canbao","price_shebao_guanli"," price_gongjijin_qiye", 
+    ["price_shebao_qiye","price_shebao_geren","price_canbao","price_shebao_guanli","price_gongjijin_qiye", 
     "price_gongjijin_geren","price_gongjijin_guanli","price_geshui","price_qita_1","price_qita_2",
     "price_qita_3","price_bujiao","price_yujiao","price_gongzi"]
   end
