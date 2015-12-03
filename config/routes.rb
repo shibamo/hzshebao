@@ -1,17 +1,20 @@
 Rails.application.routes.draw do
-  resources :organzation_commissions
+  resources :organzation_commissions, except:[:new,:create] #机构提成单
 
   resources :organization_charges #机构日常缴费按员工记录,是机构日常缴费总表organization_charge_totals的子记录
 
   scope path: '/organization_charge_totals', controller: :organization_charge_totals, as: 'organization_charge_totals' do
     get "list_by_organization/:organization_id" => :list_by_organization, as: 'list_by_organization' #显示指定机构的缴费记录列表
     get "new/(:organization_id)" => :new, as: 'new' #新建指定机构的缴费记录
-    get "list_money_arrival_check"
-    match "set_money_arrival_date/:id" => :set_money_arrival_date, via: [:get,:patch], as: 'set_money_arrival_date'
-    get "finish_money_check/:id" => :finish_money_check, as: 'finish_money_check'
+    get "list_money_arrival_check" #需要进行资金到账审核的列表
+    match "set_money_arrival_date/:id" => :set_money_arrival_date, via: [:get,:patch], as: 'set_money_arrival_date'#设置资金到账日期
+    get "finish_money_check/:id" => :finish_money_check, as: 'finish_money_check' #完成资金到账审核
+    get 'commission_input_allowed' => :commission_input_allowed #缴费后允许输入提成单
   end
-  resources :organization_charge_totals , except: [:index, :new]
+  resources :organization_charge_totals , except: [:index, :new] do
   #机构日常缴费总表(由业务员自行输入所缴服务费的服务时间段与总值,系统生成时预先根据选定的人和月份数算好初始值,但允许业务员修改)
+    resources :organzation_commissions, except: [:index, :edit, :update, :destroy]#机构提成单
+  end
 
   scope path: '/organization_charge_templates', controller: :organization_charge_templates, as: 'organization_charge_templates' do
     get "list_by_organization/:organization_id" => :list_by_organization, as: 'list_by_organization'

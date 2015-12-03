@@ -1,0 +1,3 @@
+<h1 class="text-center">客户缴费记录列表(可填写提成单)</h1>
+<%= render 'table' , op_type: :input_commission, charges: @charges %>
+<%= paginate @charges %>
