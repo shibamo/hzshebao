@@ -1,5 +1,6 @@
 class OrganizationChargesController < ApplicationController
   before_action :set_organization_charge, only: [:show, :edit, :update, :destroy]
+  before_action :set_model_class
 
   # GET /organization_charges
   # GET /organization_charges.json
@@ -50,14 +51,11 @@ class OrganizationChargesController < ApplicationController
       end
     end
   end
-
-  # DELETE /organization_charges/1
-  # DELETE /organization_charges/1.json
-  def destroy
-    @organization_charge.destroy
-    respond_to do |format|
-      format.html { redirect_to organization_charges_url, notice: 'Organization charge was successfully destroyed.' }
-      format.json { head :no_content }
+############################################################################################
+  def list_by_customer
+    if params[:organization_customer_id]
+      @organization_charges = @model_class.by_customer(params[:organization_customer_id])
+      @organization_customer = OrganizationCustomer.find(params[:organization_customer_id])
     end
   end
 
@@ -70,5 +68,9 @@ class OrganizationChargesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def organization_charge_params
       params.require(:organization_charge).permit(:organization_charge_total_id, :organization_customer_id, :organization_id, :user_id, :price_shebao_base, :price_shebao_qiye, :price_shebao_geren, :price_canbao, :price_shebao_guanli, :price_gongjijin_base, :price_gongjijin_qiye, :price_gongjijin_geren, :price_gongjijin_guanli, :price_geshui, :price_qita_1, :price_qita_2, :price_qita_3, :price_bujiao, :price_yujiao, :price_gongzi, :start_date, :end_date, :comment)
+    end
+
+    def set_model_class
+      @model_class = OrganizationCharge
     end
 end

@@ -5,4 +5,6 @@ class OrganizationCharge < ActiveRecord::Base
   belongs_to :organization
   belongs_to :organization_customer
   
+  scope :by_customer, ->(organization_ids) {where(organization_customer_id: organization_ids).order(start_date: :desc)}
+
 end

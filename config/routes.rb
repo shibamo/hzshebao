@@ -11,7 +11,12 @@ Rails.application.routes.draw do
     post :finance_check
   end
 
-  resources :organization_charges,except:[:destroy] #机构日常缴费按员工记录,是机构日常缴费总表organization_charge_totals的子记录
+  scope path: '/organization_charges', controller: :organization_charges, as: 'organization_charges' do
+    get "list_by_customer/:organization_customer_id" => :list_by_customer, as: "list_by_customer" #按机构员工查询缴费列表
+  end
+  resources :organization_charges,except:[:index,:new,:create,:edit,:update,:show,:destroy] do
+    #机构日常缴费按员工记录,是机构日常缴费总表organization_charge_totals的子记录
+  end
 
   scope path: '/organization_charge_totals', controller: :organization_charge_totals, as: 'organization_charge_totals' do
     get "list_by_organization/:organization_id" => :list_by_organization, as: 'list_by_organization' #显示指定机构的缴费记录列表
