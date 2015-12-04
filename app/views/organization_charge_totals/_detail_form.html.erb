@@ -266,6 +266,8 @@
             var _data = _.map(data, _.clone).
                         map(d => _.omit(d, 'id')).
                         map(d => _.extend(d,{deleted: false, updated: false, isEditing: false}));
+            _data = _.reject(_data, d => !!d["valid_end"]);//移除已经离职的员工记录
+            data = _.reject(data, d => !!d["valid_end"]); //移除已经离职的员工记录
             this.setState({tpl_datas: data, chrg_datas: _data, submit_status: "new"}); //获得数据后初始化组件的显示
           }.bind(this),
           function(err){

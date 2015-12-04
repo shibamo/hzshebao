@@ -103,7 +103,7 @@
             <li><%= link_to "机构资料修改", organizations_list_edit_path %></li>
             <%end%>
             <%if can_u_a_c? @current_user, :list_edit, OrganizationCustomer %>
-            <li><%= link_to "机构员工资料修改", organization_customers_list_edit_path %></li>
+            <li><%= link_to "机构员工资料修改(离职)", organization_customers_list_edit_path %></li>
             <%end%>            
           </ul>
         </li>

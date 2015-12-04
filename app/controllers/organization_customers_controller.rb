@@ -51,7 +51,7 @@ class OrganizationCustomersController < ApplicationController
   def update
     respond_to do |format|
       if @organization_customer.update(organization_customer_params)
-        format.html { redirect_to @organization_customer, notice: 'Organization customer was successfully updated.' }
+        format.html { redirect_to @organization_customer, notice: '机构员工客户的资料记录已成功修改.' }
         format.json { render :show, status: :ok, location: @organization_customer }
       else
         format.html { render :edit }
