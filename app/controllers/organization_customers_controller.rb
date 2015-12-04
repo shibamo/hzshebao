@@ -51,6 +51,9 @@ class OrganizationCustomersController < ApplicationController
   def update
     respond_to do |format|
       if @organization_customer.update(organization_customer_params)
+        if @organization_customer.valid_end && @organization_customer.workflow_state != :stopped
+          @organization_customer.finish_apply_stop!
+        end
         format.html { redirect_to @organization_customer, notice: '机构员工客户的资料记录已成功修改.' }
         format.json { render :show, status: :ok, location: @organization_customer }
       else
