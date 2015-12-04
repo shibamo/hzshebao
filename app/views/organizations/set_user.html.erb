@@ -1,0 +1,10 @@
+<h1>设置机构(<%=@organization.name%>)的业务员</h1>
+<%= simple_form_for(@organization, :url => organizations_set_user_path, :method => :patch) do |f| %>
+  <div class="row">
+    <%= f.collection_radio_buttons :user_id, User.all, :id, :name,  {:item_wrapper_tag => :div, :item_wrapper_class => "col-md-2", :wrapper => false}%>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "提交" , class: "btn btn-primary" %>
+  </div>
+<% end %>

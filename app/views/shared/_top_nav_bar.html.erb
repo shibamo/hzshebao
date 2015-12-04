@@ -278,6 +278,10 @@
             <%if can_u_a_c? @current_user, :list_set_user, SingleCustomer %>
             <li><%=link_to "客户归属管理", single_customers_list_set_user_path %></li>
             <% end%>
+
+            <%if can_u_a_c? @current_user, :list_set_user, Organization %>
+            <li><%=link_to "机构归属管理", organizations_list_set_user_path %></li>
+            <% end%>
           </ul>
         </li>
       </ul>

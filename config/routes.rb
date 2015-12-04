@@ -63,6 +63,8 @@ Rails.application.routes.draw do
     post "finish_check/:id" => :finish_check, as: "finish_check" #完成机构复核
     match "list_total" => :list_total, via: [:get, :post] #机构列表
     match "list_edit" => :list_edit, via: [:get, :post] #修改机构资料的列表
+    get "list_set_user"  #机构列表,用于更新机构所属业务员设置
+    match "set_user/:id" => :set_user, via: [:get,:patch], :as => "set_user" #更新机构所属业务员设置
   end
   resources :organizations #机构
 

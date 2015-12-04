@@ -1,7 +1,7 @@
 class OrganizationsController < ApplicationController
   before_action :authenticate
   before_action :set_organization, only: [:show, :edit, :update, :destroy,
-                                          :finish_check]
+                                          :finish_check, :set_user]
 
   # GET /organizations
   # GET /organizations.json
@@ -88,14 +88,30 @@ class OrganizationsController < ApplicationController
     redirect_to organizations_list_check_path, 
                 notice: "机构 #{@organization.name} 的资料已审核通过."
   end
-
-  #所有机构列表
-  def list_total
+  
+  def list_total#所有机构列表,支持查询
     if params[:organization] && params[:organization][:name].length > 0
       @organizations = Organization.by_partial_name(params[:organization][:name]).page params[:page]
       @organization = Organization.new(name: params[:organization][:name])
     else
       @organizations = Organization.all.page params[:page]
+    end
+  end
+
+  def list_set_user #机构列表,用于更改所属的业务员,支持查询,可考虑与上面代码合并
+    if params[:organization] && params[:organization][:name].length > 0
+      @organizations = Organization.by_partial_name(params[:organization][:name]).page params[:page]
+      @organization = Organization.new(name: params[:organization][:name])
+    else
+      @organizations = Organization.all.page params[:page]
+    end
+  end
+
+  def set_user #更改机构所属的业务员
+    if params[:organization] && params[:organization][:user_id] && @organization.update(user: User.find(params[:organization][:user_id]))
+      redirect_to organizations_list_set_user_path , notice: "该客户的业务员已成功更改为#{User.find(params[:organization][:user_id]).name}."
+    else
+      render :set_user 
     end
   end
 
