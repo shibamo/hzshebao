@@ -36,7 +36,6 @@ class OrganizationCustomer < ActiveRecord::Base
   paginates_per 20             #每页显示n条数据
 
 
-
   #生成档案编号,如"B201506120001", 其中 1位:固定为"B",2-9位:日期数字,最后四位为流水号
   #未来可考虑重构与SingleCustomer的类似实现合并
   before_create do
@@ -54,6 +53,7 @@ class OrganizationCustomer < ActiveRecord::Base
   workflow do
     state :new do #新建
       event :finish_check, :transitions_to => :serving
+      event :finish_apply_stop, :transitions_to => :stopped #允许直接停止服务
     end
 
     state :serving do #服务中

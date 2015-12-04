@@ -81,11 +81,23 @@
             <%end%>
             <li class="divider"></li>
             <%if can_u_a_c? @current_user, :list_check, Organization %>
-            <li><%= link_to "机构资料复核", organizations_list_check_path %></li>
+            <li>
+              <%= link_to organizations_list_check_path  do %>
+              机构资料复核
+              <span class="badge alert-danger"><%= Organization.with_new_state.count%></span>
+              <%end%>
+            </li>
             <%end%>
+
             <%if can_u_a_c? @current_user, :list_check, OrganizationCustomer %>
-            <li><%= link_to "机构员工资料复核", organization_customers_list_check_path %></li>
+            <li>
+              <%= link_to organization_customers_list_check_path do%>
+              机构员工资料复核
+              <span class="badge alert-danger"><%= OrganizationCustomer.with_new_state.count%></span>
+              <%end%>
+            </li>
             <%end%>
+
             <li class="divider"></li>
             <%if can_u_a_c? @current_user, :list_edit, Organization %>
             <li><%= link_to "机构资料修改", organizations_list_edit_path %></li>

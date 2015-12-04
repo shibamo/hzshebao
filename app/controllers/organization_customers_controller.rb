@@ -82,7 +82,10 @@ class OrganizationCustomersController < ApplicationController
 
   #复核机构员工客户信息完成操作
   def finish_check
-    @organization_customer.finish_check!
+    ActiveRecord::Base.transaction do
+      @organization_customer.finish_check!
+      @organization_customer.update(is_valid: 1)
+    end
     redirect_to organization_customers_list_check_path, 
                 notice: "机构员工客户 #{@organization_customer.name} 的资料已审核通过."
   end
