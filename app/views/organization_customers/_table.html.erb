@@ -21,8 +21,8 @@
         <td><%= organization_customer.tel %></td>
         <td><%= organization_customer.qq.to_s + '/' + organization_customer.wechat.to_s + '/' +organization_customer.email.to_s %></td>
         <td><%= organization_customer.translate_workflow_state_name(OrganizationCustomer::WORKFLOW_STATE_NAMES) %></td>
-        <td style="background-color: red"><%= "编程中..." %></td>
-        <td style="background-color: red"><%= "编程中..." %></td> 
+        <td><%= organization_customer.organization_shebao && organization_customer.organization_shebao.translate_workflow_state_name(OrganizationShebao::WORKFLOW_STATE_NAMES) %></td>
+        <td><%= organization_customer.organization_gongjijin && organization_customer.organization_gongjijin.translate_workflow_state_name(OrganizationGongjijin::WORKFLOW_STATE_NAMES) %></td> 
         <td><%= organization_customer.user.name %></td>
         <td>
           <%= link_to "查看", "#", class: "btn btn-primary btn-xs", "data-toggle" => "modal", "data-target" => "#modal_organization_customer", "data-url" => organization_customer_path(organization_customer) %>

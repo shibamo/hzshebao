@@ -1,6 +1,8 @@
 class OrganizationShebaosController < ApplicationController
-  before_action :set_organization_shebao, only: [:show, :edit, :update, :destroy]
   before_action :set_model_class
+  before_action :set_organization_shebao, 
+                  only: [:show, :edit, :update, :finish_apply_start, 
+                        :finish_apply_stop, :finish_apply_restart]
 
   # GET /organization_shebaos
   # GET /organization_shebaos.json
@@ -87,21 +89,21 @@ class OrganizationShebaosController < ApplicationController
     if MoneyArrivalFile.business_files("OrganizationShebao",@organization_shebao.id, 
         @organization_shebao.updated_at.to_s, "finish_apply_start").count <= 0
       redirect_to organization_shebaos_list_apply_start_path, 
-                error: "操作失败, 个人客户 #{@organization_shebao.organization_customer.name} 的开通社保操作文件尚未上传."
+                error: "操作失败, 机构员工客户 #{@organization_shebao.organization_customer.name} 的开通社保操作文件尚未上传."
       return
     end
     @organization_shebao.finish_apply_start!
     @organization_shebao.save!
     redirect_to organization_shebaos_list_apply_start_path, 
-                notice: "个人客户 #{@organization_shebao.organization_customer.name} 已登记开通社保."
+                notice: "机构员工客户 #{@organization_shebao.organization_customer.name} 已登记开通社保."
   end
 
   def list_apply_stop #列出可能需要停止服务的机构员工客户列表
     if params[:organization_customer] && params[:organization_customer][:name]
-      @organization_shebaos = @model_class.with_serving_state.where(organization_customer_id: OrganizationCustomer.by_partial_name(params[:organization_customer][:name]).pluck(:id)).page params[:page]
+      @organization_shebaos = @model_class.can_stop.where(organization_customer_id: OrganizationCustomer.by_partial_name(params[:organization_customer][:name]).pluck(:id)).page params[:page]
       @organization_customer = OrganizationCustomer.new(organization_customer_params)
     else
-      @organization_shebaos = @model_class.with_serving_state.page params[:page]
+      @organization_shebaos = @model_class.can_stop.page params[:page]
     end
   end
 
@@ -109,20 +111,20 @@ class OrganizationShebaosController < ApplicationController
     if MoneyArrivalFile.business_files("OrganizationShebao",@organization_shebao.id, 
         @organization_shebao.updated_at.to_s, "finish_apply_stop").count <= 0
       redirect_to organization_shebaos_list_apply_stop_path, 
-                error: "操作失败, 个人客户 #{@organization_shebao.organization_customer.name} 的停交社保操作文件尚未上传."
+                error: "操作失败, 机构员工客户 #{@organization_shebao.organization_customer.name} 的停交社保操作文件尚未上传."
       return
     end
     @organization_shebao.finish_apply_stop!
     redirect_to organization_shebaos_list_apply_stop_path, 
-                notice: "个人客户 #{@organization_shebao.organization_customer.name} 已登记停交社保."
+                notice: "机构员工客户 #{@organization_shebao.organization_customer.name} 已登记停交社保."
   end
 
   def list_apply_restart #列出可能需要重新开启服务的机构员工客户列表
     if params[:organization_customer] && params[:organization_customer][:name]
-      @organization_shebaos = @model_class.with_stopped_state.where(organization_customer_id: OrganizationCustomer.by_partial_name(params[:organization_customer][:name]).pluck(:id)).page params[:page]
+      @organization_shebaos = @model_class.can_restart.where(organization_customer_id: OrganizationCustomer.by_partial_name(params[:organization_customer][:name]).pluck(:id)).page params[:page]
       @organization_customer = OrganizationCustomer.new(organization_customer_params)
     else
-      @organization_shebaos = @model_class.with_stopped_state.page params[:page]
+      @organization_shebaos = @model_class.can_restart.page params[:page]
     end
   end
 
@@ -130,12 +132,12 @@ class OrganizationShebaosController < ApplicationController
     if MoneyArrivalFile.business_files("OrganizationShebao",@organization_shebao.id, 
         @organization_shebao.updated_at.to_s, "finish_apply_restart").count <= 0
       redirect_to organization_shebaos_list_apply_restart_path, 
-                error: "操作失败, 个人客户 #{@organization_shebao.organization_customer.name} 的重新开通社保文件尚未上传."
+                error: "操作失败, 机构员工客户 #{@organization_shebao.organization_customer.name} 的重新开通社保文件尚未上传."
       return
     end    
     @organization_shebao.finish_apply_restart!
     redirect_to organization_shebaos_list_apply_restart_path, 
-                notice: "个人客户 #{@organization_shebao.organization_customer.name} 已重新开通社保."
+                notice: "机构员工客户 #{@organization_shebao.organization_customer.name} 已重新开通社保."
   end
 
   private

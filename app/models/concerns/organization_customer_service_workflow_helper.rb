@@ -1,6 +1,7 @@
 module OrganizationCustomerServiceWorkflowHelper
 #为机构员工的社保和公积金服务提供工作流相关的公共功能集
   extend ActiveSupport::Concern
+  include PagerHelper
 
   included do
     #使用状态机管理机构员工客户服务状态
@@ -28,13 +29,15 @@ module OrganizationCustomerServiceWorkflowHelper
     end
     
     def self.can_stop #计算可以停止服务的客户列表
-      self.with_serving_state.
-        reject{|o| o.organization_customer.valid_end} #只有离职日期不为空的机构员工客户才可能需要停止
+      self.wrap_for_paging self, self.with_serving_state.
+                            reject{|o| !o.organization_customer.valid_end} 
+                            #只有离职日期不为空的机构员工客户才可能需要停止
     end
 
     def self.can_restart #计算可以重新开通服务的客户列表
-      self.with_stopped_state.
-       reject{|o| !o.organization_customer.valid_end} #只有离职为空的机构员工客户才可能需要重新开通 
+      self.wrap_for_paging self,self.with_stopped_state.
+                            reject{|o| o.organization_customer.valid_end} 
+                            #只有离职为空的机构员工客户才可能需要重新开通 
     end
   end
 
