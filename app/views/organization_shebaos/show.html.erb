@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Organization customer:</strong>
+  <%= @organization_shebao.organization_customer_id %>
+</p>
+
+<p>
+  <strong>Account no:</strong>
+  <%= @organization_shebao.account_no %>
+</p>
+
+<p>
+  <strong>Workflow state:</strong>
+  <%= @organization_shebao.workflow_state %>
+</p>
+
+<%= link_to 'Edit', edit_organization_shebao_path(@organization_shebao) %> |
+<%= link_to 'Back', organization_shebaos_path %>

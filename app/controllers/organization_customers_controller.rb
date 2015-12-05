@@ -73,7 +73,8 @@ class OrganizationCustomersController < ApplicationController
     end
   end
 
-  def list_by_organization
+  #返回指定机构的员工列表
+  def list_by_organization 
     @organization_customers = OrganizationCustomer.by_organization_ids(@organization.id).page params[:page]
 
   end
@@ -88,6 +89,9 @@ class OrganizationCustomersController < ApplicationController
     ActiveRecord::Base.transaction do
       @organization_customer.finish_check!
       @organization_customer.update(is_valid: 1)
+      #触发创建员工的社保与公积金记录信息
+      OrganizationShebao.create organization_customer_id: @organization_customer.id
+      OrganizationGongjijin.create organization_customer_id: @organization_customer.id
     end
     redirect_to organization_customers_list_check_path, 
                 notice: "机构员工客户 #{@organization_customer.name} 的资料已审核通过."

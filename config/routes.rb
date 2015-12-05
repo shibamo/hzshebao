@@ -1,4 +1,24 @@
 Rails.application.routes.draw do
+  scope path: '/organization_gongjijins', controller: :organization_gongjijins, as: 'organization_gongjijins' do
+    get "list_apply_start" => :list_apply_start #需要开通公积金服务的机构员工列表
+    post "finish_apply_start/:id" => :finish_apply_start, :as => "finish_apply_start" #完成开通公积金服务
+    match "list_apply_stop" => :list_apply_stop, via:[:get, :post] #可能停止公积金服务的机构员工列表
+    post "finish_apply_stop/:id" => :finish_apply_stop, :as => "finish_apply_stop" #完成停止公积金服务
+    match "list_apply_restart" => :list_apply_restart, via:[:get, :post] #可能重新开通公积金服务的机构员工列表
+    post "finish_apply_restart/:id" => :finish_apply_restart, :as => "finish_apply_restart" #完成重新开通公积金服务 
+  end
+  resources :organization_gongjijins, except: [:index, :show, :new, :create, :edit, :update, :destroy]#机构员工公积金服务状态记录信息
+
+  scope path: '/organization_shebaos', controller: :organization_shebaos, as: 'organization_shebaos' do
+    get "list_apply_start" => :list_apply_start #需要开通社保服务的机构员工列表
+    post "finish_apply_start/:id" => :finish_apply_start, :as => "finish_apply_start" #完成开通社保服务
+    match "list_apply_stop" => :list_apply_stop, via:[:get, :post] #可能停止社保服务的机构员工列表
+    post "finish_apply_stop/:id" => :finish_apply_stop, :as => "finish_apply_stop" #完成停止社保服务
+    match "list_apply_restart" => :list_apply_restart, via:[:get, :post] #可能重新开通社保服务的机构员工列表
+    post "finish_apply_restart/:id" => :finish_apply_restart, :as => "finish_apply_restart" #完成重新开通社保服务 
+  end
+  resources :organization_shebaos, except: [:index, :show, :new, :create, :edit, :update, :destroy] #机构员工社保服务状态记录信息
+
   scope path: '/organzation_commissions', controller: :organzation_commissions, as: 'organzation_commissions' do
     get 'need_approve' => :need_approve #审批
     get 'need_finance_check' => :need_finance_check #财务复核

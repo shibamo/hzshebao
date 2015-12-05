@@ -10,7 +10,7 @@ class Gongjijin < ActiveRecord::Base
 
 	paginates_per 20             #每页显示n条数据
 
-	 #使用状态机管理客户公积金状态
+	#使用状态机管理客户公积金状态
   workflow do
   	state :new do #新建
   		event :finish_apply_start, :transitions_to => :serving

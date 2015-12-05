@@ -1,0 +1,2 @@
+module OrganizationShebaosHelper
+end
