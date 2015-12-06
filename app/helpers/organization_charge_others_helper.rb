@@ -1,0 +1,2 @@
+module OrganizationChargeOthersHelper
+end

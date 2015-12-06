@@ -1,4 +1,19 @@
 Rails.application.routes.draw do
+  scope path: '/organization_charge_others', controller: :organization_charge_others, as: 'organization_charge_others' do
+    get "list_by_organization/:organization_id" => :list_by_organization, as: 'list_by_organization' #显示指定机构的缴费记录列表
+    get "new/(:organization_id)" => :new, as: 'new' #新建指定机构的缴费记录
+    get "list_money_arrival_check" #需要进行资金到账审核的列表
+    match "set_money_arrival_date/:id" => :set_money_arrival_date, via: [:get,:patch], as: 'set_money_arrival_date'#设置资金到账日期
+    get "finish_money_check/:id" => :finish_money_check, as: 'finish_money_check' #完成资金到账审核
+    get 'commission_input_allowed' => :commission_input_allowed #缴费后允许输入提成单
+    get 'list_leader_check' => :list_leader_check #需要领导审核的缴费单列表
+    post 'leader_check/:id' => :leader_check, :as => "leader_check" #领导完成审核缴费单
+    match "query" => :query , via: [:get, :post] #缴费查询
+    get 'list_total(.:format)/(a:money_arrival_date_from)/(b:money_arrival_date_to)/(c:money_check_date_from)/(d:money_check_date_to)' => :list_total, 
+        :as => "list_total" #所有缴费单列表
+  end
+  resources :organization_charge_others, except: [:index,:destroy]#机构其他缴费记录
+
   scope path: '/organization_gongjijins', controller: :organization_gongjijins, as: 'organization_gongjijins' do
     get "list_apply_start" => :list_apply_start #需要开通公积金服务的机构员工列表
     post "finish_apply_start/:id" => :finish_apply_start, :as => "finish_apply_start" #完成开通公积金服务

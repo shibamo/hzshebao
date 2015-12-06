@@ -1,5 +1,6 @@
 class OrganizationCharge < ActiveRecord::Base
   include ModelHelper  
+  include OrganizationChargeCalculateHelper
   
   belongs_to :organization_charge_total
   belongs_to :organization

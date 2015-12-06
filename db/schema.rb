@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151205015911) do
+ActiveRecord::Schema.define(version: 20151205213434) do
 
   create_table "administrators", force: :cascade do |t|
     t.string   "name"
@@ -154,6 +154,26 @@ ActiveRecord::Schema.define(version: 20151205015911) do
   end
 
   add_index "money_arrival_files", ["business_type", "main_object_id", "extra_data", "business_action"], name: "idx_query_1"
+
+  create_table "organization_charge_others", force: :cascade do |t|
+    t.integer  "organization_id"
+    t.integer  "user_id"
+    t.decimal  "price_fuwufei"
+    t.decimal  "price_canbao"
+    t.decimal  "price_chajia"
+    t.decimal  "price_gonghui"
+    t.decimal  "price_qita_1"
+    t.decimal  "price_qita_2"
+    t.decimal  "price_qita_3"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.string   "comment"
+    t.date     "money_arrival_date"
+    t.date     "money_check_date"
+    t.string   "workflow_state"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
 
   create_table "organization_charge_templates", force: :cascade do |t|
     t.integer  "organization_customer_id"

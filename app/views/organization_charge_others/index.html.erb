@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Organization Charge Others</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Organization</th>
+      <th>User</th>
+      <th>Price fuwufei</th>
+      <th>Price canbao</th>
+      <th>Price chajia</th>
+      <th>Price gonghui</th>
+      <th>Price qita 1</th>
+      <th>Price qita 2</th>
+      <th>Price qita 3</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>Comment</th>
+      <th>Money arrival date</th>
+      <th>Money check date</th>
+      <th>Workflow state</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @organization_charge_others.each do |organization_charge_other| %>
+      <tr>
+        <td><%= organization_charge_other.organization_id %></td>
+        <td><%= organization_charge_other.user_id %></td>
+        <td><%= organization_charge_other.price_fuwufei %></td>
+        <td><%= organization_charge_other.price_canbao %></td>
+        <td><%= organization_charge_other.price_chajia %></td>
+        <td><%= organization_charge_other.price_gonghui %></td>
+        <td><%= organization_charge_other.price_qita_1 %></td>
+        <td><%= organization_charge_other.price_qita_2 %></td>
+        <td><%= organization_charge_other.price_qita_3 %></td>
+        <td><%= organization_charge_other.start_date %></td>
+        <td><%= organization_charge_other.end_date %></td>
+        <td><%= organization_charge_other.comment %></td>
+        <td><%= organization_charge_other.money_arrival_date %></td>
+        <td><%= organization_charge_other.money_check_date %></td>
+        <td><%= organization_charge_other.workflow_state %></td>
+        <td><%= link_to 'Show', organization_charge_other %></td>
+        <td><%= link_to 'Edit', edit_organization_charge_other_path(organization_charge_other) %></td>
+        <td><%= link_to 'Destroy', organization_charge_other, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Organization charge other', new_organization_charge_other_path %>

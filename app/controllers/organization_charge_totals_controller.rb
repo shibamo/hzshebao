@@ -111,7 +111,7 @@ class OrganizationChargeTotalsController < ApplicationController
     if params[:organization_charge_total] && params[:organization_charge_total][:money_arrival_date] #posted
       if @organization_charge_total.update(money_arrival_date: params[:organization_charge_total][:money_arrival_date])
         redirect_to  organization_charge_totals_list_money_arrival_check_path, 
-                notice: "机构客户 #{@organization_charge_total.organization.abbr} 的缴费到账时间已设置."
+                notice: "机构客户 #{@organization_charge_total.organization.abbr} 的常规缴费到账时间已设置."
         return
       end
     else #get
@@ -122,19 +122,19 @@ class OrganizationChargeTotalsController < ApplicationController
   def finish_money_check #完成资金核对
     if MoneyArrivalFile.where(business_type: "OrganizationChargeTotal", main_object_id: @organization_charge_total.id).pluck(:id).count <= 0
           redirect_to  organization_charge_totals_list_money_arrival_check_path, 
-                error: "机构客户 #{@organization_charge_total.organization.abbr} 的缴费记录附件尚未上传."
+                error: "机构客户 #{@organization_charge_total.organization.abbr} 的常规缴费记录附件尚未上传."
           return
     end
     unless @organization_charge_total.money_arrival_date
       redirect_to  organization_charge_totals_list_money_arrival_check_path, 
-                error: "机构客户 #{@organization_charge_total.organization.abbr} 的缴费到账时间尚未设置."
+                error: "机构客户 #{@organization_charge_total.organization.abbr} 的常规缴费到账时间尚未设置."
           return
     end
 
     @organization_charge_total.finish_money_check! #同时完成缴费单的资金检查
     @organization_charge_total.update(money_check_date: Date.current) #设置资金审核日期
     redirect_to  organization_charge_totals_list_money_arrival_check_path, 
-                notice: "机构客户 #{@organization_charge_total.organization.abbr} 的缴费资金已确认到账."
+                notice: "机构客户 #{@organization_charge_total.organization.abbr} 的常规缴费资金已确认到账."
   end
 
   def commission_input_allowed #需要输入提成单的机构缴费记录列表
@@ -148,7 +148,7 @@ class OrganizationChargeTotalsController < ApplicationController
   def leader_check #完成领导最终审核
     @organization_charge_total.finish_leader_check!
     redirect_to organization_charge_totals_list_leader_check_path, 
-                notice: "机构客户 #{@organization_charge_total.organization.name} 的缴费记录已审核通过."
+                notice: "机构客户 #{@organization_charge_total.organization.name} 的常规缴费记录已审核通过."
   end
 
   def list_total #机构常规缴费单所有(html)与Excel导出(仅限到账日期与审核日期的区间查询条件)

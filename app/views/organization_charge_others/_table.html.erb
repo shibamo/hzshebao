@@ -1,0 +1,82 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>机构名</th>
+      <th>服务费</th>
+      <th>残保金</th>
+      <th>差价</th>
+      <th>工会费</th>
+      <th>其它1</th>
+      <th>其它2</th>
+      <th>其它3</th>
+      <th>总收费</th>
+      <th>服务开始日期</th>
+      <th>服务结束日期</th>
+      <% if op_type == :list_money_arriaval_check %>
+      <th>表单创建日</th>
+      <% else %>
+      <th>资金到账日</th>
+      <th>资金审核日</th>
+      <% end %>
+      <th>状态</th>
+      <th>备注</th>
+      <th colspan="1">操作</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% organization_charge_others.each do |oco| %>
+      <tr>
+        <td><%= oco.organization.abbr %></td>
+        <td><%= format("%.2f",oco.price_fuwufei) %></td>
+        <td><%= format("%.2f",oco.price_canbao) %></td>
+        <td><%= format("%.2f",oco.price_chajia) %></td>
+        <td><%= format("%.2f",oco.price_gonghui) %></td>
+        <td><%= format("%.2f",oco.price_qita_1) %></td>
+        <td><%= format("%.2f",oco.price_qita_2) %></td>
+        <td><%= format("%.2f",oco.price_qita_3) %></td>
+        <td><strong><%= format("%.2f",oco.price_receivable_total) %></strong></td>
+        <td><%= oco.start_date %></td>
+        <td><%= oco.end_date %></td>
+        <% if op_type == :list_money_arriaval_check %>
+        <td><%= oco.created_at.to_date %></td>
+        <% else %>
+        <td><%= oco.money_arrival_date %></td>
+        <td><%= oco.money_check_date %></td>
+        <% end %>
+        <td><%= oco.translate_workflow_state_name(@model_class::WORKFLOW_STATE_NAMES) %></td>
+        <td><a tabindex="0" class="btn btn-xs btn-info" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="备注" data-content="<%= oco.comment %>">备注</a></td>
+        <td><%= link_to '查看', oco , class: "btn btn-xs btn-default", target: "_blank"%></td>
+
+        <%if op_type == :list_by_organization && oco.workflow_state == "new"#只有未被财务审核过的业务员才能修改%>
+        <td><%= link_to '修改', edit_organization_charge_other_path(oco) , class: "btn btn-xs active btn-warning"%></td>
+        <%end%>
+
+        <% if op_type == :list_money_arriaval_check #等待资金到账核对%>
+        <td><%= link_to '上传文件', money_arrival_files_new_path(business_type: "OrganizationChargeOther",extra_data: oco.updated_at.to_s,main_object_id: oco.id, business_action: "money_arrival_check"), class: "btn active btn-primary btn-xs", target: "_blank"  %></td>
+        <td>
+          <%= link_to '设置日期', organization_charge_others_set_money_arrival_date_path(oco), class: "btn active btn-primary btn-xs" %>
+          <%= link_to '确认到账', organization_charge_others_finish_money_check_path(oco), class: "btn active btn-primary btn-xs" %></td>
+        <% end %>
+
+        <% if op_type == :input_commission #等待填写提成单%>
+        <td><%= link_to '填写提成单', new_organization_charge_other_organzation_commission_path(oco), class: "btn active btn-primary btn-xs"  %></td>
+        <% end %>
+
+        <% if op_type == :leader_check #等待领导审核%>
+        <td><%= link_to '审核完毕', organization_charge_others_leader_check_path(oco),  method: :post, class: "btn active btn-primary btn-xs"  %></td>
+        <% end %>
+
+        <% if op_type == :list_total && User.find(session["current_user_id"]).is_leader #公司领导可以更改缴费单 %>
+          <td><%= link_to '修改', edit_organization_charge_other_path(oco), class: "btn active btn-warning btn-xs"  %></td>
+          <td><%= link_to '上传文件', money_arrival_files_new_path(business_type: "OrganizationChargeOther",extra_data: oco.updated_at.to_s,main_object_id: oco.id, business_action: "list_total"), class: "btn active btn-warning btn-xs", target: "_blank"  %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<script type="text/javascript">
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
+</script>

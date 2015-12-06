@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  organization_id: 1
+  user_id: 1
+  price_fuwufei: 9.99
+  price_canbao: 9.99
+  price_chajia: 9.99
+  price_gonghui: 9.99
+  price_qita_1: 9.99
+  price_qita_2: 9.99
+  price_qita_3: 9.99
+  start_date: 2015-12-05
+  end_date: 2015-12-05
+  comment: MyString
+  money_arrival_date: 2015-12-05
+  money_check_date: 2015-12-05
+  workflow_state: MyString
+
+two:
+  organization_id: 1
+  user_id: 1
+  price_fuwufei: 9.99
+  price_canbao: 9.99
+  price_chajia: 9.99
+  price_gonghui: 9.99
+  price_qita_1: 9.99
+  price_qita_2: 9.99
+  price_qita_3: 9.99
+  start_date: 2015-12-05
+  end_date: 2015-12-05
+  comment: MyString
+  money_arrival_date: 2015-12-05
+  money_check_date: 2015-12-05
+  workflow_state: MyString

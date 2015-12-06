@@ -2,6 +2,7 @@ class OrganzationCommission < ActiveRecord::Base
   include Workflow
   include ChinesifyWorkflow
   include ModelHelper
+  include OrganizationChargeCalculateHelper
   include WorkflowHelper
 
   belongs_to :organization_charge_total

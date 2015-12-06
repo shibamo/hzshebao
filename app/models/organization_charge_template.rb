@@ -1,5 +1,6 @@
 class OrganizationChargeTemplate < ActiveRecord::Base
   include ModelHelper
+  include OrganizationChargeCalculateHelper
 
   belongs_to :organization_customer #归属的机构员工
   belongs_to :organization #归属的机构
