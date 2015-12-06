@@ -1,0 +1,8 @@
+<h1 class="text-center">机构其他收费提成单记录列表(所有)&nbsp;
+	<%= link_to "下载所有提成单记录>>", 
+  organization_commission_others_list_total_path(format: :xls, input_date_from: @input_date_from, input_date_to: @input_date_to) , tabindex: "-1", class: "btn btn-primary btn-sm btn-warning" %>
+</h1>
+
+<%= render 'organization_commission_others/simple_query', url: :organization_commission_others_list_total%>
+
+<%= render 'table', organization_commission_others: @organization_commission_others, op_type: :list_total %>

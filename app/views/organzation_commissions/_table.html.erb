@@ -21,7 +21,7 @@
         <td><strong><%= format("%.2f",oc.bonus_reference) %></strong></td>
         <td><strong><%= format("%.2f",oc.bonus) %></strong></td>
         <td><strong><%= oct.money_arrival_date %></strong></td>
-        <td><%= oc.translate_workflow_state_name(Commission::WORKFLOW_STATE_NAMES) %></td>
+        <td><%= oc.translate_workflow_state_name(@model_class::WORKFLOW_STATE_NAMES) %></td>
         <td><%= link_to '查看缴费单', oct , class: "btn active btn-default btn-xs", target: "_blank" %></td>
         <% if op_type== :approve %>
           <td><%= link_to "更改业务员", organzation_commissions_set_user_path(oc), class: "btn btn-primary btn-xs" %></td>

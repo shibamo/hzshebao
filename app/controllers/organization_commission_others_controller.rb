@@ -51,10 +51,10 @@ class OrganizationCommissionOthersController < ApplicationController
       if @organization_commission_other.update(organization_commission_other_params)
         format.html do
           if @organization_commission_other.workflow_state == "approved" #转回财务审批
-            redirect_to organzation_commission_others_need_finance_check_path, notice: '机构其他提成单已成功修改.' 
+            redirect_to organization_commission_others_need_finance_check_path, notice: '机构其他提成单已成功修改.' 
             return
           else #转回公司管理->提成单查询
-            redirect_to organzation_commission_others_list_total_path, notice: '机构其他提成单已成功修改.' 
+            redirect_to organization_commission_others_list_total_path, notice: '机构其他提成单已成功修改.' 
             return
           end
         end
@@ -73,7 +73,7 @@ class OrganizationCommissionOthersController < ApplicationController
 
   def approve #审批操作
     @organization_commission_other.finish_approve!(session["current_user_id"])
-    redirect_to organzation_commission_others_need_approve_path, notice: "编号为#{@organization_commission_other.commission_no}的机构其他提成单已审批." 
+    redirect_to organization_commission_others_need_approve_path, notice: "编号为#{@organization_commission_other.commission_no}的机构其他提成单已审批." 
   end
 
   def need_finance_check #待财务审核列表
@@ -82,19 +82,19 @@ class OrganizationCommissionOthersController < ApplicationController
 
   def finance_check #财务审核
     @organization_commission_other.finish_finance_check!(session["current_user_id"])
-    redirect_to organzation_commissions_need_finance_check_path, notice: "编号为#{@organization_commission_other.commission_no}的机构其他提成单已财务审核通过." 
+    redirect_to organization_commissions_need_finance_check_path, notice: "编号为#{@organization_commission_other.commission_no}的机构其他提成单已财务审核通过." 
   end
 
   def list_total #提成单查询
     respond_to do |format|
-      if params[:organzation_commission_other] && params[:organzation_commission_other][:input_date_from].length>0 && 
-          params[:organzation_commission_other][:input_date_to].length>0
-        @input_date_from = params[:organzation_commission_other][:input_date_from] if params[:organzation_commission_other][:input_date_from]
-        @input_date_to = params[:organzation_commission_other][:input_date_to] if params[:organzation_commission_other][:input_date_to]
+      if params[:organization_commission_other] && params[:organization_commission_other][:input_date_from].length>0 && 
+          params[:organization_commission_other][:input_date_to].length>0
+        @input_date_from = params[:organization_commission_other][:input_date_from] if params[:organization_commission_other][:input_date_from]
+        @input_date_to = params[:organization_commission_other][:input_date_to] if params[:organization_commission_other][:input_date_to]
       end
       
-      if params[:organzation_commission_other] && params[:organzation_commission_other][:organzation_customer_name].length>0
-        @organzation_customer_name = params[:organzation_commission_other][:organzation_customer_name]
+      if params[:organization_commission_other] && params[:organization_commission_other][:organization_customer_name].length>0
+        @organization_customer_name = params[:organization_commission_other][:organization_customer_name]
       end
       
       if @input_date_from && @input_date_to
@@ -107,8 +107,8 @@ class OrganizationCommissionOthersController < ApplicationController
         @input_date_from = @input_date_to = nil
       end
 
-      if @organzation_customer_name
-        organization_charge_other_ids = @model_class.of_customer_name_like(@organzation_customer_name).collect(&:id)
+      if @organization_customer_name
+        organization_charge_other_ids = @model_class.of_customer_name_like(@organization_customer_name).collect(&:id)
         @organization_commission_others = @organization_commission_others.where('organization_charge_other_id in (?)',organization_charge_other_ids)
       end
 
@@ -150,10 +150,10 @@ class OrganizationCommissionOthersController < ApplicationController
   end
 
   def set_user
-    if params[:organzation_commission_other] && params[:organzation_commission_other][:user_id] && 
-      @organization_commission_other.update(user: User.find(params[:organzation_commission_other][:user_id]))
-      redirect_to organzation_commission_others_need_approve_path , 
-        notice: "该提成单的业务员已成功更改为#{User.find(params[:organzation_commission_other][:user_id]).name}."
+    if params[:organization_commission_other] && params[:organization_commission_other][:user_id] && 
+      @organization_commission_other.update(user: User.find(params[:organization_commission_other][:user_id]))
+      redirect_to organization_commission_others_need_approve_path , 
+        notice: "该提成单的业务员已成功更改为#{User.find(params[:organization_commission_other][:user_id]).name}."
       return 
     end
   end
@@ -161,7 +161,7 @@ class OrganizationCommissionOthersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_organization_commission_other
-      @organization_commission_other = OrganizationCommissionOther.find(params[:id])
+      @organization_commission_other = OrganizationCommissionOther.find(params[:id] || params[:organization_commission_other_id])
     end
 
     def set_model_class
