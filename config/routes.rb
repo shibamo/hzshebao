@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+  scope path: '/organization_commission_others', controller: :organization_commission_others, as: 'organization_commission_others' do
+    get 'need_approve' => :need_approve #审批
+    get 'need_finance_check' => :need_finance_check #财务复核
+    match "set_user/:id" => :set_user, via: [:get,:patch], :as => "set_user" #更新提成单业务员设置
+    #所有提成单列表,与index的区别是不对当前业务员用户的归属判断
+    match 'list_total(.:format)/(:input_date_from)/(:input_date_to)' =>  :list_total, via:[:get, :post], :as => "list_total" 
+  end  
+  resources :organization_commission_others,except:[:destroy] do#机构其他缴费提成单
+    post :approve
+    post :finance_check
+  end
+
   scope path: '/organization_charge_others', controller: :organization_charge_others, as: 'organization_charge_others' do
     get "list_by_organization/:organization_id" => :list_by_organization, as: 'list_by_organization' #显示指定机构的缴费记录列表
     get "new/(:organization_id)" => :new, as: 'new' #新建指定机构的缴费记录
@@ -12,7 +24,9 @@ Rails.application.routes.draw do
     get 'list_total(.:format)/(a:money_arrival_date_from)/(b:money_arrival_date_to)/(c:money_check_date_from)/(d:money_check_date_to)' => :list_total, 
         :as => "list_total" #所有缴费单列表
   end
-  resources :organization_charge_others, except: [:index,:destroy]#机构其他缴费记录
+  resources :organization_charge_others, except: [:index,:destroy] do #机构其他缴费记录
+    resources :organization_commission_others, except: [:index, :edit, :update, :destroy]#机构提成单
+  end
 
   scope path: '/organization_gongjijins', controller: :organization_gongjijins, as: 'organization_gongjijins' do
     get "list_apply_start" => :list_apply_start #需要开通公积金服务的机构员工列表
@@ -41,7 +55,7 @@ Rails.application.routes.draw do
     #所有提成单列表,与index的区别是不对当前业务员用户的归属判断
     match 'list_total(.:format)/(:input_date_from)/(:input_date_to)' =>  :list_total, via:[:get, :post], :as => "list_total" 
   end  
-  resources :organzation_commissions, except:[:new,:create,:destroy] do #机构提成单
+  resources :organzation_commissions, except:[:new,:create,:destroy] do #机构常规缴费提成单
     post :approve
     post :finance_check
   end
@@ -195,7 +209,7 @@ Rails.application.routes.draw do
     match 'list_total(.:format)/(:input_date_from)/(:input_date_to)' =>  :list_total, via:[:get, :post], :as => "list_total" 
   end
 
-  resources :commissions do #提成单
+  resources :commissions, except:[:destroy] do #提成单
     post :approve
     post :finance_check
     post :pay
@@ -212,31 +226,31 @@ Rails.application.routes.draw do
         :as => "list_total" #所有缴费单列表,与index的区别是1.不作客户对当前业务员用户的归属判断;2.不需要传入客户id条件
   end
 
-  resources :charges do #客户缴费
+  resources :charges, except:[:destroy] do #客户缴费
     match 'set_money_arrival_date', via: [:get,:patch]
-    resources :money_arrival_files
-    resources :commissions #提成单
+    resources :money_arrival_files,except:[:destroy]
+    resources :commissions,except:[:destroy] #提成单
   end
 
   get 'user/reset_password/:id' => 'users#reset_password', :as => "user_reset_password"
   get 'user/login/(:id)' => "users#login", :as => "user_login"
   get 'user/logout' => "users#logout", :as => "user_logout"
   post 'user/auth' => "users#auth", :as => "user_auth"
-  resources :users #用户
+  resources :users,except:[:destroy] #用户
 
-  resources :functions #系统功能列表
+  resources :functions, except:[:destroy] #系统功能列表
 
-  resources :roles do
+  resources :roles, except:[:destroy] do
     get :set_users  #角色-用户关联表
     post :update_users
     get :set_functions  #角色-功能关联表
     post :update_functions
   end
 
-  resources :departments #部门
+  resources :departments, except:[:destroy] #部门
 
-  resources :companies #公司
+  resources :companies, except:[:destroy] #公司
 
-  resources :administrators #管理员
+  resources :administrators, except:[:destroy] #管理员
 
 end

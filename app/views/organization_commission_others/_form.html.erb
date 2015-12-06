@@ -1,0 +1,17 @@
+<%= simple_form_for([@organization_charge_other,@organization_commission_other]) do |f| %>
+  <div class="form-inputs">
+    <div class="form-group  col-xs-12">
+      <%= f.input :commission_no, label: "提成单号:" %>
+    </div>
+    <div class="form-group col-xs-6">
+    <%= f.input :bonus_reference, label:"计奖金额:", input_html: { class: 'text-right' }  %>
+    </div>
+    <div class="form-group col-xs-6">
+    <%= f.input :bonus , label: "奖金:", input_html: { class: 'text-right' }%>
+    </div>
+  </div>
+
+  <div class="form-actions col-xs-12" >
+    <%= f.button :submit, "提交" , class:"actions btn btn-primary noprint"%>
+  </div>
+<% end %>

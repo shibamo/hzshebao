@@ -60,7 +60,7 @@
         <% end %>
 
         <% if op_type == :input_commission #等待填写提成单%>
-        <td><%= link_to '填写提成单', new_organization_charge_other_organzation_commission_path(oco), class: "btn active btn-primary btn-xs"  %></td>
+        <td><%= link_to '填写提成单', new_organization_charge_other_organization_commission_other_path(oco), class: "btn active btn-primary btn-xs"  %></td>
         <% end %>
 
         <% if op_type == :leader_check #等待领导审核%>

@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Organization charge other:</strong>
+  <%= @organization_commission_other.organization_charge_other_id %>
+</p>
+
+<p>
+  <strong>Commission no:</strong>
+  <%= @organization_commission_other.commission_no %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @organization_commission_other.user_id %>
+</p>
+
+<p>
+  <strong>Bonus reference:</strong>
+  <%= @organization_commission_other.bonus_reference %>
+</p>
+
+<p>
+  <strong>Bonus:</strong>
+  <%= @organization_commission_other.bonus %>
+</p>
+
+<p>
+  <strong>Approver:</strong>
+  <%= @organization_commission_other.approver_id %>
+</p>
+
+<p>
+  <strong>Financer:</strong>
+  <%= @organization_commission_other.financer_id %>
+</p>
+
+<p>
+  <strong>Workflow state:</strong>
+  <%= @organization_commission_other.workflow_state %>
+</p>
+
+<%= link_to 'Edit', edit_organization_commission_other_path(@organization_commission_other) %> |
+<%= link_to 'Back', organization_commission_others_path %>

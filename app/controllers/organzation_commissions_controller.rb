@@ -36,7 +36,7 @@ class OrganzationCommissionsController < ApplicationController
     respond_to do |format|
       if @organzation_commission.save
         @organization_charge_total.finish_commission_form! #设置机构收费单为提成单已完成状态,工作流推进
-        format.html { redirect_to organization_charge_totals_commission_input_allowed_path, notice: '机构提成单已成功提交.' }
+        format.html { redirect_to organization_charge_totals_commission_input_allowed_path, notice: '机构常规提成单已成功提交.' }
         format.json { render :show, status: :created, location: @organzation_commission }
       else
         format.html { render :new }
@@ -52,10 +52,10 @@ class OrganzationCommissionsController < ApplicationController
       if @organzation_commission.update(organzation_commission_params)
         format.html do
           if @organzation_commission.workflow_state == "approved" #转回财务审批
-            redirect_to organzation_commissions_need_finance_check_path, notice: '机构提成单已成功修改.' 
+            redirect_to organzation_commissions_need_finance_check_path, notice: '机构常规提成单已成功修改.' 
             return
           else #转回公司管理->提成单查询
-            redirect_to organzation_commissions_list_total_path, notice: '机构提成单已成功修改.' 
+            redirect_to organzation_commissions_list_total_path, notice: '机构常规提成单已成功修改.' 
             return
           end
         end
@@ -74,7 +74,7 @@ class OrganzationCommissionsController < ApplicationController
 
   def approve #审批操作
     @organzation_commission.finish_approve!(session["current_user_id"])
-    redirect_to organzation_commissions_need_approve_path, notice: "编号为#{@organzation_commission.commission_no}的机构提成单已审批." 
+    redirect_to organzation_commissions_need_approve_path, notice: "编号为#{@organzation_commission.commission_no}的机构常规提成单已审批." 
   end
 
   def need_finance_check #待财务审核列表
@@ -83,7 +83,7 @@ class OrganzationCommissionsController < ApplicationController
 
   def finance_check #财务审核
     @organzation_commission.finish_finance_check!(session["current_user_id"])
-    redirect_to organzation_commissions_need_finance_check_path, notice: "编号为#{@organzation_commission.commission_no}的机构提成单已财务审核通过." 
+    redirect_to organzation_commissions_need_finance_check_path, notice: "编号为#{@organzation_commission.commission_no}的机构常规提成单已财务审核通过." 
   end
 
   def list_total #提成单查询
@@ -117,7 +117,7 @@ class OrganzationCommissionsController < ApplicationController
         Spreadsheet.client_encoding = 'UTF-8'
         file_contents = StringIO.new
         book = Spreadsheet::Workbook.new
-        sheet1 = book.create_worksheet name: "机构收费提成单记录表" + Date.today.to_s
+        sheet1 = book.create_worksheet name: "机构收费常规提成单记录表" + Date.today.to_s
         sheet1.row(0).default_format = Spreadsheet::Format.new color: :blue, weight: :bold,size: 12
 
         # =>                      0          1         2       3       4          5         6    7

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151205213434) do
+ActiveRecord::Schema.define(version: 20151206081256) do
 
   create_table "administrators", force: :cascade do |t|
     t.string   "name"
@@ -253,6 +253,19 @@ ActiveRecord::Schema.define(version: 20151205213434) do
     t.date     "start_date"
     t.date     "end_date"
     t.string   "comment"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  create_table "organization_commission_others", force: :cascade do |t|
+    t.integer  "organization_charge_other_id"
+    t.string   "commission_no"
+    t.integer  "user_id"
+    t.decimal  "bonus_reference"
+    t.decimal  "bonus"
+    t.integer  "approver_id"
+    t.integer  "financer_id"
+    t.string   "workflow_state"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
   end

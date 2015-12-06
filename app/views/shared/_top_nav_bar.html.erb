@@ -186,6 +186,23 @@
             </li>
             <%end%>
 
+            <li class="divider"></li>
+
+            <%if can_u_a_c? @current_user, :commission_input_allowed, OrganizationChargeOther %>
+            <li>
+              <%= link_to organization_charge_others_commission_input_allowed_path do %>
+                机构其他提成单录入<span class="badge alert-danger"> <%= OrganizationChargeOther.with_money_arrived_state.managed_by_users(session["current_user_id"]).count %>
+              <% end %>
+            </li>
+            <%end%>
+            
+            <%if can_u_a_c? @current_user, :need_approve, OrganizationCommissionOther %>
+            <li>
+              <%= link_to organization_commission_others_need_approve_path do %>
+                机构其他提成单审批 <span class="badge alert-danger"> <%= OrganizationCommissionOther.with_new_state.count %> </span>
+              <% end %>
+            </li>
+            <%end%>
           </ul>
         </li>
 
@@ -225,7 +242,22 @@
               <% end %>
             </li>
             <%end%>
-
+            
+            <li class="divider"></li>
+            <%if can_u_a_c? @current_user, :list_money_arrival_check, OrganizationChargeOther %>
+            <li>
+              <%= link_to organization_charge_others_list_money_arrival_check_path do %>
+                机构其他资金核对 <span class="badge alert-danger"> <%= OrganizationChargeOther.with_new_state.count %> </span>
+              <% end %>
+            </li>
+            <%end%>
+            <%if can_u_a_c? @current_user, :need_finance_check, OrganizationCommissionOther %>
+            <li>
+              <%= link_to organization_commission_others_need_finance_check_path do %>
+                机构其他提成单复核 <span class="badge alert-danger"> <%= OrganizationCommissionOther.with_approved_state.count %> </span>
+              <% end %>
+            </li>
+            <%end%>
           </ul>
         </li>
 
@@ -253,6 +285,11 @@
             <% end %>
 
             <li class="divider"></li>
+            <%if can_u_a_c? @current_user, :list_total, Organization %>
+            <li><%=link_to "机构查询", organizations_list_total_path  %></li>
+            <% end %>
+
+            <li class="divider"></li>
             <% if can_u_a_c? @current_user, :list_leader_check, OrganizationChargeTotal %>
             <li>
               <%= link_to organization_charge_totals_list_leader_check_path do %>
@@ -260,11 +297,6 @@
               <% end %>
             </li>
             <%end%>
-
-            <%if can_u_a_c? @current_user, :list_total, Organization %>
-            <li><%=link_to "机构查询", organizations_list_total_path  %></li>
-            <% end %>
-
             <% if can_u_a_c? @current_user, :list_total, OrganizationChargeTotal %>
             <li><%=link_to "机构常规缴费单查询", organization_charge_totals_list_total_path  %></li>
             <% end %>
@@ -272,6 +304,23 @@
             <%if can_u_a_c? @current_user, :list_total, OrganzationCommission %>
             <li>
               <%= link_to "机构常规提成单查询", organzation_commissions_list_total_path %></li>
+            <% end %>
+
+            <li class="divider"></li>
+            <% if can_u_a_c? @current_user, :list_leader_check, OrganizationChargeOther %>
+            <li>
+              <%= link_to organization_charge_others_list_leader_check_path do %>
+                机构其他缴费单终审 <span class="badge alert-danger"> <%= OrganizationChargeOther.with_commission_finished_state.count %> </span>
+              <% end %>
+            </li>
+            <%end%>
+            <% if can_u_a_c? @current_user, :list_total, OrganizationChargeOther %>
+            <li><%=link_to "机构其他缴费单查询", organization_charge_others_list_total_path  %></li>
+            <% end %>
+
+            <%if can_u_a_c? @current_user, :list_total, OrganizationCommissionOther %>
+            <li>
+              <%= link_to "机构其他提成单查询", organization_commission_others_list_total_path %></li>
             <% end %>
           </ul>
         </li>

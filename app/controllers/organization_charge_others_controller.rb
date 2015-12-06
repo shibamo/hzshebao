@@ -149,7 +149,7 @@ class OrganizationChargeOthersController < ApplicationController
         @organization_charge_others.each_with_index do |r,i| 
           sheet1.row(i+1).push r.id, r.organization.name,  
                               r.price_fuwufei, r.price_canbao, r.price_chajia, r.price_gonghui,
-                              r.price_qita_1, r.price_qita_2, r.price_qita_3,
+                              r.price_qita_1, r.price_qita_2, r.price_qita_3, r.price_receivable_total,
                               r.money_arrival_date, r.money_check_date, 
                               r.translate_workflow_state_name(@model_class::WORKFLOW_STATE_NAMES).to_s, r.user.name
           [10,11].each {|col| sheet1.row(i+1).set_format col, Spreadsheet::Format.new(:number_format => 'YYYY-MM-DD')}                                

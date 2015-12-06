@@ -1,0 +1,1 @@
+json.extract! @organization_commission_other, :id, :organization_charge_other_id, :commission_no, :user_id, :bonus_reference, :bonus, :approver_id, :financer_id, :workflow_state, :created_at, :updated_at

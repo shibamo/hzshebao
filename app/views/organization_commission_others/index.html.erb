@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Organization Commission Others</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Organization charge other</th>
+      <th>Commission no</th>
+      <th>User</th>
+      <th>Bonus reference</th>
+      <th>Bonus</th>
+      <th>Approver</th>
+      <th>Financer</th>
+      <th>Workflow state</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @organization_commission_others.each do |organization_commission_other| %>
+      <tr>
+        <td><%= organization_commission_other.organization_charge_other_id %></td>
+        <td><%= organization_commission_other.commission_no %></td>
+        <td><%= organization_commission_other.user_id %></td>
+        <td><%= organization_commission_other.bonus_reference %></td>
+        <td><%= organization_commission_other.bonus %></td>
+        <td><%= organization_commission_other.approver_id %></td>
+        <td><%= organization_commission_other.financer_id %></td>
+        <td><%= organization_commission_other.workflow_state %></td>
+        <td><%= link_to 'Show', organization_commission_other %></td>
+        <td><%= link_to 'Edit', edit_organization_commission_other_path(organization_commission_other) %></td>
+        <td><%= link_to 'Destroy', organization_commission_other, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Organization commission other', new_organization_commission_other_path %>
