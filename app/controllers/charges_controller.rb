@@ -13,7 +13,7 @@ class ChargesController < ApplicationController
   # GET /charges/1
   # GET /charges/1.json
   def show
-    @attaches = MoneyArrivalFile.business_files_all(business_type: "Charge", main_object_id: @charge.id).pluck(:id,:file_name,:user_id,:created_at)
+    @attaches = MoneyArrivalFile.business_files_all("Charge",@charge.id).pluck(:id,:file_name,:user_id,:created_at)
     render :show, layout: "simple"
   end
 
