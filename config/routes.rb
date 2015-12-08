@@ -101,7 +101,7 @@ Rails.application.routes.draw do
     match "list_edit" => :list_edit, via: [:get, :post] #可能修改客户资料的客户列表
   end
   resources :organization_customers, except: [:new] do #机构员工客户
-    resources :organization_charge_templates #机构所属员工日常缴费模板
+    resources :organization_charge_templates, except:[:destroy] #机构所属员工日常缴费模板
   end
 
   #原为客户身份证照片,现复用做所有的客户附件文件
@@ -120,11 +120,11 @@ Rails.application.routes.draw do
     get "list_set_user"  #机构列表,用于更新机构所属业务员设置
     match "set_user/:id" => :set_user, via: [:get,:patch], :as => "set_user" #更新机构所属业务员设置
   end
-  resources :organizations #机构
+  resources :organizations, except:[:destroy] #机构
 
   get 'home/index'
 
-  resources :shebao_bases #社保缴费基数
+  resources :shebao_bases, except:[:destroy] #社保缴费基数
 
   scope path: '/renewals', controller: :renewals, as: 'renewals' do
     post "need_renew/:id" => :need_renew, :as => "need_renew" #确认客户待续费 
@@ -134,7 +134,7 @@ Rails.application.routes.draw do
     post "finish_restart/:id" => :finish_restart, :as => "finish_restart" #重新开通
     get "list_stopped" => :list_stopped #已停止服务人员列表 
   end
-  resources :renewals #续费
+  resources :renewals, except:[:destroy] #续费
 
   root 'home#index' #首页
 
@@ -147,7 +147,7 @@ Rails.application.routes.draw do
     post "finish_apply_restart/:id" => :finish_apply_restart, :as => "finish_apply_restart" #完成重新开通公积金服务 
     get "list_need_renew(.:format)" => :list_need_renew, :as => "list_need_renew" #公积金待续费的客户列表
   end
-  resources :gongjijins  #客户的公积金服务状态记录信息
+  resources :gongjijins, except:[:destroy]  #客户的公积金服务状态记录信息
 
   scope path: '/single_customers', controller: :single_customers, as: 'single_customers' do
     match "query" => :query , via: [:get, :post] #客户查询
@@ -168,14 +168,14 @@ Rails.application.routes.draw do
     get "list_total(.:format)" => :list_total, :as => "list_total" #所有客户列表,与index的区别是不作客户对当前业务员用户的归属判断
     match "list_edit" => :list_edit, via: [:get, :post] #可能修改客户资料的客户列表
   end
-  resources :single_customers do #客户信息记录
-    resources :customer_id_card_pictures #原为客户身份证照片,现直接复用做所有的客户附件文件
+  resources :single_customers, except:[:destroy] do #客户信息记录
+    resources :customer_id_card_pictures, except:[:destroy] #原为客户身份证照片,现直接复用做所有的客户附件文件
 
-    resources :contracts do #客户劳动合同
+    resources :contracts, except:[:destroy] do #客户劳动合同
       get :print_form 
     end
 
-    resources :charges do #客户缴费
+    resources :charges, except:[:destroy] do #客户缴费
       get :print_form 
     end
   end
