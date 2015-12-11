@@ -33,22 +33,22 @@
       <tr>
         <td><%= oct.organization.abbr %></td>
         <td><a tabindex="0" class="btn btn-xs btn-warning" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="社保金 = 企业社保金 + 个人社保金 + 残保金" 
-          data-content="<%= "企业社保金: #{oct.price_shebao_qiye} <br/>个人社保金: #{oct.price_shebao_geren} <br/>残保金: #{oct.price_canbao} " %>">
-        <%= oct.price_shebao_qiye + oct.price_shebao_geren + oct.price_canbao %></a>
+          data-content="<%= "企业社保金: #{format("%.2f",oct.price_shebao_qiye)} <br/>个人社保金: #{format("%.2f",oct.price_shebao_geren)} <br/>残保金: #{format("%.2f",oct.price_canbao)} " %>">
+        <%= format("%.2f",oct.price_shebao_qiye + oct.price_shebao_geren + oct.price_canbao) %></a>
         </td>
-        <td><%= oct.price_shebao_guanli %></td>
+        <td><%= format("%.2f",oct.price_shebao_guanli) %></td>
         <td><a tabindex="0" class="btn btn-xs btn-warning" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="公积金 = 企业公积金 + 个人公积金" 
-          data-content="<%= "企业公积金: #{oct.price_shebao_qiye} <br/>个人公积金: #{oct.price_shebao_geren}" %>">
-        <%= oct.price_gongjijin_qiye + oct.price_gongjijin_geren %></a>
+          data-content="<%= "企业公积金: #{format("%.2f",oct.price_shebao_qiye)} <br/>个人公积金: #{format("%.2f",oct.price_shebao_geren)}" %>">
+        <%= format("%.2f",oct.price_gongjijin_qiye + oct.price_gongjijin_geren) %></a>
         </td>        
-        <td><%= oct.price_gongjijin_guanli %></td>
-        <td><%= oct.price_geshui %></td>
+        <td><%= format("%.2f",oct.price_gongjijin_guanli) %></td>
+        <td><%= format("%.2f",oct.price_geshui) %></td>
         <td><a tabindex="0" class="btn btn-xs btn-warning" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="其他费用 = 其它1 + 其它2 + 其它3 + 补缴 + 预缴" 
-          data-content="<%= "其它1: #{oct.price_qita_1} <br/>其它2: #{oct.price_qita_2} <br/>其它3: #{oct.price_qita_3} <br/>补缴: #{oct.price_bujiao} <br/>预缴: #{oct.price_yujiao} " %>">
-        <%= oct.price_qita_1+oct.price_qita_2+oct.price_qita_3+oct.price_bujiao+oct.price_yujiao %></a>
+          data-content="<%= "其它1: #{format("%.2f",oct.price_qita_1)} <br/>其它2: #{format("%.2f",oct.price_qita_2)} <br/>其它3: #{format("%.2f",oct.price_qita_3)} <br/>补缴: #{format("%.2f",oct.price_bujiao)} <br/>预缴: #{format("%.2f",oct.price_yujiao)} " %>">
+        <%= format("%.2f",oct.price_qita_1+oct.price_qita_2+oct.price_qita_3+oct.price_bujiao+oct.price_yujiao) %></a>
         </td>
-        <td><%= oct.price_gongzi %></td>
-        <td><strong><%= oct.price_receivable_total %></strong></td>
+        <td><%= format("%.2f",oct.price_gongzi) %></td>
+        <td><strong><%= format("%.2f",oct.price_receivable_total) %></strong></td>
         <td><%= oct.start_date %>~<%= oct.end_date %></td>
         <% if op_type == :list_money_arriaval_check %>
         <td><%= oct.created_at.to_date %></td>

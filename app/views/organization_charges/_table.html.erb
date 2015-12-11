@@ -24,25 +24,25 @@
   <tbody>
     <% organization_charges.each do |oc| %>
       <tr>
-        <td class="text-right"><%= oc.price_shebao_base %></td>
+        <td class="text-right"><%= format("%.2f",oc.price_shebao_base) %></td>
         <td class="text-right"><a tabindex="0" class="btn btn-xs btn-warning" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="社保金 = 企业社保金 + 个人社保金 + 残保金" 
-          data-content="<%= "企业社保金: #{oc.price_shebao_qiye} <br/>个人社保金: #{oc.price_shebao_geren} <br/>残保金: #{oc.price_canbao} " %>">
-        <%= oc.price_shebao_qiye + oc.price_shebao_geren + oc.price_canbao %></a>
+          data-content="<%= "企业社保金: #{format("%.2f",oc.price_shebao_qiye)} <br/>个人社保金: #{format("%.2f",oc.price_shebao_geren)} <br/>残保金: #{format("%.2f",oc.price_canbao)} " %>">
+        <%= format("%.2f",oc.price_shebao_qiye + oc.price_shebao_geren + oc.price_canbao) %></a>
         </td>
-        <td class="text-right"><%= oc.price_shebao_guanli %></td>
-        <td class="text-right"><%= oc.price_gongjijin_base %></td>
+        <td class="text-right"><%= format("%.2f",oc.price_shebao_guanli) %></td>
+        <td class="text-right"><%= format("%.2f",oc.price_gongjijin_base) %></td>
         <td class="text-right"><a tabindex="0" class="btn btn-xs btn-warning" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="公积金 = 企业公积金 + 个人公积金" 
-          data-content="<%= "企业公积金: #{oc.price_shebao_qiye} <br/>个人公积金: #{oc.price_shebao_geren}" %>">
-        <%= oc.price_gongjijin_qiye + oc.price_gongjijin_geren %></a>
+          data-content="<%= "企业公积金: #{format("%.2f",oc.price_shebao_qiye)} <br/>个人公积金: #{format("%.2f",oc.price_shebao_geren)}" %>">
+        <%= format("%.2f",oc.price_gongjijin_qiye + oc.price_gongjijin_geren) %></a>
         </td>        
-        <td class="text-right"><%= oc.price_gongjijin_guanli %></td>
-        <td class="text-right"><%= oc.price_geshui %></td>
+        <td class="text-right"><%= format("%.2f",oc.price_gongjijin_guanli) %></td>
+        <td class="text-right"><%= format("%.2f",oc.price_geshui) %></td>
         <td class="text-right"><a tabindex="0" class="btn btn-xs btn-warning" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="其他费用 = 其它1 + 其它2 + 其它3 + 补缴 + 预缴" 
-          data-content="<%= "其它1: #{oc.price_qita_1} <br/>其它2: #{oc.price_qita_2} <br/>其它3: #{oc.price_qita_3} <br/>补缴: #{oc.price_bujiao} <br/>预缴: #{oc.price_yujiao} " %>">
-        <%= oc.price_qita_1+oc.price_qita_2+oc.price_qita_3+oc.price_bujiao+oc.price_yujiao %></a>
+          data-content="<%= "其它1: #{format("%.2f",oc.price_qita_1)} <br/>其它2: #{format("%.2f",oc.price_qita_2)} <br/>其它3: #{format("%.2f",oc.price_qita_3)} <br/>补缴: #{format("%.2f",oc.price_bujiao)} <br/>预缴: #{format("%.2f",oc.price_yujiao)} " %>">
+        <%= format("%.2f",oc.price_qita_1+oc.price_qita_2+oc.price_qita_3+oc.price_bujiao+oc.price_yujiao) %></a>
         </td>
-        <td class="text-right"><%= oc.price_gongzi %></td>
-        <td class="text-right"><strong><%= oc.price_receivable_total %></strong></td>
+        <td class="text-right"><%= format("%.2f",oc.price_gongzi) %></td>
+        <td class="text-right"><strong><%= format "%.2f",oc.price_receivable_total %></strong></td>
         <td class="text-center"><%= oc.start_date %></td>
         <td class="text-center"><%= oc.end_date %></td>
         <td class="text-center"><%= oc.updated_at.to_date %></td>
