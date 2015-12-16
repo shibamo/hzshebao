@@ -17,7 +17,8 @@ class Organization < ActiveRecord::Base
   validates_presence_of :contact_tel, message: "联系电话-字段不能为空"
   validates_presence_of :start_date, message: "服务开始日期-字段不能为空"
 
-  validates_uniqueness_of :name, message: "机构名称已存在,不能重复创建已有机构"
+  validates_uniqueness_of :name, message: "机构名称已存在,不能重复创建"
+  validates_uniqueness_of :abbr, message: "机构简称已存在,不能重复创建"
 
   default_scope {order(created_at: :desc)}
   scope :managed_by_users, ->(user_ids) {where(user_id: user_ids).order(:name)}
