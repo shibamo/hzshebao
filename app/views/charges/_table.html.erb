@@ -49,6 +49,7 @@
         <td><%= link_to '查看', "#", class: "btn active btn-default btn-xs", "data-toggle" => "modal", "data-target" => "#modal_charge", "data-url" => single_customer_charge_path(charge.single_customer,charge.id) %></td>
         <% if op_type == :list_total && User.find(session["current_user_id"]).is_leader #公司领导可以更改缴费单 %>
           <td><%= link_to '修改', edit_single_customer_charge_path(charge.single_customer,charge), class: "btn active btn-warning btn-xs"  %></td>
+          <td><%= link_to '到账', charge_set_money_arrival_date_path(charge), class: "btn active btn-warning btn-xs",target: "_blank" %></td>
           <td><%= link_to '上传文件', money_arrival_files_new_path(business_type: "Charge",extra_data: charge.updated_at.to_s,main_object_id: charge.id, business_action: "list_total"), class: "btn active btn-warning btn-xs", target: "_blank"  %></td>
         <% end %>
         <% if op_type == :daily %>
