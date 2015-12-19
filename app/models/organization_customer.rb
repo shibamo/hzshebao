@@ -21,7 +21,8 @@ class OrganizationCustomer < ActiveRecord::Base
             :other_contact_call, :communication_address, :valid_start,
             message: "字段不能为空"
 
-  validates_uniqueness_of :id_no, message: "身份证号已存在,不能重复创建已有客户"
+  #由于一个员工可能换工作,因此允许为一个自然人创建多个员工账户,只限制在同一机构下身份证号唯一即可
+  validates_uniqueness_of :id_no, scope: :organization_id, message: "身份证号已存在,不能在同一机构重复创建已有客户"
 
   default_scope {order(created_at: :desc)}
 
