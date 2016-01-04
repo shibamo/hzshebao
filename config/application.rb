@@ -23,5 +23,17 @@ module Hzshebao
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    config.generators do |g|
+      g.test_framework :rspec,
+        fixtures: true, #generate a fixture for each model (using a Factory Girl factory, instead of an actual fixture)
+        view_specs: false,  #skip generating view specs
+        helper_specs: false, #skips generating specs for the helper files Rails generates with each controller
+        routing_specs: false, #omits a spec file for your config/routes.rb file.
+        controller_specs: true,
+        request_specs: false #skips RSpec’s defaults for adding integration-level specs in spec/requests
+      g.fixture_replacement :factory_girl, dir: "spec/factories"
+    End
+
   end
 end
