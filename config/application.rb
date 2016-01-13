@@ -33,7 +33,7 @@ module Hzshebao
         controller_specs: true,
         request_specs: false #skips RSpec’s defaults for adding integration-level specs in spec/requests
       g.fixture_replacement :factory_girl, dir: "spec/factories"
-    End
+    end
 
   end
 end
