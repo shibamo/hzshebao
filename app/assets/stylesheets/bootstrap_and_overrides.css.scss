@@ -69,9 +69,14 @@ a.btn-primary{ /*缺省a的字体颜色为黑色,不适合*/
   border-radius: 0;
 }
 .bs-callout-metro h4{
-margin:0;
+  margin:0;
 }
 
 .modal-lg {
-    width: 1200px;
+  width: 1200px;
+}
+
+span.highlight-checked{
+  text-decoration:underline; 
+  font-weight:bold;
 }

@@ -21,12 +21,12 @@
       </tr>
       <tr class="print-table-row" style="border-style: none none none none;">
                 <td width="8%">*户口性质</td><td colspan=2>
-            <%= f.radio_button "hukou_type", 21, disabled:true %>外地农村(省内市外)&nbsp;
-            <%= f.radio_button "hukou_type", 22, disabled:true%>外地农村(省外)&nbsp;
-            <%= f.radio_button "hukou_type", 11, disabled:true %>外地城镇(省内市外)&nbsp;
-            <%= f.radio_button "hukou_type", 12, disabled:true %>外地城镇(省外)&nbsp;
-            <%= f.radio_button "hukou_type", 20, disabled:true %>本地农村(主城区)&nbsp;
-            <%= f.radio_button "hukou_type", 10, disabled:true %>本地城镇(主城区)</td>
+            <%= f.radio_button "hukou_type", 21, disabled:true %><span class="<%= "highlight-checked" if @single_customer.hukou_type==21%>">外地农村(省内市外)</span>&nbsp;
+            <%= f.radio_button "hukou_type", 22, disabled:true%><span class="<%= "highlight-checked" if @single_customer.hukou_type==22%>">外地农村(省外)</span>&nbsp;
+            <%= f.radio_button "hukou_type", 11, disabled:true %><span class="<%= "highlight-checked" if @single_customer.hukou_type==11%>">外地城镇(省内市外)</span>&nbsp;
+            <%= f.radio_button "hukou_type", 12, disabled:true %><span class="<%= "highlight-checked" if @single_customer.hukou_type==12%>">外地城镇(省外)</span>&nbsp;
+            <%= f.radio_button "hukou_type", 20, disabled:true %><span class="<%= "highlight-checked" if @single_customer.hukou_type==20%>">本地农村(主城区)</span>&nbsp;
+            <%= f.radio_button "hukou_type", 10, disabled:true %><span class="<%= "highlight-checked" if @single_customer.hukou_type==10%>">本地城镇(主城区)</span></td>
             <td width="4%">*学历</td><td width="10%"  colspan=2><%= f.text_field :education, disabled:true, class: 'form-control'%></td>
       </tr>
     </table>
@@ -48,23 +48,26 @@
       <td width="12%" class="text-center">*在杭住址</td><td><%= f.text_field :communication_address, size:100, disabled:true, class: "form-control" %></td>
     </tr>
     <tr class="print-table-row">
-      <td width="9%" class="text-center">建档类型</td><td><%= f.check_box "is_doc_for_shebao", disabled:true%>A社保&nbsp;
-                                      <%= f.check_box "is_doc_for_shigong", disabled:true%>B市公&nbsp;
-                                      <%= f.check_box "is_doc_for_shenggong", disabled:true%>C省公&nbsp;
-                                      <%= f.check_box "is_doc_for_butuichajia", disabled:true%>D补退差价&nbsp;
-                                      <%= f.check_box "is_doc_for_xufei", disabled:true%>E续费&nbsp;
-                                      <%= f.check_box "is_doc_for_qita", disabled:true%>F其他<%= f.text_field :comment_for_qita ,disabled:true, size:10 %>
+      <td width="9%" class="text-center">建档类型</td><td>
+                                      <%= f.check_box "is_doc_for_shebao", disabled:true%><span class="<%= "highlight-checked" if @single_customer.is_doc_for_shebao%>">A社保</span>&nbsp;
+                                      <%= f.check_box "is_doc_for_shigong", disabled:true%><span class="<%= "highlight-checked" if @single_customer.is_doc_for_shigong%>">B市公</span>&nbsp;
+                                      <%= f.check_box "is_doc_for_shenggong", disabled:true%><span class="<%= "highlight-checked" if @single_customer.is_doc_for_shenggong%>">C省公</span>&nbsp;
+                                      <%= f.check_box "is_doc_for_butuichajia", disabled:true%><span class="<%= "highlight-checked" if @single_customer.is_doc_for_butuichajia%>">D补退差价</span>&nbsp;
+                                      <%= f.check_box "is_doc_for_xufei", disabled:true%><span class="<%= "highlight-checked" if @single_customer.is_doc_for_xufei%>">E续费</span>&nbsp;
+                                      <%= f.check_box "is_doc_for_qita", disabled:true%><span class="<%= "highlight-checked" if @single_customer.is_doc_for_qita%>">F其他</span>
+                                      <%= f.text_field :comment_for_qita ,disabled:true, size:10 %>
                                     </td>
     </tr>
     <tr class="print-table-row">
-      <td width="9%" class="text-center">用途</td><td><%= f.check_box "is_usage_zhengchang", disabled:true%>正常&nbsp;
-                                  <%= f.check_box "is_usage_ruxue", disabled:true%>入学&nbsp;
-                                  <%= f.check_box "is_usage_luohu", disabled:true%>落户&nbsp;
-                                  <%= f.check_box "is_usage_shenyu", disabled:true%>生育&nbsp;
-                                  <%= f.check_box "is_usage_yiliao", disabled:true%>医疗&nbsp;
-                                  <%= f.check_box "is_usage_gouche", disabled:true%>购车&nbsp;
-                                  <%= f.check_box "is_usage_goufang", disabled:true%>购房&nbsp;
-                                  <%= f.check_box "is_usage_daikuan", disabled:true%>贷款&nbsp;
+      <td width="9%" class="text-center">用途</td><td>
+                                  <%= f.check_box "is_usage_zhengchang", disabled:true%><span class="<%= "highlight-checked" if @single_customer.is_usage_zhengchang%>">正常</span>&nbsp;
+                                  <%= f.check_box "is_usage_ruxue", disabled:true%><span class="<%= "highlight-checked" if @single_customer.is_usage_ruxue%>">入学</span>&nbsp;
+                                  <%= f.check_box "is_usage_luohu", disabled:true%><span class="<%= "highlight-checked" if @single_customer.is_usage_luohu%>">落户</span>&nbsp;
+                                  <%= f.check_box "is_usage_shenyu", disabled:true%><span class="<%= "highlight-checked" if @single_customer.is_usage_shenyu%>">生育</span>&nbsp;
+                                  <%= f.check_box "is_usage_yiliao", disabled:true%><span class="<%= "highlight-checked" if @single_customer.is_usage_yiliao%>">医疗</span>&nbsp;
+                                  <%= f.check_box "is_usage_gouche", disabled:true%><span class="<%= "highlight-checked" if @single_customer.is_usage_gouche%>">购车</span>&nbsp;
+                                  <%= f.check_box "is_usage_goufang", disabled:true%><span class="<%= "highlight-checked" if @single_customer.is_usage_goufang%>">购房</span>&nbsp;
+                                  <%= f.check_box "is_usage_daikuan", disabled:true%><span class="<%= "highlight-checked" if @single_customer.is_usage_daikuan%>">贷款</span>&nbsp;
                               </td>
     </tr>
     
@@ -88,7 +91,7 @@
     </table>
     <table width="900px" border="1" align="center">
     <tr class="print-table-row">
-      <td width="12%" class="text-center">备注:</td><td><%= f.text_area :comment, cols: 100, rows: 2, disabled:true, class: "form-control" ,style: "line-height:1;" %></td>
+      <td width="12%" class="text-center">备注:</td><td><%= f.text_area :comment, cols: 100, rows: 2, disabled:true, class: "form-control" ,style: "line-height:0.5;" %></td>
     </tr>
     <tr class="print-table-row">
       <td class="text-center">说明:</td><td>1. 续费时请提前一个月支付下期费用,社保申报截止日为每月12日,市公积金申报截止日为每月20日,省公积金申报截止日为每月25日,过期则记为次月.<br>2.每年5-7月,社保基数调整,调整日期从当年1月起计算,费用多还少补.</td>

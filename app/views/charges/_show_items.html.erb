@@ -61,7 +61,6 @@
 <%= text_field_tag :sum_geshui ,format("%.2f",charge.price_geshui*charge.months_geshui), class: 'text-right form-control-price', disabled: true, size: 6 %>
 从<%= charge.start_date_geshui %>至<%= charge.end_date_geshui %>
 
-
-
+<br><%= "备注:" + charge.comment %>
 
 </div>
