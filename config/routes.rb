@@ -248,7 +248,7 @@ Rails.application.routes.draw do
     post :update_functions
   end
 
-  resources :departments, :only => [] #部门
+  resources :departments, except:[:destroy] #部门
 
   resources :companies, :only => [] #公司
 
