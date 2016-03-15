@@ -79,23 +79,31 @@ class OrganizationChargeTotalsController < ApplicationController
   # POST /organization_charge_totals
   # POST /organization_charge_totals.json
   def create
-    @organization_charge_total = @model_class.new(organization_charge_total_params)
-    @organization_charge_total.user_id = current_user.id 
-    organization_charges = []
-    organization_charges_params.reject{|t| t[:deleted]}.each do |t|
-      t.delete :deleted
-      oc = OrganizationCharge.new(t)
-      oc.user_id = current_user.id
-      oc.start_date = @organization_charge_total.start_date
-      oc.end_date = @organization_charge_total.end_date
-      oc.organization = @organization_charge_total.organization
-      organization_charges.push oc
+    save_success = false
+    @model_class.transaction do #主从表需要使用transaction
+      @organization_charge_total = @model_class.new(organization_charge_total_params)
+      @organization_charge_total.user_id = current_user.id 
+      organization_charges = []
+
+      organization_charges_params.reject{|t| t[:deleted]}.each do |t|
+        t.delete :deleted  #organization_charges表没有deleted这个字段,不能直接传进Model类的new方法中
+        oc = OrganizationCharge.new(t)
+        oc.user_id = current_user.id
+        oc.start_date = @organization_charge_total.start_date
+        oc.end_date = @organization_charge_total.end_date
+        oc.organization = @organization_charge_total.organization
+        organization_charges.push oc
+      end
+      @organization_charge_total.organization_charges = organization_charges
+      sum_organization_charge_total_fields @organization_charge_total, organization_charges
+      save_success = @organization_charge_total.save
+      #测试出错回滚
+      #save_success = false
+      #raise ActiveRecord::RecordNotFound
     end
-    @organization_charge_total.organization_charges = organization_charges
-    sum_organization_charge_total_fields @organization_charge_total, organization_charges
 
     respond_to do |format|
-      if @organization_charge_total.save
+      if save_success
         format.html { redirect_to @organization_charge_total, notice: 'Organization charge total was successfully created.' }
         format.json { render :show, status: :created, location: @organization_charge_total }
       else
@@ -123,24 +131,30 @@ class OrganizationChargeTotalsController < ApplicationController
     @organization_charge_total.comment = params[:organization_charge_total][:comment]
 
     organization_charges = []
-    organization_charges_params.each do |t|
-      oc = OrganizationCharge.find(t[:id])
-      oc.user_id = current_user.id
-      oc.start_date = @organization_charge_total.start_date
-      oc.end_date = @organization_charge_total.end_date
-      if t[:deleted]
-        fill_fields oc, 0, @model_class.price_receivable_list
-      else
-        copy_fields oc, t, @model_class.price_receivable_list
+
+    save_success = false
+    @model_class.transaction do #主从表需要使用transaction
+      organization_charges_params.each do |t|
+        oc = OrganizationCharge.find(t[:id])
+        oc.user_id = current_user.id
+        oc.start_date = @organization_charge_total.start_date
+        oc.end_date = @organization_charge_total.end_date
+        if t[:deleted]
+          fill_fields oc, 0, @model_class.price_receivable_list
+        else
+          copy_fields oc, t, @model_class.price_receivable_list
+        end
+        organization_charges.push oc
       end
-
-      organization_charges.push oc
+      @organization_charge_total.organization_charges = organization_charges
+      sum_organization_charge_total_fields @organization_charge_total, organization_charges
+      save_success = @organization_charge_total.save
+      #测试出错回滚
+      #save_success = false
+      #raise ActiveRecord::RecordNotFound
     end
-    @organization_charge_total.organization_charges = organization_charges
-    sum_organization_charge_total_fields @organization_charge_total, organization_charges
-
     respond_to do |format|
-      if @organization_charge_total.save
+      if save_success
         format.html { redirect_to @organization_charge_total, notice: 'Organization charge total was successfully updated.' }
         format.json { render :show, status: :ok, location: @organization_charge_total }
       else

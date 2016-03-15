@@ -248,10 +248,10 @@ Rails.application.routes.draw do
     post :update_functions
   end
 
-  resources :departments, except:[:destroy] #部门
+  resources :departments, :only => [] #部门
 
-  resources :companies, except:[:destroy] #公司
+  resources :companies, :only => [] #公司
 
-  resources :administrators, except:[:destroy] #管理员
+  resources :administrators, :only => [] #管理员
 
 end
