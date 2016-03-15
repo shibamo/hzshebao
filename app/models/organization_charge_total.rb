@@ -12,6 +12,8 @@ class OrganizationChargeTotal < ActiveRecord::Base
 
   validates_presence_of :organization_id, :user_id,:start_date,:end_date, message: "字段不能为空"
 
+  default_scope {order(created_at: :desc)}
+
   def self.price_receivable_list #需要收费的字段列表
     ["price_shebao_qiye","price_shebao_geren","price_canbao","price_shebao_guanli","price_gongjijin_qiye", 
     "price_gongjijin_geren","price_gongjijin_guanli","price_geshui","price_qita_1","price_qita_2",

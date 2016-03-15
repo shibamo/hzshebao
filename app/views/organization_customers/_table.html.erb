@@ -26,6 +26,7 @@
         <td><%= organization_customer.user.name %></td>
         <td>
           <%= link_to "查看", "#", class: "btn btn-primary btn-xs", "data-toggle" => "modal", "data-target" => "#modal_organization_customer", "data-url" => organization_customer_path(organization_customer) %>
+          <%= link_to '付费历史', organization_charges_list_by_customer_path(organization_customer), class: "btn btn-primary btn-xs", target: "_blank" %>
           <% if op_type == :edit%>
           <%= link_to '更改', edit_organization_customer_path(organization_customer), class: "btn btn-primary btn-xs", target: "_blank" %>
           <% end %>

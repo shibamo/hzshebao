@@ -99,6 +99,7 @@ Rails.application.routes.draw do
     get "list_check" => :list_check #需要复核的机构员工客户列表
     post "finish_check/:id" => :finish_check, as: "finish_check" #完成机构员工客户资料复核
     match "list_edit" => :list_edit, via: [:get, :post] #可能修改客户资料的客户列表
+    #match "query" => :query , via: [:get, :post] #机构员工客户查询,目前直接使用list_edit的简单查询功能代替
   end
   resources :organization_customers, except: [:new] do #机构员工客户
     resources :organization_charge_templates, except:[:destroy] #机构所属员工日常缴费模板

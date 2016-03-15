@@ -1,2 +1,4 @@
-<h1 class="text-center">机构员工(<%=@organization_customer.name%>)缴费历史记录</h1>
+<h1 class="text-center">机构员工(<%=@organization_customer.name%>)缴费历史记录&nbsp;
+<%= link_to "下载客户常规缴费记录>>", organization_charges_list_by_customer_path(@organization_customer, format: :xls), tabindex: "-1", class: "btn btn-primary btn-sm btn-warning" %>
+</h1>
 <%=render 'table', op_type: :list_by_customer, organization_charges: @organization_charges%>

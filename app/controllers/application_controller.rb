@@ -36,4 +36,14 @@ class ApplicationController < ActionController::Base
   def set_users
     @users = User.all
   end
+
+  #用于导出到Excel时设置单元格的日期格式
+  def default_excel_date_format
+    @default_excel_date_format ||= Spreadsheet::Format.new(:number_format => 'YYYY-MM-DD')
+  end
+
+  #用于导出到Excel时设置单元格的货币数字格式
+  def default_excel_money_format
+    @default_excel_money_format ||= Spreadsheet::Format.new(:number_format => '0.00')
+  end
 end

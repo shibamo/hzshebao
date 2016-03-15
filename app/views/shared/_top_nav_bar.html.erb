@@ -289,6 +289,10 @@
             <li><%=link_to "机构查询", organizations_list_total_path  %></li>
             <% end %>
 
+            <%if can_u_a_c? @current_user, :list_edit, OrganizationCustomer %>
+            <li><%= link_to "机构员工查询", organization_customers_list_edit_path %></li>
+            <%end%>
+
             <li class="divider"></li>
             <% if can_u_a_c? @current_user, :list_leader_check, OrganizationChargeTotal %>
             <li>

@@ -13,6 +13,58 @@ class OrganizationChargeTotalsController < ApplicationController
   # GET /organization_charge_totals/1
   # GET /organization_charge_totals/1.json
   def show
+    respond_to do |format|
+      format.html {} #网页正常显示,使用缺省view template 
+      format.json do #导出到json,ajax使用
+        render "show.json.jbuilder"
+      end
+      format.xls do #导出到excel
+        Spreadsheet.client_encoding = 'UTF-8'
+        file_contents = StringIO.new
+        book = Spreadsheet::Workbook.new
+        sheet1 = book.create_worksheet name: "单位应付费用表"
+        sheet1.row(0).default_format = Spreadsheet::Format.new weight: :bold,size: 12
+        sheet1.row(0).push '杭州琳丰人力资源服务有限公司'
+        sheet1.row(1).push '单位应付费用表（一）'
+        sheet1.row(2).push '单位名称：' + @organization_charge_total.organization.name
+        # =>                      0          1        2         3      4       5       6        7         8       9       10       11     12   13
+        sheet1.row(3).concat %w{姓名 费用所属日期 缴费基数 企业社保 个人社保 残保 社保管理费 缴费基数 企业公积 个人公积 公积管理费 个税 其它1 其它2 
+            其它3 补缴 预缴 应发工资 合计 资金到账日期 资金审核日期 备注}
+        # => 14    15    16   17      18      19             20      21
+        current_line_number = 4
+        @organization_charge_total.organization_charges.each_with_index do |r,i|
+          [19,20].each {|col| sheet1.row(i+4).set_format col, default_excel_date_format}
+          (2..18).each {|col| sheet1.row(i+4).set_format col, default_excel_money_format}
+          sheet1.row(i+4).push r.organization_customer.name, 
+            @organization_charge_total.start_date.to_s.tr('-','') + "-" + @organization_charge_total.end_date.to_s.tr('-',''),
+            r.price_shebao_base, r.price_shebao_qiye, r.price_shebao_geren, r.price_canbao, r.price_shebao_guanli,
+            r.price_gongjijin_base, r.price_gongjijin_qiye, r.price_gongjijin_geren, r.price_gongjijin_guanli, r.price_geshui,
+            r.price_qita_1, r.price_qita_2, r.price_qita_3, r.price_bujiao,
+            r.price_yujiao, r.price_gongzi,r.price_receivable_total,
+            @organization_charge_total.money_arrival_date, @organization_charge_total.money_check_date, 
+            r.comment
+          current_line_number = current_line_number + 1
+        end
+        sheet1.row(current_line_number+2).push  '户名：    杭州琳丰人力资源服务有限公司'
+        sheet1.row(current_line_number+3).push  '开户行：  交通银行杭州运河支行'
+        sheet1.row(current_line_number+4).push  '帐号：    3310659 000 18010056865'
+        sheet1.row(current_line_number+5).push  '联系人：  夏敏（财务）、丁元君（申报）'
+        sheet1.row(current_line_number+6).push  '联系电话：0571-85836637 13486168670（财务） 0571-87918396（申报）'
+        sheet1.row(current_line_number+7).push  '传真：    0571-85836632'
+        sheet1.row(current_line_number+8).push  '联系地址：中国杭州拱墅区上塘路619-621号'
+        sheet1.row(current_line_number+9).push  '公司邮箱：qfeicc@126.com'
+        sheet1.row(current_line_number+10).default_format = Spreadsheet::Format.new color: :blue, weight: :bold,size: 12
+        sheet1.row(current_line_number+10).push '备注：    费用请于当月12日前汇于我司账户，以免影响员工社保缴纳,如逾期缴纳，将按0.05%/天计算滞纳金。'
+
+        book.write file_contents
+        file_contents.rewind
+        send_data file_contents.read,
+              filename: "单位应付费用表" + @organization_charge_total.start_date.to_s + "至" + 
+                                            @organization_charge_total.end_date.to_s + ".xls",
+              type: :xls,
+              disposition: "attachment"
+      end
+    end
   end
 
   # GET /organization_charge_totals/new
@@ -138,7 +190,8 @@ class OrganizationChargeTotalsController < ApplicationController
   end
 
   def commission_input_allowed #需要输入提成单的机构缴费记录列表
-    @organization_charge_totals = @model_class.with_money_arrived_state.managed_by_users(current_user.id).page params[:page]
+    @organization_charge_totals = @model_class.with_money_arrived_state.
+                                        managed_by_users(current_user.id).page params[:page]
   end
 
   def list_leader_check #需要进行领导最终审核的机构缴费记录列表

@@ -14,7 +14,7 @@
       <th class="text-center">其他费用</th>
       <th class="text-center">应发工资</th>
       <th class="text-center">总收费</th>
-      <th class="text-center">费用开始~结束日期</th>
+      <th class="text-center">费用开始-结束日期</th>
       <% if op_type == :list_money_arriaval_check %>
       <th class="text-center">表单创建日</th>
       <% else %>
@@ -49,16 +49,17 @@
         </td>
         <td><%= format("%.2f",oct.price_gongzi) %></td>
         <td><strong><%= format("%.2f",oct.price_receivable_total) %></strong></td>
-        <td><%= oct.start_date %>~<%= oct.end_date %></td>
+        <td><%= oct.start_date.to_s.tr('-','') %>-<%= oct.end_date.to_s.tr('-','') %></td>
         <% if op_type == :list_money_arriaval_check %>
-        <td><%= oct.created_at.to_date %></td>
+        <td><%= oct.created_at.to_date.to_s.tr('-','') %></td>
         <% else %>
-        <td><%= oct.money_arrival_date %></td>
-        <td><%= oct.money_check_date %></td>
+        <td><%= oct.money_arrival_date.to_s.tr('-','') %></td>
+        <td><%= oct.money_check_date.to_s.tr('-','') %></td>
         <% end %>
         <td><%= oct.translate_workflow_state_name(OrganizationChargeTotal::WORKFLOW_STATE_NAMES) %></td>
         <td><a tabindex="0" class="btn btn-xs btn-info" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="备注" data-content="<%= oct.comment %>">备注</a></td>
         <td><%= link_to '查看', oct , class: "btn btn-xs btn-default", target: "_blank"%></td>
+        <td><%= link_to '导出', organization_charge_total_path(oct, format: :xls) , class: "btn btn-xs btn-default", target: "_blank"%></td>
 
         <%if op_type == :list_by_organization && oct.workflow_state == "new"#只有未被财务审核过的业务员才能修改%>
         <td><%= link_to '修改', edit_organization_charge_total_path(oct) , class: "btn btn-xs active btn-warning"%></td>
@@ -81,6 +82,7 @@
 
         <% if op_type == :list_total && User.find(session["current_user_id"]).is_leader #公司领导可以更改缴费单 %>
           <td><%= link_to '修改', edit_organization_charge_total_path(oct), class: "btn active btn-warning btn-xs"  %></td>
+          <td><%= link_to '到账', organization_charge_totals_set_money_arrival_date_path(oct), class: "btn active btn-warning btn-xs",target: "_blank" %></td>
           <td><%= link_to '上传文件', money_arrival_files_new_path(business_type: "OrganizationChargeTotal",extra_data: oct.updated_at.to_s,main_object_id: oct.id, business_action: "list_total"), class: "btn active btn-warning btn-xs", target: "_blank"  %></td>
         <% end %>
       </tr>

@@ -69,6 +69,7 @@
 
         <% if op_type == :list_total && User.find(session["current_user_id"]).is_leader #公司领导可以更改缴费单 %>
           <td><%= link_to '修改', edit_organization_charge_other_path(oco), class: "btn active btn-warning btn-xs"  %></td>
+          <td><%= link_to '到账', organization_charge_others_set_money_arrival_date_path(oco), class: "btn active btn-warning btn-xs",target: "_blank" %></td>
           <td><%= link_to '上传文件', money_arrival_files_new_path(business_type: "OrganizationChargeOther",extra_data: oco.updated_at.to_s,main_object_id: oco.id, business_action: "list_total"), class: "btn active btn-warning btn-xs", target: "_blank"  %></td>
         <% end %>
       </tr>
