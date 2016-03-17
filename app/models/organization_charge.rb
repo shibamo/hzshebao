@@ -8,4 +8,6 @@ class OrganizationCharge < ActiveRecord::Base
   
   scope :by_customer, ->(organization_ids) {where(organization_customer_id: organization_ids).order(start_date: :desc)}
 
+  #分页显示列表
+  paginates_per 50             #每页显示n条数据
 end

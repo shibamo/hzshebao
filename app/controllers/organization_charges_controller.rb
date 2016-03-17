@@ -5,7 +5,7 @@ class OrganizationChargesController < ApplicationController
   # GET /organization_charges
   # GET /organization_charges.json
   def index
-    @organization_charges = OrganizationCharge.all
+    @organization_charges = OrganizationCharge.all.page params[:page]
   end
 
   # GET /organization_charges/1
@@ -54,7 +54,7 @@ class OrganizationChargesController < ApplicationController
 ############################################################################################
   def list_by_customer #指定机构员工缴费历史记录列表
     if params[:organization_customer_id]
-      @organization_charges = @model_class.by_customer(params[:organization_customer_id])
+      @organization_charges = @model_class.by_customer(params[:organization_customer_id]).page params[:page]
       @organization_customer = OrganizationCustomer.find(params[:organization_customer_id])
       respond_to do |format|
         format.html {} #网页正常显示,使用缺省view template 
