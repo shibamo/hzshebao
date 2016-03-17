@@ -305,13 +305,14 @@
       return <div style= {{width: '1200px'}}> 
               <OrgChrgs chrg_datas={this.state.chrg_datas} chrg_ops={this.chrgOps} 
                         config_datas={this.configDatas} form={this} />
-              备注:<br/><textarea id="comment" style={{width: "960px"}} className="form-control" name="comment" rows="2" ></textarea>
+              备注:<br/><textarea id="comment" style={{width: "960px"}} className="form-control" name="comment" rows="2" ></textarea><br/>
 
               <button onClick={this.createInServer} className="btn btn-primary" type="button" 
                 disabled={this.state.submit_status=="submitting" || this.state.submit_status=="submitted" || 
                         this.state.submit_status=="waitMount" || isShowMode()}>{
                 this.utils.getSubmitButtonText(this.state.submit_status)}
-              </button> &nbsp; 
+              </button> &nbsp;
+              <%= link_to '返回机构缴费历史记录', organization_charge_totals_list_by_organization_path(@organization),  className: "btn btn-default"%> 
               <span style={{color: "red"}}>{this.state.error_message}</span>
             </div> ;
     }
