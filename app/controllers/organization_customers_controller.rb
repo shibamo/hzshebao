@@ -38,7 +38,9 @@ class OrganizationCustomersController < ApplicationController
 
     respond_to do |format|
       if @organization_customer.save
-        format.html { redirect_to @organization_customer, notice: '机构员工客户资料信息已成功创建.' }
+        format.html { redirect_to  organization_customers_list_by_organization_path(organization_id: @organization_customer.organization.id), 
+                                    notice: '机构员工客户资料信息已成功创建.' }
+
         format.json { render :show, status: :created, location: @organization_customer }
       else
         format.html { render :new }
@@ -59,7 +61,8 @@ class OrganizationCustomersController < ApplicationController
         #无离职日期且处于停止服务状态,则恢复服务
           @organization_customer.finish_apply_restart!
         end
-        format.html { redirect_to @organization_customer, notice: '机构员工客户的资料记录已成功修改.' }
+        format.html { redirect_to organization_customers_list_by_organization_path(organization_id: @organization_customer.organization.id), 
+                      notice: '机构员工客户的资料记录已成功修改.' }
         format.json { render :show, status: :ok, location: @organization_customer }
       else
         format.html { render :edit }
