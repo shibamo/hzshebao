@@ -31,9 +31,9 @@
           <%= link_to '更改', edit_organization_customer_path(organization_customer), class: "btn btn-primary btn-xs", target: "_blank" %>
           <% end %>
           <% if organization_customer.charge_template_exist? %>
-            <%= link_to '更改收费模板', edit_organization_customer_organization_charge_template_path(organization_customer,organization_customer.organization_charge_template), class: "btn btn-primary btn-xs", target: "_blank" %>
+            <%= link_to '更改收费模板', edit_organization_customer_organization_charge_template_path(organization_customer,organization_customer.organization_charge_template), class: "btn btn-primary btn-xs"%>
           <% else %>
-            <%= link_to '新建收费模板', new_organization_customer_organization_charge_template_path(organization_customer), class: "btn btn-danger btn-xs", target: "_blank" %>
+            <%= link_to '新建收费模板', new_organization_customer_organization_charge_template_path(organization_customer), class: "btn btn-danger btn-xs" %>
           <% end %>
 
           <span class="dropdown">

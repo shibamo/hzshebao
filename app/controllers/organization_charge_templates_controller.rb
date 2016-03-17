@@ -36,7 +36,7 @@ class OrganizationChargeTemplatesController < ApplicationController
 
     respond_to do |format|
       if @organization_charge_template.save
-        format.html { redirect_to @organization_charge_template, 
+        format.html { redirect_to organization_customers_list_by_organization_path(organization_id: @organization_customer.organization.id), 
           notice: '机构员工客户缴费模板已创建.' }
         format.json { render :show, status: :created, location: @organization_charge_template }
       else
@@ -51,7 +51,7 @@ class OrganizationChargeTemplatesController < ApplicationController
   def update
     respond_to do |format|
       if @organization_charge_template.update(organization_charge_template_params)
-        format.html { redirect_to @organization_charge_template, 
+        format.html { redirect_to organization_customers_list_by_organization_path(organization_id: @organization_charge_template.organization.id), 
           notice: '机构员工客户缴费模板已修改.' }
         format.json { render :show, status: :ok, location: @organization_charge_template }
       else
