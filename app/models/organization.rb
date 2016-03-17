@@ -25,7 +25,7 @@ class Organization < ActiveRecord::Base
   scope :by_partial_name, ->(partial_name) {where("name like ?", "%#{partial_name}%")}
   scope :order_by_name, ->{order(:name)}
 
-  paginates_per 20             #每页显示n条数据
+  paginates_per 50             #每页显示n条数据
 
   def any_customer_need_create_charge_template?
     self.organization_customers.any?{|oc| oc.organization_charge_template.nil?}

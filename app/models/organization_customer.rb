@@ -36,7 +36,8 @@ class OrganizationCustomer < ActiveRecord::Base
 
   scope :by_organization_ids, ->(organization_ids) {where(organization_id: organization_ids).order(:organization_id)}
   
-  paginates_per 20             #每页显示n条数据
+  #分页显示列表
+  paginates_per 200             #每页显示n条数据,在可能的情况下尽量把指定单位的员工客户显示出来
 
 
   #生成档案编号,如"B201506120001", 其中 1位:固定为"B",2-9位:日期数字,最后四位为流水号

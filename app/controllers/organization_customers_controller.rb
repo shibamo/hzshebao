@@ -7,8 +7,9 @@ class OrganizationCustomersController < ApplicationController
 
   # GET /organization_customers
   # GET /organization_customers.json
+  # 为防止误操作,该功能在routes里暂时关闭
   def index
-    @organization_customers = OrganizationCustomer.all
+    @organization_customers = OrganizationCustomer.all.page params[:page]
   end
 
   # GET /organization_customers/1
