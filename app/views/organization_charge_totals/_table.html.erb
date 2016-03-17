@@ -1,18 +1,18 @@
 社保金 = 企业社保金 + 个人社保金 + 残保金<br/>
 公积金 = 企业公积金 + 个人公积金<br/>
-其他费用 = 其它1 + 其它2 + 其它3 + 补缴 + 预缴 <br/>
+其他+工资 = 其它1 + 其它2 + 其它3 + 补缴 + 预缴 + 应发工资<br/>
 
 <table class="table table-striped">
   <thead>
     <tr>
       <th class="text-center">机构名</th>
+      <th class="text-center">业务员</th>
       <th class="text-center">社保金</th>
       <th class="text-center">管理费</th>
       <th class="text-center">公积金</th>
       <th class="text-center">管理费</th>
       <th class="text-center">个税</th>
-      <th class="text-center">其他费用</th>
-      <th class="text-center">应发工资</th>
+      <th class="text-center">其他+工资</th>
       <th class="text-center">总收费</th>
       <th class="text-center">费用开始-结束日期</th>
       <% if op_type == :list_money_arriaval_check %>
@@ -32,6 +32,7 @@
     <% organization_charge_totals.each do |oct| %>
       <tr>
         <td><%= oct.organization.abbr %></td>
+        <td><%= oct.user.name %></td>
         <td><a tabindex="0" class="btn btn-xs btn-warning" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="社保金 = 企业社保金 + 个人社保金 + 残保金" 
           data-content="<%= "企业社保金: #{format("%.2f",oct.price_shebao_qiye)} <br/>个人社保金: #{format("%.2f",oct.price_shebao_geren)} <br/>残保金: #{format("%.2f",oct.price_canbao)} " %>">
         <%= format("%.2f",oct.price_shebao_qiye + oct.price_shebao_geren + oct.price_canbao) %></a>
@@ -43,11 +44,10 @@
         </td>        
         <td><%= format("%.2f",oct.price_gongjijin_guanli) %></td>
         <td><%= format("%.2f",oct.price_geshui) %></td>
-        <td><a tabindex="0" class="btn btn-xs btn-warning" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="其他费用 = 其它1 + 其它2 + 其它3 + 补缴 + 预缴" 
-          data-content="<%= "其它1: #{format("%.2f",oct.price_qita_1)} <br/>其它2: #{format("%.2f",oct.price_qita_2)} <br/>其它3: #{format("%.2f",oct.price_qita_3)} <br/>补缴: #{format("%.2f",oct.price_bujiao)} <br/>预缴: #{format("%.2f",oct.price_yujiao)} " %>">
-        <%= format("%.2f",oct.price_qita_1+oct.price_qita_2+oct.price_qita_3+oct.price_bujiao+oct.price_yujiao) %></a>
+        <td><a tabindex="0" class="btn btn-xs btn-warning" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="其他+工资 = 其它1 + 其它2 + 其它3 + 补缴 + 预缴 + 应发工资" 
+          data-content="<%= "其它1: #{format("%.2f",oct.price_qita_1)} <br/>其它2: #{format("%.2f",oct.price_qita_2)} <br/>其它3: #{format("%.2f",oct.price_qita_3)} <br/>补缴: #{format("%.2f",oct.price_bujiao)} <br/>预缴: #{format("%.2f",oct.price_yujiao)} <br/>应发工资: #{format("%.2f",oct.price_gongzi)}" %>">
+        <%= format("%.2f",oct.price_qita_1+oct.price_qita_2+oct.price_qita_3+oct.price_bujiao+oct.price_yujiao+oct.price_gongzi) %></a>
         </td>
-        <td><%= format("%.2f",oct.price_gongzi) %></td>
         <td><strong><%= format("%.2f",oct.price_receivable_total) %></strong></td>
         <td><%= oct.start_date.to_s.tr('-','') %>-<%= oct.end_date.to_s.tr('-','') %></td>
         <% if op_type == :list_money_arriaval_check %>
@@ -56,7 +56,7 @@
         <td><%= oct.money_arrival_date.to_s.tr('-','') %></td>
         <td><%= oct.money_check_date.to_s.tr('-','') %></td>
         <% end %>
-        <td><%= oct.translate_workflow_state_name(OrganizationChargeTotal::WORKFLOW_STATE_NAMES) %></td>
+        <td class="text-center"><%= oct.translate_workflow_state_name(OrganizationChargeTotal::WORKFLOW_STATE_NAMES) %></td>
         <td><a tabindex="0" class="btn btn-xs btn-info" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="备注" data-content="<%= oct.comment %>">备注</a></td>
         <td><%= link_to '查看', oct , class: "btn btn-xs btn-default", target: "_blank"%></td>
         <td><%= link_to '导出', organization_charge_total_path(oct, format: :xls) , class: "btn btn-xs btn-default", target: "_blank"%></td>
@@ -66,7 +66,7 @@
         <%end%>
 
         <% if op_type == :list_money_arriaval_check #等待资金到账核对%>
-        <td><%= link_to '上传文件', money_arrival_files_new_path(business_type: "OrganizationChargeTotal",extra_data: oct.updated_at.to_s,main_object_id: oct.id, business_action: "money_arrival_check"), class: "btn active btn-primary btn-xs", target: "_blank"  %></td>
+        <td><%= link_to '上传', money_arrival_files_new_path(business_type: "OrganizationChargeTotal",extra_data: oct.updated_at.to_s,main_object_id: oct.id, business_action: "money_arrival_check"), class: "btn active btn-primary btn-xs", target: "_blank"  %></td>
         <td>
           <%= link_to '设置日期', organization_charge_totals_set_money_arrival_date_path(oct), class: "btn active btn-primary btn-xs" %>
           <%= link_to '确认到账', organization_charge_totals_finish_money_check_path(oct), class: "btn active btn-primary btn-xs" %></td>
@@ -83,7 +83,7 @@
         <% if op_type == :list_total && User.find(session["current_user_id"]).is_leader #公司领导可以更改缴费单 %>
           <td><%= link_to '修改', edit_organization_charge_total_path(oct), class: "btn active btn-warning btn-xs"  %></td>
           <td><%= link_to '到账', organization_charge_totals_set_money_arrival_date_path(oct), class: "btn active btn-warning btn-xs",target: "_blank" %></td>
-          <td><%= link_to '上传文件', money_arrival_files_new_path(business_type: "OrganizationChargeTotal",extra_data: oct.updated_at.to_s,main_object_id: oct.id, business_action: "list_total"), class: "btn active btn-warning btn-xs", target: "_blank"  %></td>
+          <td><%= link_to '上传', money_arrival_files_new_path(business_type: "OrganizationChargeTotal",extra_data: oct.updated_at.to_s,main_object_id: oct.id, business_action: "list_total"), class: "btn active btn-warning btn-xs", target: "_blank"  %></td>
         <% end %>
       </tr>
     <% end %>

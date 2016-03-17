@@ -1,25 +1,26 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>机构名</th>
-      <th>服务费</th>
-      <th>残保金</th>
-      <th>差价</th>
-      <th>工会费</th>
-      <th>其它1</th>
-      <th>其它2</th>
-      <th>其它3</th>
-      <th>总收费</th>
-      <th>服务开始日期</th>
-      <th>服务结束日期</th>
+      <th class="text-center">机构名</th>
+      <th class="text-center">业务员</th>
+      <th class="text-center">服务费</th>
+      <th class="text-center">残保金</th>
+      <th class="text-center">差价</th>
+      <th class="text-center">工会费</th>
+      <th class="text-center">其它1</th>
+      <th class="text-center">其它2</th>
+      <th class="text-center">其它3</th>
+      <th class="text-center">总收费</th>
+      <th class="text-center">服务开始日期</th>
+      <th class="text-center">服务结束日期</th>
       <% if op_type == :list_money_arriaval_check %>
-      <th>表单创建日</th>
+      <th class="text-center">表单创建日</th>
       <% else %>
-      <th>资金到账日</th>
-      <th>资金审核日</th>
+      <th class="text-center">资金到账日</th>
+      <th class="text-center">资金审核日</th>
       <% end %>
-      <th>状态</th>
-      <th>备注</th>
+      <th class="text-center">状态</th>
+      <th class="text-center">备注</th>
       <th colspan="1">操作</th>
     </tr>
   </thead>
@@ -27,22 +28,23 @@
   <tbody>
     <% organization_charge_others.each do |oco| %>
       <tr>
-        <td><%= oco.organization.abbr %></td>
-        <td><%= format("%.2f",oco.price_fuwufei) %></td>
-        <td><%= format("%.2f",oco.price_canbao) %></td>
-        <td><%= format("%.2f",oco.price_chajia) %></td>
-        <td><%= format("%.2f",oco.price_gonghui) %></td>
-        <td><%= format("%.2f",oco.price_qita_1) %></td>
-        <td><%= format("%.2f",oco.price_qita_2) %></td>
-        <td><%= format("%.2f",oco.price_qita_3) %></td>
-        <td><strong><%= format("%.2f",oco.price_receivable_total) %></strong></td>
-        <td><%= oco.start_date %></td>
-        <td><%= oco.end_date %></td>
+        <td class="text-center"><%= oco.organization.abbr %></td>
+        <td class="text-center"><%= oco.user.name %></td>
+        <td class="text-right"><%= format("%.2f",oco.price_fuwufei) %></td>
+        <td class="text-right"><%= format("%.2f",oco.price_canbao) %></td>
+        <td class="text-right"><%= format("%.2f",oco.price_chajia) %></td>
+        <td class="text-right"><%= format("%.2f",oco.price_gonghui) %></td>
+        <td class="text-right"><%= format("%.2f",oco.price_qita_1) %></td>
+        <td class="text-right"><%= format("%.2f",oco.price_qita_2) %></td>
+        <td class="text-right"><%= format("%.2f",oco.price_qita_3) %></td>
+        <td class="text-right"><strong><%= format("%.2f",oco.price_receivable_total) %></strong></td>
+        <td class="text-center"><%= oco.start_date %></td>
+        <td class="text-center"><%= oco.end_date %></td>
         <% if op_type == :list_money_arriaval_check %>
-        <td><%= oco.created_at.to_date %></td>
+        <td class="text-center"><%= oco.created_at.to_date %></td>
         <% else %>
-        <td><%= oco.money_arrival_date %></td>
-        <td><%= oco.money_check_date %></td>
+        <td class="text-center"><%= oco.money_arrival_date %></td>
+        <td class="text-center"><%= oco.money_check_date %></td>
         <% end %>
         <td><%= oco.translate_workflow_state_name(@model_class::WORKFLOW_STATE_NAMES) %></td>
         <td><a tabindex="0" class="btn btn-xs btn-info" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="备注" data-content="<%= oco.comment %>">备注</a></td>
