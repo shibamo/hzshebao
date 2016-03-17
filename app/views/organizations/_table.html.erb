@@ -53,9 +53,9 @@
             <button class="btn btn-xs <%= organization.any_customer_need_create_charge_template? ? "btn-danger" : "btn-primary" %> dropdown-toggle" type="button" id="dropdownMenuOrganizationCustomers" data-toggle="dropdown" aria-expanded="true">员工管理<span class="caret"></span></button>
             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 
-              <li role="presentation"><%= link_to '员工列表('+ organization.organization_customers.count.to_s + ')', organization_customers_list_by_organization_path(organization), class: (organization.any_customer_need_create_charge_template? ? "btn-danger" : "primary" ) , target: "_blank" %>
+              <li role="presentation"><%= link_to '员工列表('+ organization.organization_customers.count.to_s + ')', organization_customers_list_by_organization_path(organization), class: (organization.any_customer_need_create_charge_template? ? "btn-danger" : "primary" ) %>
               </li>
-              <li role="presentation"><%= link_to '新员工', organization_customers_new_path(organization),  target: "_blank" %></li>
+              <li role="presentation"><%= link_to '新员工', organization_customers_new_path(organization) %></li>
             </ul>
           </span>
           <%= link_to '常规缴费', organization_charge_totals_list_by_organization_path(organization), class: "btn btn-primary btn-xs" %>
