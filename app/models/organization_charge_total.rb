@@ -14,6 +14,9 @@ class OrganizationChargeTotal < ActiveRecord::Base
 
   default_scope {order(created_at: :desc)}
 
+  #分页显示列表
+  paginates_per 100             #每页显示n条数据
+
   def self.price_receivable_list #需要收费的字段列表
     ["price_shebao_qiye","price_shebao_geren","price_canbao","price_shebao_guanli","price_gongjijin_qiye", 
     "price_gongjijin_geren","price_gongjijin_guanli","price_geshui","price_qita_1","price_qita_2",
