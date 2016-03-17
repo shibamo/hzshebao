@@ -7,7 +7,7 @@ class OrganizationChargeOthersController < ApplicationController
   # GET /organization_charge_others
   # GET /organization_charge_others.json
   def index
-    @organization_charge_others = @model_class.all
+    @organization_charge_others = @model_class.all.page params[:page]
   end
 
   # GET /organization_charge_others/1
@@ -65,11 +65,11 @@ class OrganizationChargeOthersController < ApplicationController
 
 #########################################################################################################
   def list_by_organization #指定机构的缴费历史记录
-    @organization_charge_others = @model_class.of_organization(@organization.id)
+    @organization_charge_others = @model_class.of_organization(@organization.id).page params[:page]
   end
 
   def list_money_arrival_check #需要进行资金核对的机构缴费记录
-    @organization_charge_others = @model_class.with_new_state
+    @organization_charge_others = @model_class.with_new_state.page params[:page]
   end
 
   def set_money_arrival_date #设置资金到账日期
