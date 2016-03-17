@@ -77,7 +77,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><strong>机构业务</strong> <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <%if can_u_a_c? @current_user, :index, Organization %>
-            <li><%= link_to "已有机构业务", organizations_path %></li>
+            <li><%= link_to "机构列表", organizations_path %></li>
             <%end%>
             <li class="divider"></li>
             <%if can_u_a_c? @current_user, :list_check, Organization %>
