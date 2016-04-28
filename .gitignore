@@ -21,3 +21,6 @@
 
 # Ignore secrets key files
 /config/secrets.yml
+
+#Ignore sublime files
+/*.sublime*
