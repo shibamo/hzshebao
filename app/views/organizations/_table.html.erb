@@ -16,7 +16,7 @@
 
   <tbody>
     <% @organizations.each do |organization| %>
-      <tr>
+      <tr class='<%= organization.user==@current_user ? "my-biz-entity" : "" %>'>
         <td><%= organization.name %></td>
         <td><%= organization.abbr %></td>
         <td><%= organization.person_in_charge %></td>
@@ -58,12 +58,19 @@
               <li role="presentation"><%= link_to '新员工', organization_customers_new_path(organization) %></li>
             </ul>
           </span>
-          <%= link_to '常规缴费', organization_charge_totals_list_by_organization_path(organization), class: "btn btn-primary btn-xs" %>
-          <%= link_to '其他缴费', organization_charge_others_list_by_organization_path(organization), class: "btn btn-primary btn-xs" %>
+          
+          <span class="dropdown">
+            <button class="btn btn-xs btn-primary dropdown-toggle" type="button" id="dropdownMenuCharge" data-toggle="dropdown" aria-expanded="true">缴费<span class="caret"></span></button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+
+              <li role="presentation"><%= link_to '常规缴费', organization_charge_totals_list_by_organization_path(organization) %>
+              </li>
+              <li role="presentation"><%= link_to '其他缴费', organization_charge_others_list_by_organization_path(organization) %></li>
+            </ul>
+          </span>
+
           <% if op_type == :set_user%>
-          <td>
-            <%= link_to '更换归属业务员', organizations_set_user_path(organization),  tabindex: "-1", class: "btn btn-warning btn-xs" %>
-          </td>
+            <%= link_to '更换业务员', organizations_set_user_path(organization),  tabindex: "-1", class: "btn btn-warning btn-xs" %>
           <%end%>
       </td>
       </tr>

@@ -33,28 +33,28 @@
       <tr>
         <td><%= oct.organization.abbr %></td>
         <td><%= oct.user.name %></td>
-        <td><a tabindex="0" class="btn btn-xs btn-warning" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="社保金 = 企业社保金 + 个人社保金 + 残保金" 
+        <td><a tabindex="0" class="btn btn-xs btn-warning full-size" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="社保金 = 企业社保金 + 个人社保金 + 残保金" 
           data-content="<%= "企业社保金: #{format("%.2f",oct.price_shebao_qiye)} <br/>个人社保金: #{format("%.2f",oct.price_shebao_geren)} <br/>残保金: #{format("%.2f",oct.price_canbao)} " %>">
         <%= format("%.2f",oct.price_shebao_qiye + oct.price_shebao_geren + oct.price_canbao) %></a>
         </td>
-        <td><%= format("%.2f",oct.price_shebao_guanli) %></td>
-        <td><a tabindex="0" class="btn btn-xs btn-warning" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="公积金 = 企业公积金 + 个人公积金" 
-          data-content="<%= "企业公积金: #{format("%.2f",oct.price_shebao_qiye)} <br/>个人公积金: #{format("%.2f",oct.price_shebao_geren)}" %>">
+        <td class="text-center"><%= format("%.2f",oct.price_shebao_guanli) %></td>
+        <td><a tabindex="0" class="btn btn-xs btn-warning full-size" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="公积金 = 企业公积金 + 个人公积金" 
+          data-content="<%= "企业公积金: #{format("%.2f",oct.price_gongjijin_qiye)} <br/>个人公积金: #{format("%.2f",oct.price_gongjijin_geren)}" %>">
         <%= format("%.2f",oct.price_gongjijin_qiye + oct.price_gongjijin_geren) %></a>
         </td>        
-        <td><%= format("%.2f",oct.price_gongjijin_guanli) %></td>
-        <td><%= format("%.2f",oct.price_geshui) %></td>
-        <td><a tabindex="0" class="btn btn-xs btn-warning" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="其他+工资 = 其它1 + 其它2 + 其它3 + 补缴 + 预缴 + 应发工资" 
+        <td class="text-center"><%= format("%.2f",oct.price_gongjijin_guanli) %></td>
+        <td class="text-center"><%= format("%.2f",oct.price_geshui) %></td>
+        <td><a tabindex="0" class="btn btn-xs btn-warning full-size" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="其他+工资 = 其它1 + 其它2 + 其它3 + 补缴 + 预缴 + 应发工资" 
           data-content="<%= "其它1: #{format("%.2f",oct.price_qita_1)} <br/>其它2: #{format("%.2f",oct.price_qita_2)} <br/>其它3: #{format("%.2f",oct.price_qita_3)} <br/>补缴: #{format("%.2f",oct.price_bujiao)} <br/>预缴: #{format("%.2f",oct.price_yujiao)} <br/>应发工资: #{format("%.2f",oct.price_gongzi)}" %>">
         <%= format("%.2f",oct.price_qita_1+oct.price_qita_2+oct.price_qita_3+oct.price_bujiao+oct.price_yujiao+oct.price_gongzi) %></a>
         </td>
-        <td><strong><%= format("%.2f",oct.price_receivable_total) %></strong></td>
-        <td><%= oct.start_date.to_s.tr('-','') %>-<%= oct.end_date.to_s.tr('-','') %></td>
+        <td class="text-center"><strong><%= format("%.2f",oct.price_receivable_total) %></strong></td>
+        <td class="text-center"><%= oct.start_date.to_s.tr('-','') %>-<%= oct.end_date.to_s.tr('-','') %></td>
         <% if op_type == :list_money_arriaval_check %>
-        <td><%= oct.created_at.to_date.to_s.tr('-','') %></td>
+        <td class="text-center"><%= oct.created_at.to_date.to_s.tr('-','') %></td>
         <% else %>
-        <td><%= oct.money_arrival_date.to_s.tr('-','') %></td>
-        <td><%= oct.money_check_date.to_s.tr('-','') %></td>
+        <td class="text-center"><%= oct.money_arrival_date.to_s.tr('-','') %></td>
+        <td class="text-center"><%= oct.money_check_date.to_s.tr('-','') %></td>
         <% end %>
         <td class="text-center"><%= oct.translate_workflow_state_name(OrganizationChargeTotal::WORKFLOW_STATE_NAMES) %></td>
         <td><a tabindex="0" class="btn btn-xs btn-info" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="备注" data-content="<%= oct.comment %>">备注</a></td>

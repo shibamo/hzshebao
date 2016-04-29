@@ -73,6 +73,7 @@ class OrganizationChargeTemplatesController < ApplicationController
 
   def list_by_organization
     @organization_charge_templates = OrganizationChargeTemplate.of_organization(@organization.id)
+    #byebug
   end
 
   private

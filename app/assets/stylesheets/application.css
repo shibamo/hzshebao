@@ -48,7 +48,8 @@ body { padding-top: 40px; }
   display: block;
 }
 
-/*改造Bootstrap,鼠标悬停弹出按钮的下拉菜单,因为缺省模式与modal dialog有冲突需要改造*/
+/*改造Bootstrap,鼠标悬停弹出按钮的下拉菜单,
+因为缺省模式与modal dialog有冲突需要改造*/
 span.dropdown > .dropdown-menu {
   margin: 0;
 }
@@ -106,3 +107,29 @@ td.sheet{
 td.modified{
   background-color: yellow;
 }
+
+/*归属于自己的业务内容在列表里突出显示*/
+tr.my-biz-entity{
+  font-weight: bold;
+}
+
+/*创建客户记录出错字段的突出显示*/
+.field_with_errors .form-control{ 
+  border-color: red;
+}
+
+/*原有Bootstrapmedia query太小,细化扩大*/
+@media screen and (min-width: 1300px){
+.container { width: 1270px; }
+}
+@media screen and (min-width: 1350px){
+.container { width: 1320px; }
+}
+@media screen and (min-width: 1400px){
+.container { width: 1370px; }
+}
+
+.btn.full-size{/*button显示合成的计算金额*/
+  width: 100%;
+}
+

@@ -8,7 +8,8 @@
 </head>
 <body data-no-turbolink="true">
 
-  <%= render('shared/top_nav_bar', user: User.find(session["current_user_id"])) if session["current_user_id"]%>
+  <%= render('shared/top_nav_bar', user: User.find(session["current_user_id"])) if 
+        session["current_user_id"]%>
 
   <div class="container" id="root_div">
     <% flash.each do |key, value| %>
@@ -18,7 +19,7 @@
     <%= yield %>
 
   </div>
-  <div class="container"
+  <div class="container">
     <div class="noprint row col-xs-12">
       <%= debug(params) if Rails.env.development? %>
     </div>

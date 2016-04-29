@@ -1,13 +1,14 @@
 <%= simple_form_for(@organization) do |f| %>
+  <% start_date_has_error=false %>
   <% if @organization.errors.any? %>
     <div id="error_explanation">
       <h2>以下错误发生,无法保存: </h2>
       <ul>
       <%@organization.errors.messages.each do |message|
-          message[1].each do |err_msg|%>
-
-        <li> <%=err_msg%> </li>
-      <% end %>
+        message[1].each do |err_msg|%>
+          <li> <%=err_msg%> </li>
+        <% start_date_has_error = err_msg.include? "服务开始日期"
+        end %>
       <% end %>
       </ul>
     </div>
@@ -43,8 +44,10 @@
   <div class="form-group  col-xs-4">
     <%= f.input :contact_fax, label:"联系传真" %>
   </div>
-  <div class="form-group  col-xs-4 required ">
-    <%= f.label "服务开始日期" %>
+  <div class="form-group  col-xs-4 required <%= start_date_has_error ? "has-error": "" %>">
+    <%= f.label "organization_start_date", class: "control-label" do%>
+      <abbr title="required">*</abbr> 服务开始日期
+    <% end%>
     <%= f.text_field :start_date, :class => "dtp form-control required", "data-date-format" => "yyyy-mm-dd" %>
   </div>
 
