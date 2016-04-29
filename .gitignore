@@ -24,3 +24,4 @@
 
 #Ignore sublime files
 /*.sublime*
+.byebug_history
