@@ -21,7 +21,7 @@
             <li class="divider"></li>
             <%if can_u_a_c? @current_user, :list_check, SingleCustomer %>
             <li><%=link_to single_customers_list_check_path  do%>
-              客户资料复核 <span class="badge alert-danger"> <%= SingleCustomer.with_new_state.count%> </span>
+              客户资料复核 <span class="badge alert-danger"><%= SingleCustomer.with_new_state.count%></span>
               <%end%>
             </li>
             <%end%>
@@ -33,7 +33,7 @@
             <li class="divider"></li>
             <%if can_u_a_c? @current_user, :list_apply_start, SingleCustomer %>
             <li><%=link_to single_customers_list_apply_start_path  do%>
-                登记申报入保 <span class="badge  alert-danger"> <%= SingleCustomer.need_start_shebao.count%> </span>
+                登记申报入保 <span class="badge alert-danger"><%= SingleCustomer.need_start_shebao.count%></span>
               <%end%>
             </li>
             <%end%>
@@ -106,7 +106,7 @@
             <li class="divider"></li>
             <%if can_u_a_c? @current_user, :list_apply_start, OrganizationShebao %>
             <li><%=link_to organization_shebaos_list_apply_start_path  do%>
-                机构员工登记申报入保 <span class="badge  alert-danger"> <%= OrganizationShebao.can_start.count%> </span>
+                机构员工登记申报入保 <span class="badge alert-danger"><%= OrganizationShebao.can_start.count%></span>
               <%end%>
             </li>
             <%end%>
@@ -122,7 +122,7 @@
             <li class="divider"></li>
             <%if can_u_a_c? @current_user, :list_apply_start, OrganizationGongjijin %>
             <li><%=link_to organization_gongjijins_list_apply_start_path  do%>
-                机构员工登记开通公积金 <span class="badge  alert-danger"> <%= OrganizationGongjijin.can_start.count%> </span>
+                机构员工登记开通公积金 <span class="badge  alert-danger"> <%= OrganizationGongjijin.can_start.count%></span>
               <%end%>
             </li>
             <%end%>
@@ -144,7 +144,7 @@
             <%if can_u_a_c? @current_user, :for_commission_input_allowed, Charge %>
             <li>
               <%= link_to charges_for_commission_input_allowed_path do %>
-                提成单录入 <span class="badge alert-danger"> <%= Charge.with_money_arrived_state.managed_by_users(session["current_user_id"]).count %> </span>
+                提成单录入 <span class="badge alert-danger"><%= Charge.with_money_arrived_state.managed_by_users(session["current_user_id"]).count %></span>
               <% end %>
             </li>
             <%end%>
@@ -152,7 +152,7 @@
             <%if can_u_a_c? @current_user, :need_approve, Commission %>
             <li>
               <%= link_to commissions_need_approve_path do %>
-                提成单审批 <span class="badge alert-danger"> <%= Commission.with_new_state.count %> </span>
+                提成单审批 <span class="badge alert-danger"><%= Commission.with_new_state.count %></span>
               <% end %>
             </li>
             <%end%>
@@ -170,7 +170,7 @@
             <%if can_u_a_c? @current_user, :commission_input_allowed, OrganizationChargeTotal %>
             <li>
               <%= link_to organization_charge_totals_commission_input_allowed_path do %>
-                机构常规提成单录入<span class="badge alert-danger"> <%= OrganizationChargeTotal.with_money_arrived_state.managed_by_users(session["current_user_id"]).count %>
+                机构常规提成单录入<span class="badge alert-danger"><%= OrganizationChargeTotal.with_money_arrived_state.managed_by_users(session["current_user_id"]).count %></span>
               <% end %>
             </li>
             <%end%>
@@ -178,7 +178,7 @@
             <%if can_u_a_c? @current_user, :need_approve, OrganzationCommission %>
             <li>
               <%= link_to organzation_commissions_need_approve_path do %>
-                机构常规提成单审批 <span class="badge alert-danger"> <%= OrganzationCommission.with_new_state.count %> </span>
+                机构常规提成单审批 <span class="badge alert-danger"><%= OrganzationCommission.with_new_state.count %></span>
               <% end %>
             </li>
             <%end%>
@@ -188,7 +188,7 @@
             <%if can_u_a_c? @current_user, :commission_input_allowed, OrganizationChargeOther %>
             <li>
               <%= link_to organization_charge_others_commission_input_allowed_path do %>
-                机构其他提成单录入<span class="badge alert-danger"> <%= OrganizationChargeOther.with_money_arrived_state.managed_by_users(session["current_user_id"]).count %>
+                机构其他提成单录入<span class="badge alert-danger"><%= OrganizationChargeOther.with_money_arrived_state.managed_by_users(session["current_user_id"]).count %></span>
               <% end %>
             </li>
             <%end%>
@@ -196,7 +196,7 @@
             <%if can_u_a_c? @current_user, :need_approve, OrganizationCommissionOther %>
             <li>
               <%= link_to organization_commission_others_need_approve_path do %>
-                机构其他提成单审批 <span class="badge alert-danger"> <%= OrganizationCommissionOther.with_new_state.count %> </span>
+                机构其他提成单审批 <span class="badge alert-danger"><%= OrganizationCommissionOther.with_new_state.count %></span>
               <% end %>
             </li>
             <%end%>
@@ -210,7 +210,7 @@
             <%if can_u_a_c? @current_user, :for_money_arrival_check, Charge %>
             <li>
               <%= link_to charges_for_money_arrival_check_path do %>
-                资金核对 <span class="badge alert-danger"> <%= Charge.with_new_state.count %> </span>
+                资金核对 <span class="badge alert-danger"><%= Charge.with_new_state.count %></span>
               <% end %>
             </li>
             <%end%>
@@ -218,7 +218,7 @@
             <%if can_u_a_c? @current_user, :need_finance_check, Commission %>
             <li>
               <%= link_to commissions_need_finance_check_path do %>
-                提成单复核 <span class="badge alert-danger"> <%= Commission.with_approved_state.count %> </span>
+                提成单复核 <span class="badge alert-danger"><%= Commission.with_approved_state.count %></span>
               <% end %>
             </li>
             <%end%>
@@ -227,7 +227,7 @@
             <%if can_u_a_c? @current_user, :list_money_arrival_check, OrganizationChargeTotal %>
             <li>
               <%= link_to organization_charge_totals_list_money_arrival_check_path do %>
-                机构常规资金核对 <span class="badge alert-danger"> <%= OrganizationChargeTotal.with_new_state.count %> </span>
+                机构常规资金核对 <span class="badge alert-danger"><%= OrganizationChargeTotal.with_new_state.count %></span>
               <% end %>
             </li>
             <%end%>
@@ -235,7 +235,7 @@
             <%if can_u_a_c? @current_user, :need_finance_check, OrganzationCommission %>
             <li>
               <%= link_to organzation_commissions_need_finance_check_path do %>
-                机构常规提成单复核 <span class="badge alert-danger"> <%= OrganzationCommission.with_approved_state.count %> </span>
+                机构常规提成单复核 <span class="badge alert-danger"><%= OrganzationCommission.with_approved_state.count %></span>
               <% end %>
             </li>
             <%end%>
@@ -244,14 +244,14 @@
             <%if can_u_a_c? @current_user, :list_money_arrival_check, OrganizationChargeOther %>
             <li>
               <%= link_to organization_charge_others_list_money_arrival_check_path do %>
-                机构其他资金核对 <span class="badge alert-danger"> <%= OrganizationChargeOther.with_new_state.count %> </span>
+                机构其他资金核对 <span class="badge alert-danger"><%= OrganizationChargeOther.with_new_state.count %></span>
               <% end %>
             </li>
             <%end%>
             <%if can_u_a_c? @current_user, :need_finance_check, OrganizationCommissionOther %>
             <li>
               <%= link_to organization_commission_others_need_finance_check_path do %>
-                机构其他提成单复核 <span class="badge alert-danger"> <%= OrganizationCommissionOther.with_approved_state.count %> </span>
+                机构其他提成单复核 <span class="badge alert-danger"><%= OrganizationCommissionOther.with_approved_state.count %></span>
               <% end %>
             </li>
             <%end%>
@@ -264,7 +264,7 @@
             <% if can_u_a_c? @current_user, :for_leader_check, Charge %>
             <li>
                 <%= link_to charges_for_leader_check_path do %>
-                缴费单终审 <span class="badge alert-danger"> <%= Charge.with_commission_finished_state.count %> </span>
+                缴费单终审 <span class="badge alert-danger"><%= Charge.with_commission_finished_state.count %></span>
               <% end %>
             </li>
             <%end%>
@@ -294,7 +294,7 @@
             <% if can_u_a_c? @current_user, :list_leader_check, OrganizationChargeTotal %>
             <li>
               <%= link_to organization_charge_totals_list_leader_check_path do %>
-                机构常规缴费单终审 <span class="badge alert-danger"> <%= OrganizationChargeTotal.with_commission_finished_state.count %> </span>
+                机构常规缴费单终审 <span class="badge alert-danger"><%= OrganizationChargeTotal.with_commission_finished_state.count %></span>
               <% end %>
             </li>
             <%end%>
@@ -311,7 +311,7 @@
             <% if can_u_a_c? @current_user, :list_leader_check, OrganizationChargeOther %>
             <li>
               <%= link_to organization_charge_others_list_leader_check_path do %>
-                机构其他缴费单终审 <span class="badge alert-danger"> <%= OrganizationChargeOther.with_commission_finished_state.count %> </span>
+                机构其他缴费单终审 <span class="badge alert-danger"><%= OrganizationChargeOther.with_commission_finished_state.count %></span>
               <% end %>
             </li>
             <%end%>
@@ -385,21 +385,34 @@
   </div>
 </nav>
 
-<script type="text/javascript">
-  //为有未完成任务的菜单增加动画效果
-  $('.navbar li.dropdown').each(function(idx,ele){
-    if($(this).html().includes("alert-danger")){
-      $(this).toggleClass("swing");
-    }
-  });
+<span class="badge alert-danger"><%= OrganizationChargeOther.with_commission_finished_state.count %></span>
 
-  setInterval(
-    function(){
-      $('.navbar li.dropdown').each(function(idx,ele){
-        if($(this).html().includes("alert-danger")){
-          $(this).toggleClass("swing");
+<script type="text/javascript">
+  (function(){//为有未完成任务的菜单增加动画效果
+    var main_menu_items_has_alert = [];
+
+    $('.navbar li.dropdown').each(function(idx,ele){
+      var hasTodo = false;
+      $(this).find(".alert-danger").each(function(_idx,_ele){
+        if(parseInt($(this).text())>0){
+          hasTodo = true;
         }
       });
-    }
-  ,5000);
+
+      if (hasTodo)
+        main_menu_items_has_alert.push($(this));
+    });
+
+    $(main_menu_items_has_alert).each(function(idx,ele){
+      $(this).toggleClass("swing");
+    });
+
+    setInterval(
+      function(){
+        $(main_menu_items_has_alert).each(function(idx,ele){
+          $(this).toggleClass("swing");
+        });
+      }
+    ,5000);
+  })();
 </script>

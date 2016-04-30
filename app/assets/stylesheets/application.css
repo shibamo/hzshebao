@@ -118,7 +118,7 @@ tr.my-biz-entity{
   border-color: red;
 }
 
-/*原有Bootstrapmedia query太小,细化扩大*/
+/*原有Bootstrapmedia query太小,细化扩大Range*/
 @media screen and (min-width: 1300px){
 .container { width: 1270px; }
 }
@@ -131,5 +131,9 @@ tr.my-biz-entity{
 
 .btn.full-size{/*button显示合成的计算金额*/
   width: 100%;
+}
+
+#root_div{/*调整主内容区不与顶部菜单栏重叠*/
+  margin-top: 15px; 
 }
 
