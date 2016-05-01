@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151206081256) do
+ActiveRecord::Schema.define(version: 20160501222345) do
 
   create_table "administrators", force: :cascade do |t|
     t.string   "name"
@@ -158,75 +158,75 @@ ActiveRecord::Schema.define(version: 20151206081256) do
   create_table "organization_charge_others", force: :cascade do |t|
     t.integer  "organization_id"
     t.integer  "user_id"
-    t.decimal  "price_fuwufei"
-    t.decimal  "price_canbao"
-    t.decimal  "price_chajia"
-    t.decimal  "price_gonghui"
-    t.decimal  "price_qita_1"
-    t.decimal  "price_qita_2"
-    t.decimal  "price_qita_3"
+    t.decimal  "price_fuwufei",      precision: 10, scale: 2
+    t.decimal  "price_canbao",       precision: 10, scale: 2
+    t.decimal  "price_chajia",       precision: 10, scale: 2
+    t.decimal  "price_gonghui",      precision: 10, scale: 2
+    t.decimal  "price_qita_1",       precision: 10, scale: 2
+    t.decimal  "price_qita_2",       precision: 10, scale: 2
+    t.decimal  "price_qita_3",       precision: 10, scale: 2
     t.date     "start_date"
     t.date     "end_date"
     t.string   "comment"
     t.date     "money_arrival_date"
     t.date     "money_check_date"
     t.string   "workflow_state"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
   end
 
   create_table "organization_charge_templates", force: :cascade do |t|
     t.integer  "organization_customer_id"
     t.integer  "user_id"
-    t.decimal  "price_shebao_base"
-    t.decimal  "price_shebao_qiye"
-    t.decimal  "price_shebao_geren"
-    t.decimal  "price_canbao"
-    t.decimal  "price_shebao_guanli"
-    t.decimal  "price_gongjijin_base"
-    t.decimal  "price_gongjijin_qiye"
-    t.decimal  "price_gongjijin_geren"
-    t.decimal  "price_gongjijin_guanli"
-    t.decimal  "price_geshui"
-    t.decimal  "price_qita_1"
-    t.decimal  "price_qita_2"
-    t.decimal  "price_qita_3"
-    t.decimal  "price_bujiao"
-    t.decimal  "price_yujiao"
-    t.decimal  "price_gongzi"
+    t.decimal  "price_shebao_base",        precision: 10, scale: 2
+    t.decimal  "price_shebao_qiye",        precision: 10, scale: 2
+    t.decimal  "price_shebao_geren",       precision: 10, scale: 2
+    t.decimal  "price_canbao",             precision: 10, scale: 2
+    t.decimal  "price_shebao_guanli",      precision: 10, scale: 2
+    t.decimal  "price_gongjijin_base",     precision: 10, scale: 2
+    t.decimal  "price_gongjijin_qiye",     precision: 10, scale: 2
+    t.decimal  "price_gongjijin_geren",    precision: 10, scale: 2
+    t.decimal  "price_gongjijin_guanli",   precision: 10, scale: 2
+    t.decimal  "price_geshui",             precision: 10, scale: 2
+    t.decimal  "price_qita_1",             precision: 10, scale: 2
+    t.decimal  "price_qita_2",             precision: 10, scale: 2
+    t.decimal  "price_qita_3",             precision: 10, scale: 2
+    t.decimal  "price_bujiao",             precision: 10, scale: 2
+    t.decimal  "price_yujiao",             precision: 10, scale: 2
+    t.decimal  "price_gongzi",             precision: 10, scale: 2
     t.string   "comment"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
     t.integer  "organization_id"
   end
 
   create_table "organization_charge_totals", force: :cascade do |t|
     t.integer  "organization_id"
     t.integer  "user_id"
-    t.decimal  "price_shebao_base"
-    t.decimal  "price_shebao_qiye"
-    t.decimal  "price_shebao_geren"
-    t.decimal  "price_canbao"
-    t.decimal  "price_shebao_guanli"
-    t.decimal  "price_gongjijin_base"
-    t.decimal  "price_gongjijin_qiye"
-    t.decimal  "price_gongjijin_geren"
-    t.decimal  "price_gongjijin_guanli"
-    t.decimal  "price_geshui"
-    t.decimal  "price_qita_1"
-    t.decimal  "price_qita_2"
-    t.decimal  "price_qita_3"
-    t.decimal  "price_bujiao"
-    t.decimal  "price_yujiao"
-    t.decimal  "price_gongzi"
+    t.decimal  "price_shebao_base",      precision: 10, scale: 2
+    t.decimal  "price_shebao_qiye",      precision: 10, scale: 2
+    t.decimal  "price_shebao_geren",     precision: 10, scale: 2
+    t.decimal  "price_canbao",           precision: 10, scale: 2
+    t.decimal  "price_shebao_guanli",    precision: 10, scale: 2
+    t.decimal  "price_gongjijin_base",   precision: 10, scale: 2
+    t.decimal  "price_gongjijin_qiye",   precision: 10, scale: 2
+    t.decimal  "price_gongjijin_geren",  precision: 10, scale: 2
+    t.decimal  "price_gongjijin_guanli", precision: 10, scale: 2
+    t.decimal  "price_geshui",           precision: 10, scale: 2
+    t.decimal  "price_qita_1",           precision: 10, scale: 2
+    t.decimal  "price_qita_2",           precision: 10, scale: 2
+    t.decimal  "price_qita_3",           precision: 10, scale: 2
+    t.decimal  "price_bujiao",           precision: 10, scale: 2
+    t.decimal  "price_yujiao",           precision: 10, scale: 2
+    t.decimal  "price_gongzi",           precision: 10, scale: 2
     t.date     "start_date"
     t.date     "end_date"
     t.string   "comment"
     t.date     "money_arrival_date"
     t.date     "money_check_date"
     t.string   "workflow_state"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
   end
 
   create_table "organization_charges", force: :cascade do |t|
@@ -234,40 +234,40 @@ ActiveRecord::Schema.define(version: 20151206081256) do
     t.integer  "organization_customer_id"
     t.integer  "organization_id"
     t.integer  "user_id"
-    t.decimal  "price_shebao_base"
-    t.decimal  "price_shebao_qiye"
-    t.decimal  "price_shebao_geren"
-    t.decimal  "price_canbao"
-    t.decimal  "price_shebao_guanli"
-    t.decimal  "price_gongjijin_base"
-    t.decimal  "price_gongjijin_qiye"
-    t.decimal  "price_gongjijin_geren"
-    t.decimal  "price_gongjijin_guanli"
-    t.decimal  "price_geshui"
-    t.decimal  "price_qita_1"
-    t.decimal  "price_qita_2"
-    t.decimal  "price_qita_3"
-    t.decimal  "price_bujiao"
-    t.decimal  "price_yujiao"
-    t.decimal  "price_gongzi"
+    t.decimal  "price_shebao_base",            precision: 10, scale: 2
+    t.decimal  "price_shebao_qiye",            precision: 10, scale: 2
+    t.decimal  "price_shebao_geren",           precision: 10, scale: 2
+    t.decimal  "price_canbao",                 precision: 10, scale: 2
+    t.decimal  "price_shebao_guanli",          precision: 10, scale: 2
+    t.decimal  "price_gongjijin_base",         precision: 10, scale: 2
+    t.decimal  "price_gongjijin_qiye",         precision: 10, scale: 2
+    t.decimal  "price_gongjijin_geren",        precision: 10, scale: 2
+    t.decimal  "price_gongjijin_guanli",       precision: 10, scale: 2
+    t.decimal  "price_geshui",                 precision: 10, scale: 2
+    t.decimal  "price_qita_1",                 precision: 10, scale: 2
+    t.decimal  "price_qita_2",                 precision: 10, scale: 2
+    t.decimal  "price_qita_3",                 precision: 10, scale: 2
+    t.decimal  "price_bujiao",                 precision: 10, scale: 2
+    t.decimal  "price_yujiao",                 precision: 10, scale: 2
+    t.decimal  "price_gongzi",                 precision: 10, scale: 2
     t.date     "start_date"
     t.date     "end_date"
     t.string   "comment"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
   end
 
   create_table "organization_commission_others", force: :cascade do |t|
     t.integer  "organization_charge_other_id"
     t.string   "commission_no"
     t.integer  "user_id"
-    t.decimal  "bonus_reference"
-    t.decimal  "bonus"
+    t.decimal  "bonus_reference",              precision: 10, scale: 2
+    t.decimal  "bonus",                        precision: 10, scale: 2
     t.integer  "approver_id"
     t.integer  "financer_id"
     t.string   "workflow_state"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
   end
 
   create_table "organization_customers", force: :cascade do |t|
@@ -355,13 +355,13 @@ ActiveRecord::Schema.define(version: 20151206081256) do
     t.string   "commission_no"
     t.integer  "organization_charge_total_id"
     t.integer  "user_id"
-    t.decimal  "bonus_reference"
-    t.decimal  "bonus"
+    t.decimal  "bonus_reference",              precision: 10, scale: 2
+    t.decimal  "bonus",                        precision: 10, scale: 2
     t.integer  "approver_id"
     t.integer  "financer_id"
     t.string   "workflow_state"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
   end
 
   create_table "renewals", force: :cascade do |t|
