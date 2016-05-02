@@ -66,10 +66,13 @@
         <%end%>
 
         <% if op_type == :list_money_arriaval_check #等待资金到账核对%>
-        <td><%= link_to '上传', money_arrival_files_new_path(business_type: "OrganizationChargeTotal",extra_data: oct.updated_at.to_s,main_object_id: oct.id, business_action: "money_arrival_check"), class: "btn active btn-primary btn-xs", target: "_blank"  %></td>
+        <td>
+          <%= link_to '上传', money_arrival_files_new_path(business_type: "OrganizationChargeTotal",extra_data: oct.updated_at.to_s,main_object_id: oct.id, business_action: "money_arrival_check"), class: "btn active btn-primary btn-xs", target: "_blank"  %>
+        </td>
         <td>
           <%= link_to '设置日期', organization_charge_totals_set_money_arrival_date_path(oct), class: "btn active btn-primary btn-xs" %>
-          <%= link_to '确认到账', organization_charge_totals_finish_money_check_path(oct), class: "btn active btn-primary btn-xs" %></td>
+          <%= link_to '确认到账', organization_charge_totals_finish_money_check_path(oct), class: "btn active btn-primary btn-xs" %>
+        </td>
         <% end %>
 
         <% if op_type == :input_commission #等待填写提成单%>
@@ -85,12 +88,49 @@
           <td><%= link_to '到账', organization_charge_totals_set_money_arrival_date_path(oct), class: "btn active btn-warning btn-xs",target: "_blank" %></td>
           <td><%= link_to '上传', money_arrival_files_new_path(business_type: "OrganizationChargeTotal",extra_data: oct.updated_at.to_s,main_object_id: oct.id, business_action: "list_total"), class: "btn active btn-warning btn-xs", target: "_blank"  %></td>
         <% end %>
+
+
+<!--         <td><button class="dialog-link">Open Dialog</button></td> -->
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<!-- <div id="dialog" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 49px; max-height: none; height: auto;">
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+</div> -->
+
 <script type="text/javascript">
 $(function () {
   $('[data-toggle="popover"]').popover()
 })
+
+
+// $( "#dialog" ).dialog({//测试JQueryUI Dialog
+//   autoOpen: false,
+//   width: 400,
+//   buttons: [
+//     {
+//       text: "Ok",
+//       click: function() {
+//         $( this ).dialog( "close" );
+//       }
+//     },
+//     {
+//       text: "Cancel",
+//       click: function() {
+//         $( this ).dialog( "close" );
+//       }
+//     }
+//   ],
+//   modal: true
+// });
+
+
+// $( ".dialog-link" ).click(function( event ) {//测试JQueryUI Dialog
+//   $( "#dialog" ).dialog( "open" );
+//   event.preventDefault();
+// });
+
+
 </script>
