@@ -1,4 +1,4 @@
-<div class="container" id="root_div" style="padding-left:0px;">
+<div class="container" id="root_div">
 <form class="form-inline">
   <div class="form-inputs">
   费用所属日期从:<input class="string optional form-control dtp" size="10" type="text" value="" id="start_date" data-date-format="yyyy-mm-dd" name="single_customer[input_date_from]">
@@ -8,7 +8,7 @@
         <span class="add-on"><i class="icon-th"></i></span><br>
   </div></div>
 
-  <div id="OrgChrgFormPlaceholder"><!--React组件OrgChrgForm的初始化放置位置--></div>
+  <div id="OrgChrgFormPlaceholder" class="container"><!--React组件OrgChrgForm的初始化放置位置--></div>
 </form>
 
 <script type="text/babel">
@@ -304,7 +304,7 @@
       }
     },
     render: function(){
-      return <div style= {{width: '1200px'}}> 
+      return <div className="container" style={{paddingLeft: "0px", paddingRight: "80px"}}> 
               <OrgChrgs chrg_datas={this.state.chrg_datas} chrg_ops={this.chrgOps} 
                         config_datas={this.configDatas} form={this} />
               备注:<br/><textarea id="comment" style={{width: "960px"}} className="form-control" name="comment" rows="2" ></textarea><br/>
