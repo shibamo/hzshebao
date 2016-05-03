@@ -71,7 +71,7 @@ Rails.application.routes.draw do
     get "list_by_organization/:organization_id" => :list_by_organization, as: 'list_by_organization' #显示指定机构的缴费记录列表
     get "new/(:organization_id)" => :new, as: 'new' #新建指定机构的缴费记录
     get "list_money_arrival_check" #需要进行资金到账审核的列表
-    match "set_money_arrival_date/:id" => :set_money_arrival_date, via: [:get,:patch], as: 'set_money_arrival_date'#设置资金到账日期
+    match "set_money_arrival_date/:id/(:simpleMode)" => :set_money_arrival_date, via: [:get,:patch], as: 'set_money_arrival_date'#设置资金到账日期
     get "finish_money_check/:id" => :finish_money_check, as: 'finish_money_check' #完成资金到账审核
     get 'commission_input_allowed' => :commission_input_allowed #缴费后允许输入提成单
     get 'list_leader_check' => :list_leader_check #需要领导审核的缴费单列表

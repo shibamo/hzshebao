@@ -181,7 +181,7 @@ class OrganizationChargeTotalsController < ApplicationController
         return
       end
     else #get
-      #
+      render layout: "layouts/simple" if params[:simpleMode]
     end
   end
 

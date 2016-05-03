@@ -90,15 +90,15 @@
         <% end %>
 
 
-<!--         <td><button class="dialog-link">Open Dialog</button></td> -->
+        <td><button class="dialog-link" style="display: none;">设置日期</button></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<!-- <div id="dialog" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 49px; max-height: none; height: auto;">
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-</div> -->
+<div id="dialog" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 49px; max-height: none; height: auto;">
+  <iframe></iframe>
+</div>
 
 <script type="text/javascript">
 $(function () {
@@ -106,31 +106,43 @@ $(function () {
 })
 
 
-// $( "#dialog" ).dialog({//测试JQueryUI Dialog
-//   autoOpen: false,
-//   width: 400,
-//   buttons: [
-//     {
-//       text: "Ok",
-//       click: function() {
-//         $( this ).dialog( "close" );
-//       }
-//     },
-//     {
-//       text: "Cancel",
-//       click: function() {
-//         $( this ).dialog( "close" );
-//       }
-//     }
-//   ],
-//   modal: true
-// });
+$( "#dialog" ).dialog({//测试JQueryUI Dialog
+  autoOpen: false,
+  width: 750,
+  height: 600,
+  buttons: [
+    {
+      text: "Ok",
+      click: function() {
+        $( this ).dialog( "close" );
+      }
+    },
+    {
+      text: "Cancel",
+      click: function() {
+        $( this ).dialog( "close" );
+      }
+    }
+  ],
+  modal: true,
+  open: function() {//fix关闭图标不显示http://stackoverflow.com/questions/17367736/jquery-ui-dialog-missing-close-icon
+    $(this).closest(".ui-dialog")
+    .find(".ui-dialog-titlebar-close")
+    .addClass("ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close")
+    .html("<span class='ui-button-icon-primary ui-icon ui-icon-closethick'></span><span class='ui-button-text'>关闭</span>");
+  }
+});
 
 
-// $( ".dialog-link" ).click(function( event ) {//测试JQueryUI Dialog
-//   $( "#dialog" ).dialog( "open" );
-//   event.preventDefault();
-// });
+$( ".dialog-link" ).click(function( event ) {//测试JQueryUI Dialog
+  $( "#dialog iframe" ).
+    attr("src","http://localhost:3000/organization_charge_totals/set_money_arrival_date/35/yes").
+    attr("height","400").attr("width","600");
+  $( "#dialog" ).dialog( "open" );
+  event.preventDefault();
+});
 
+var bootstrapButton = $.fn.button.noConflict() // return $.fn.button to previously assigned value
+$.fn.bootstrapBtn = bootstrapButton            // give $().bootstrapBtn the Bootstrap functionality
 
 </script>
