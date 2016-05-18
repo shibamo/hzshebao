@@ -1,0 +1,29 @@
+// 自行定制的angular的动画变幻behaviour,
+//代码参考改编自AngularJS: Novice To Ninja
+$enter_period : 0.1s; //尽快进入
+$leave_period : 0.5s; //
+$enter_effect : linear;
+$leave_effect : linear;
+
+.angular-animation-class{
+  &.ng-enter{
+    -webkit-transition: $enter_period $enter_effect all;
+    -o-transition: $enter_period $enter_effect all;
+    -moz-transition: $enter_period $enter_effect all;
+    opacity: 0;
+    background: green;
+    &.ng-enter-active {
+      opacity: 1;
+    }
+  }
+  
+  &.ng-leave {
+    -webkit-transition: $leave_period $leave_effect all;
+    -o-transition: $leave_period $leave_effect all;
+    -moz-transition: $leave_period $leave_effect all;
+    &.ng-leave-active {
+      opacity: 0;
+    }
+  }
+}
+

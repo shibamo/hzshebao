@@ -226,7 +226,7 @@
             <li class="divider"></li>
             <%if can_u_a_c? @current_user, :list_money_arrival_check, OrganizationChargeTotal %>
             <li>
-              <%= link_to organization_charge_totals_list_money_arrival_check_path do %>
+              <%= link_to organization_charge_totals_list_money_arrival_check_ng_path do %>
                 机构常规资金核对 <span class="badge alert-danger"><%= OrganizationChargeTotal.with_new_state.count %></span>
               <% end %>
             </li>
@@ -384,32 +384,3 @@
     </div>
   </div>
 </nav>
-<script type="text/javascript">
-  (function(){//为有未完成任务的菜单增加动画效果
-    var main_menu_items_has_alert = [];
-
-    $('.navbar li.dropdown').each(function(idx,ele){
-      var hasTodo = false;
-      $(this).find(".alert-danger").each(function(_idx,_ele){
-        if(parseInt($(this).text())>0){
-          hasTodo = true;
-        }
-      });
-
-      if (hasTodo)
-        main_menu_items_has_alert.push($(this));
-    });
-
-    $(main_menu_items_has_alert).each(function(idx,ele){
-      $(this).toggleClass("swing");
-    });
-
-    setInterval(
-      function(){
-        $(main_menu_items_has_alert).each(function(idx,ele){
-          $(this).toggleClass("swing");
-        });
-      }
-    ,5000);
-  })();
-</script>

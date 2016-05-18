@@ -1,0 +1,14 @@
+<h1 class="text-center">设置缴费单到账时间</h1>
+
+<%= form_for(@model_class.new) do |f| %>
+<% end %>
+
+<div class="actions">
+请选择日期({{organization_abbr}})<input  class="dtp form-control" style="display:inline;" data-date-format="yyyy-mm-dd" ng-model="money_arrival_date" %>
+  <input type="button" value="提 交" ng-click="submit()" ng-disabled="!money_arrival_date" class="actions btn btn-primary" >
+  <a ui-sref="list_money_arrival_check()" class="actions btn btn-default" >返 回</a>
+</div>
+
+<script type="text/javascript">
+$('.dtp').datepicker();
+</script>

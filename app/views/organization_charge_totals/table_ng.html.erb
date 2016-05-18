@@ -1,0 +1,75 @@
+<h1 class="text-center">机构缴费记录列表(等待资金到账核对)</h1>
+<div ng-messages="messages" role="alert">
+  <div ng-message="noticeA" class="angular-animation-class alert alert-notice">{{messages.noticeA}}</div>
+  <div ng-message="noticeB" class="angular-animation-class alert alert-notice">{{messages.noticeB}}</div>
+  <div ng-message="error" class="angular-animation-class alert alert-error">{{messages.error}}</div>
+</div>
+
+社保金 = 企业社保金 + 个人社保金 + 残保金<br/>
+公积金 = 企业公积金 + 个人公积金<br/>
+其他+工资 = 其它1 + 其它2 + 其它3 + 补缴 + 预缴 + 应发工资<br/>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th class="text-center">机构名</th>
+      <th class="text-center">业务员</th>
+      <th class="text-center">社保金</th>
+      <th class="text-center">管理费</th>
+      <th class="text-center">公积金</th>
+      <th class="text-center">管理费</th>
+      <th class="text-center">个税</th>
+      <th class="text-center">其他+工资</th>
+      <th class="text-center">总收费</th>
+      <th class="text-center">费用开始-结束日期</th>
+      <th class="text-center">表单创建日</th>
+      <th class="text-center">状态</th>
+      <th class="text-center">备注</th>
+      <th colspan="10" class="text-center">操作</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr ng-repeat="oct in entities track by oct.id" class="angular-animation-class">
+      <td class="text-center">{{oct.organization_abbr}}</td>
+      <td class="text-center">{{oct.user_name}}</td>
+      <td><a tabindex="0" class="btn btn-xs btn-warning full-size" role="button" title="社保金 = 企业社保金 + 个人社保金 + 残保金" ng-click="showShebaoDialog([oct.price_shebao_qiye, oct.price_shebao_geren, oct.price_canbao])">
+      {{parseFloat(oct.price_shebao_qiye) + parseFloat(oct.price_shebao_geren)+parseFloat(oct.price_canbao) | number:2}}</a>
+      </td>
+      <td class="text-right">{{oct.price_shebao_guanli | number:2}}</td>
+      <td><a tabindex="0" class="btn btn-xs btn-warning full-size text-right" role="button" title="公积金 = 企业公积金 + 个人公积金" ng-click="showGongjijinDialog([oct.price_gongjijin_qiye, oct.price_gongjijin_geren])">
+      {{parseFloat(oct.price_gongjijin_qiye) + parseFloat(oct.price_gongjijin_geren) | number:2}}</a></td>
+      <td class="text-right">{{oct.price_gongjijin_guanli | number:2}}</td>
+      <td class="text-right">{{oct.price_geshui | number:2}}</td>
+      <td><a tabindex="0" class="btn btn-xs btn-warning full-size text-right" role="button" title="其他+工资 = 其它1 + 其它2 + 其它3 + 补缴 + 预缴 + 应发工资" ng-click="showOtherPlusSalaryDialog([oct.price_qita_1, oct.price_qita_2,oct.price_qita_3, oct.price_bujiao,oct.price_yujiao,oct.price_gongzi])">
+      {{parseFloat(oct.price_qita_1) +parseFloat(oct.price_qita_2) + parseFloat(oct.price_qita_3) + parseFloat(oct.price_bujiao) + parseFloat(oct.price_yujiao) + parseFloat(oct.price_gongzi) | number:2}}</a></td>
+      <td class="text-right">{{ parseFloat(oct.price_shebao_qiye) + parseFloat(oct.price_shebao_geren) + parseFloat(oct.price_canbao) +
+       parseFloat(oct.price_shebao_guanli) + parseFloat(oct.price_gongjijin_qiye) + parseFloat(oct.price_gongjijin_geren) + 
+       parseFloat(oct.price_gongjijin_guanli) + parseFloat(oct.price_geshui) + parseFloat(oct.price_qita_1) + 
+       parseFloat(oct.price_qita_2) + parseFloat(oct.price_qita_3) + parseFloat(oct.price_bujiao) +
+        parseFloat(oct.price_yujiao) + parseFloat(oct.price_gongzi) 
+       | number:2}}</td>
+      <td class="text-center">{{oct.start_date | stringReplacer:"-"}}-{{oct.end_date | stringReplacer:"-"}}</td>
+      <td class="text-center">{{oct.created_at | limitTo:10 | stringReplacer:"-"}}</td>
+      <td>{{oct.workflow_state_cn_name}}</td>
+      <td><a tabindex="0" class="btn btn-xs btn-warning" role="button" ng-click="showMemoDialog([oct.comment])">备注</a></td>
+      <td><a class="btn btn-xs btn-default" target="_blank" href="/organization_charge_totals/{{oct.id}}">查看</a></td>
+      <td><a class="btn btn-xs btn-default" target="_blank" href="/organization_charge_totals/{{oct.id}}.xls">导出</a></td>
+      <td class="text-center"><a class="btn btn-xs btn-default" ng-class="!oct.has_attach && 'btn-primary'"
+            ui-sref="upload_money_arrival_file({ id: oct.id,
+                      business_type: 'OrganizationChargeTotal', 
+                      extra_data: oct.updated_at, 
+                      business_action: 'money_arrival_check'})">{{(oct.has_attach && "已") || ""}}上传</a>
+      </td>
+      <td><a ng_hide="{{oct.money_arrival_date}}" class="btn btn-xs btn-primary" 
+            ui-sref="set_money_arrival_date({ id: oct.id, organization_abbr: oct.organization_abbr})">设置日期</a>
+      <span ng_show="{{oct.money_arrival_date}}">已设日期</span>
+      </td>
+      <td>
+        <a ng_click="finish_money_check(oct.id)" ng_show="{{ oct.has_attach && oct.money_arrival_date }}" 
+            class="btn active btn-primary btn-xs" >确认到账</a>
+        <span ng_hide="{{ oct.has_attach && oct.money_arrival_date }}">不能确认</span> 
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,6 +1,7 @@
 class OrganizationChargeTotalsController < ApplicationController
   before_action :set_organization_charge_total, only: [:show, :edit, :update, :destroy, 
-                :set_money_arrival_date,:finish_money_check,:leader_check]
+                :set_money_arrival_date,:finish_money_check,:leader_check, 
+                :set_money_arrival_date_ng, :finish_money_check_ng]
   before_action :set_organization, only: [:list_by_organization, :new, :create,:edit,:show]
   before_action :set_model_class
 
@@ -173,6 +174,17 @@ class OrganizationChargeTotalsController < ApplicationController
     @organization_charge_totals = @model_class.with_new_state.page params[:page]
   end
 
+  def list_money_arrival_check_ng #需要进行资金核对的机构缴费记录Angular版
+    respond_to do |format|
+      format.html {} #返回静态网页,使用缺省view template 
+      format.json do #导出到json,ajax使用
+        @organization_charge_totals = @model_class.with_new_state
+        #TO-DO需要附加是否已有附件上传
+        render "list_money_arrival_check_ng.json.jbuilder"
+      end
+    end
+  end
+
   def set_money_arrival_date #设置资金到账日期
     if params[:organization_charge_total] && params[:organization_charge_total][:money_arrival_date] #posted
       if @organization_charge_total.update(money_arrival_date: params[:organization_charge_total][:money_arrival_date])
@@ -185,8 +197,21 @@ class OrganizationChargeTotalsController < ApplicationController
     end
   end
 
+  def set_money_arrival_date_ng #设置资金到账日期Angular版
+    #byebug
+    if params[:organization_charge_total] && params[:organization_charge_total][:money_arrival_date] #posted
+      if @organization_charge_total.update(money_arrival_date: params[:organization_charge_total][:money_arrival_date])
+        response.status = 200
+        response.abort
+        return
+      end
+    else #get
+      render layout: "blank"
+    end
+  end  
+
   def finish_money_check #完成资金核对
-    if MoneyArrivalFile.where(business_type: "OrganizationChargeTotal", main_object_id: @organization_charge_total.id).pluck(:id).count <= 0
+    unless @organization_charge_total.has_attach
           redirect_to  organization_charge_totals_list_money_arrival_check_path, 
                 error: "机构客户 #{@organization_charge_total.organization.abbr} 的常规缴费记录附件尚未上传."
           return
@@ -201,6 +226,18 @@ class OrganizationChargeTotalsController < ApplicationController
     @organization_charge_total.update(money_check_date: Date.current) #设置资金审核日期
     redirect_to  organization_charge_totals_list_money_arrival_check_path, 
                 notice: "机构客户 #{@organization_charge_total.organization.abbr} 的常规缴费资金已确认到账."
+  end
+
+  def finish_money_check_ng #完成资金核对Angular版
+    unless @organization_charge_total.has_attach && @organization_charge_total.money_arrival_date
+      response.status = 500
+      response.abort
+      return
+    end
+
+    @organization_charge_total.finish_money_check! #同时完成缴费单的资金检查
+    @organization_charge_total.update(money_check_date: Date.current) #设置资金审核日期
+    render layout: "blank"
   end
 
   def commission_input_allowed #需要输入提成单的机构缴费记录列表
@@ -323,10 +360,16 @@ class OrganizationChargeTotalsController < ApplicationController
     render :list_total
   end
 
+  def table_ng
+    render layout: "blank"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_organization_charge_total
-      @organization_charge_total = OrganizationChargeTotal.find(params[:id])
+      if params[:id]
+        @organization_charge_total = OrganizationChargeTotal.find(params[:id])
+      end
     end
 
     def set_model_class

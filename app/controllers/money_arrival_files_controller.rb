@@ -84,6 +84,11 @@ class MoneyArrivalFilesController < ApplicationController
               disposition: "inline")
   end
 
+  def new_ng
+    @money_arrival_file = MoneyArrivalFile.new
+    render layout: 'blank'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_money_arrival_file

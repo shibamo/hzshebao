@@ -22,4 +22,23 @@ class OrganizationChargeTotal < ActiveRecord::Base
     "price_gongjijin_geren","price_gongjijin_guanli","price_geshui","price_qita_1","price_qita_2",
     "price_qita_3","price_bujiao","price_yujiao","price_gongzi"]
   end
+
+  def has_attach #收费记录是否已被上传过收费文件
+    MoneyArrivalFile.where(
+      business_type: "OrganizationChargeTotal", 
+      main_object_id: self.id).
+    pluck(:id).count > 0
+  end
+
+  def user_name
+    User.find(self.user_id).name
+  end
+
+  def organization_abbr
+    Organization.find(self.organization_id).abbr
+  end
+
+  def workflow_state_cn_name
+    self.translate_workflow_state_name(self.class::WORKFLOW_STATE_NAMES)
+  end
 end

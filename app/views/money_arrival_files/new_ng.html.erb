@@ -1,0 +1,11 @@
+<h1>上传文件</h1>
+<%= render 'helperForm' %>
+
+<form name="form">
+  <div style="display:inline;" class="button" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
+    ngf-accept="'image/*'" ngf-max-size="5MB" ngf-min-height="100" 
+    ngf-resize="{width: 100, height: 100}">选择文件: {{file.$ngfName}}</div>
+    <button type="submit" ng-click="submit()" class="actions btn btn-primary">提交</button>
+    <a ui-sref="{{backToHome}}" class="actions btn btn-default">返回</a>
+    {{prompt}}
+</form>
