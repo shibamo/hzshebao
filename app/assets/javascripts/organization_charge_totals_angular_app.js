@@ -4,6 +4,8 @@ TO-DO:
         1.  move the controller/service/filter/directive implementation to separate js file when the business 
             logic exploding to a certain level.
         2.  文件成功上传后如何把message传给主页面进行显示,以及给相应上传->已上传加上转换的动画效果
+        3.  把三个资金核对的界面整合到一起,module需要重构,改名,拆分controller
+        4.  路由切换时使用animation,用以表现页面的切换效果,将目前效果改造得更自然
 **/
 (()=>{
   angular.module('organization_charge_totals', 
@@ -14,15 +16,15 @@ TO-DO:
     $urlRouterProvider.otherwise('');
 
     //设置各页面状态,路径,模板,Controller
-    $stateProvider.state('list_money_arrival_check', {//主界面,机构缴费记录列表
+    $stateProvider.state('list_money_arrival_check', {  //主界面,机构缴费记录列表
         url: '',
         controller: 'ListMoneyArrivalCheckController',
         templateUrl: '/organization_charge_totals/table_ng' 
-    }).state('set_money_arrival_date',{//设置日期
+    }).state('set_money_arrival_date',{ //设置日期
         url: '/set_money_arrival_date/:id/:organization_abbr',
         controller: 'SetMoneyArrivalDateController',
         templateUrl: '/organization_charge_totals/set_money_arrival_date_ng' 
-    }).state('upload_money_arrival_file',{//上传
+    }).state('upload_money_arrival_file',{  //上传
         url: '/upload_money_arrival_file/:id/:business_type/:extra_data/:business_action',
         controller: 'UploadMoneyArrivalFileController',
         templateUrl: '/money_arrival_files/new_ng' 
@@ -187,8 +189,8 @@ TO-DO:
         scope.entities = data;
       }); 
     }
-  }]).
-  service("authenticityTokenService",function(){ //获取Form的authenticity_token,用于Form提交
+  }]). //获取Form的authenticity_token,用于Form提交
+  service("authenticityTokenService",function(){ 
     this.getToken = ()=>{
       return $("form input[name='authenticity_token']").val();
     };
