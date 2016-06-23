@@ -225,7 +225,9 @@ class SingleCustomersController < ApplicationController
   def list_need_append_shebao
     year = Date.today.year
     base = ShebaoBase.where(year: year).first.base
-    @single_customers = SingleCustomer.need_append_shebao.page params[:page]
+    #@single_customers = SingleCustomer.need_append_shebao.page params[:page]
+    #改成导出所有的待补费人员清单，不分页处理
+    @single_customers = SingleCustomer.need_append_shebao
   end
 
   def list_total

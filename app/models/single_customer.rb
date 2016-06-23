@@ -94,8 +94,13 @@ class SingleCustomer < ActiveRecord::Base
     deadline = Date.new(Date.today.year, 6,30) #取每年六月三十号作为判断日
     base = ShebaoBase.where(year: Date.today.year).first.base
     scs = SingleCustomer.all.select do |sc| 
-      sc.charges.select {|c| c.months_shebao > 0 and c.price_shebao < base and c.start_date_shebao and c.start_date_shebao<= deadline and deadline <= c.end_date_shebao }.count > 0 and # 交过的社保金额不够且包含了判断日
-      sc.charges.select {|c| c.months_bujiao > 0 and c.start_date_bujiao and c.start_date_bujiao<= deadline and deadline <= c.end_date_bujiao }.count == 0 # 且未做过补交
+      sc.charges.select {|c| c.months_shebao > 0 and c.price_shebao < base and 
+                            c.start_date_shebao and c.start_date_shebao<= deadline and 
+                            deadline <= c.end_date_shebao }.count > 0 and 
+                            # 交过的社保金额不够且包含了判断日
+      sc.charges.select {|c| c.months_bujiao > 0 and c.start_date_bujiao and 
+                            c.start_date_bujiao<= deadline and 
+                            deadline <= c.end_date_bujiao }.count == 0 # 且未做过补交
     end
     SingleCustomer.where(id: scs.collect(&:id))
   end

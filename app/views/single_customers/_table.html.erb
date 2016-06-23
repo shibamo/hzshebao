@@ -154,7 +154,7 @@
   </tbody>
 </table>
 
-<%= paginate @single_customers %>
+<%= paginate @single_customers if @single_customers.respond_to? "total_pages" %>
 
 <%=render "shared/modal_dialog", 
     object_name: :single_customer, size_option: :large, title: "查看客户资料" %><!-- 查看对话框 -->
